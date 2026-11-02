@@ -4,7 +4,8 @@
 
 **当前版本：入门篇 v1.0** · 内容核对日期：2026-11-02
 
-- [文档首页 HTML](docs/index.html)（下载后在浏览器中打开）
+- [在线阅读](https://shenk-ana.github.io/agent-handbook/)
+- [文档首页 HTML](docs/index.html)（可下载后在浏览器中打开）
 - [入门篇 HTML](docs/guides/getting-started/index.html)
 - [内容规划](ROADMAP.md)
 - [贡献指南](CONTRIBUTING.md)
@@ -65,13 +66,11 @@ python3 scripts/check_site.py
 
 ## 发布
 
-仓库已按 GitHub Pages 的静态目录结构准备，发布源应选择 `main` 分支的 `/docs`。
+GitHub Pages 已开启，使用 `main` 分支的 `/docs` 目录。推送到 `main` 后由 GitHub 自动构建与部署，无需单独的前端打包工具。
 
-当前 Pages 尚未开通：专用 App `shenk-codex` 创建 Pages 站点时收到 GitHub 403 权限拒绝。仓库创建和源码推送已完成。
+站点地址：https://shenk-ana.github.io/agent-handbook/
 
-仓库所有者可在 Settings → Pages → Build and deployment 中选择 Deploy from a branch，再选择 `main` 与 `/docs` 并保存。成功开通后，预计阅读地址为 https://shenk-ana.github.io/agent-handbook/ 。该地址目前不是已验证的发布结果。
-
-开通后推送到 `main` 会更新站点，无需单独的前端打包工具。
+构建进度可在仓库 Actions 的 Pages 工作流中查看。发布源可在 Settings → Pages 中确认。
 
 不要将本地预览日志、账户配置、密钥、包含私人信息的截图或其他平台的发布配置提交到仓库。
 
