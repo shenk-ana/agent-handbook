@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查卡 · Agent 百科全书</title>
+<meta name="description" content="附录 C：可打印的一页速查，包括任务简报模板、交给 Agent 前的安全清单、Claude 应用与 Claude Code 的常用入口和命令、权限模式、配置文件位置，以及最常用的术语。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/book.css">
+<link rel="stylesheet" href="assets/css/cheatsheet.css">
+</head>
+<body data-base="" data-page="cheatsheet">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+  <main class="main" id="main">
+    <article class="article">
+      <header class="lesson-hero">
+        <div class="eyebrow"><span class="chip accent">附录 C</span><span>核实于 2026-11</span></div>
+        <h1><span class="grad">速查卡</span></h1>
+        <p class="lede">把全书最常翻的东西收在一页里：写任务简报、做安全检查、找 Claude 的入口、查 Claude Code 的命令。每张卡片都注明了对应的课，想看原理就回到那一课。前三张卡给所有人，第 4 到第 6 张给 Claude Code 使用者，第 7 张是术语速记。</p>
+        <div class="meta-row">
+          <span>🖨 可以直接打印（电脑上按 Ctrl+P 或 Cmd+P）</span>
+          <span>命令与界面会随版本变化，以 <code>/help</code>、界面和官方文档为准</span>
+        </div>
+      </header>
+
+      <div class="cs-toolbar">
+        <button class="cs-btn" id="cs-print" type="button">打印这一页</button>
+      </div>
+
+      <div class="cs-grid">
+
+        <!-- 1 任务简报 -->
+        <section class="cs-card wide" aria-labelledby="c-brief">
+          <h2 id="c-brief">1 · 任务简报六部分模板</h2>
+          <p class="cs-from">对应：<a href="lessons/04-first-task.html">第 4 课</a>、<a href="lessons/10-cases.html">第 10 课</a>。把括号里的内容换成你自己的。每一行都建议保留，不确定的写“暂无”。</p>
+          <div class="cs-tpl" id="tpl-brief">目标：（一句话说清要做成什么）
+背景：（为什么做、给谁用、已有的资料或前提）
+限制（含不许做的事）：（范围、风格、时间；不许做的事，例如“只起草，不要发送”“不要删除任何文件”）
+交付：（交付什么、做成什么样子：几页、什么格式、放在哪里）
+完成标准：（怎样算做好了，例如“每个结论都有来源”）
+先问我：有不清楚的地方先问我；发送、提交、付款、删除之前，也先停下来问我。</div>
+          <button class="cs-btn cs-copy" type="button" data-copy-target="tpl-brief">复制</button>
+        </section>
+
+        <!-- 2 安全清单 -->
+        <section class="cs-card" aria-labelledby="c-safe">
+          <h2 id="c-safe">2 · 交给 Agent 前的安全清单（精简版）</h2>
+          <p class="cs-from">对应：<a href="lessons/09-safety.html#checklist">第 9 课</a>（完整可勾选版）；威胁建模见<a href="lessons/21-security-engineering.html">第 21 课</a></p>
+          <ul class="cs-check">
+            <li><b>只开这次要用的</b>连接器和工具，用完关掉</li>
+            <li>对话和文件里<b>没有</b>密码、验证码、证件号、银行卡号</li>
+            <li>能只读完成的任务，<b>不开写入权限</b></li>
+            <li>付款、发送、删除、改设置，<b>保持每次确认</b></li>
+            <li>连接器、Skill、扩展都来自<b>可信来源</b></li>
+            <li>简报里写明“不要做什么”</li>
+            <li>它读到的网页或邮件里出现“冲着 AI 说的话”，<b>停下来看一看</b></li>
+            <li>知道怎么<b>停下它、撤销授权</b>；完成后看一遍它实际做了什么</li>
+          </ul>
+        </section>
+
+        <!-- 3 Claude 应用 -->
+        <section class="cs-card" aria-labelledby="c-app">
+          <h2 id="c-app">3 · Claude 应用常用功能速查</h2>
+          <p class="cs-from">对应：<a href="lessons/03-claude-family.html">第 3 课</a>、<a href="lessons/05-context.html">5</a>、<a href="lessons/06-connectors-mcp.html">6</a>、<a href="lessons/07-skills.html">7</a>、<a href="lessons/08-artifacts.html">8</a>、<a href="lessons/10-cases.html">10</a>。菜单名先写中文，括号里是英文，以界面为准。</p>
+          <table>
+            <thead><tr><th>入口</th><th>用来做什么</th><th>课</th></tr></thead>
+            <tbody>
+              <tr><td>模型选择器</td><td>换更强或更快的模型</td><td><a href="lessons/03-claude-family.html">3</a></td></tr>
+              <tr><td>项目（Projects）</td><td>把资料和指令放在一起，反复使用</td><td><a href="lessons/05-context.html">5</a></td></tr>
+              <tr><td>设置里的“个人指令”</td><td>对所有对话生效的说明（有的版本叫“个人偏好”）</td><td><a href="lessons/05-context.html">5</a></td></tr>
+              <tr><td>设置里的“从聊天中生成记忆”（Generate memory from chats）</td><td>开关记忆；可以逐条查看、修改、删除</td><td><a href="lessons/05-context.html">5</a></td></tr>
+              <tr><td>聊天框的“+”菜单</td><td>按对话开关连接器</td><td><a href="lessons/06-connectors-mcp.html">6</a></td></tr>
+              <tr><td>设置里的“连接器”（Connectors）</td><td>连接、断开外部服务</td><td><a href="lessons/06-connectors-mcp.html">6</a></td></tr>
+              <tr><td>设置里的“Skills”（技能，界面上就是英文名）</td><td>逐个开关 Skill，浏览目录</td><td><a href="lessons/07-skills.html">7</a></td></tr>
+              <tr><td>侧栏的“Artifacts”（成品，界面上就是英文名）</td><td>找回做过的报告、网页、小工具</td><td><a href="lessons/08-artifacts.html">8</a></td></tr>
+              <tr><td>无痕对话（Incognito chat）</td><td>不用于改进 Claude、不留在历史里</td><td><a href="lessons/09-safety.html">9</a></td></tr>
+              <tr><td>设置的“隐私”页面</td><td>管理“帮助改进 Claude”等数据选项</td><td><a href="lessons/09-safety.html">9</a></td></tr>
+              <tr><td>侧栏的“定时任务”（Scheduled）</td><td>设置一次、按时自动执行（付费套餐）</td><td><a href="lessons/10-cases.html">10</a></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 4 Claude Code 命令 -->
+        <section class="cs-card wide" aria-labelledby="c-code">
+          <h2 id="c-code">4 · Claude Code 常用命令与快捷键 <span class="aud-tag">（开发者）</span></h2>
+          <p class="cs-from">对应：<a href="lessons/11-claude-code-basics.html">第 11 课</a>、<a href="lessons/12-claude-code-config.html">第 12 课</a>、<a href="lessons/16-tokens-context.html">第 16 课</a>；安全相关见<a href="lessons/09-safety.html">第 9 课</a>。表中命令均对照 code.claude.com 官方文档；键盘快捷键按“电脑上”的写法，Mac 的 Option 键需在终端里设为 Meta。</p>
+          <h3>斜杠命令（在会话里输入 /）</h3>
+          <table>
+            <thead><tr><th>命令</th><th>作用</th></tr></thead>
+            <tbody>
+              <tr><td><code>/help</code></td><td>显示帮助和可用命令</td></tr>
+              <tr><td><code>/init</code></td><td>为项目生成初始的 <code>CLAUDE.md</code></td></tr>
+              <tr><td><code>/memory</code></td><td>编辑 <code>CLAUDE.md</code>，开关自动记忆，查看自动记忆条目</td></tr>
+              <tr><td><code>/clear</code></td><td>开始一段上下文为空的新对话（别名 <code>/reset</code>、<code>/new</code>）</td></tr>
+              <tr><td><code>/compact</code></td><td>把到目前为止的对话总结压缩，腾出上下文；可附带要保留重点的说明</td></tr>
+              <tr><td><code>/context</code></td><td>用彩色网格看上下文用量，并给出优化建议</td></tr>
+              <tr><td><code>/model</code></td><td>切换模型，并保存为新会话的默认值</td></tr>
+              <tr><td><code>/permissions</code></td><td>管理允许、询问、拒绝规则（别名 <code>/allowed-tools</code>）</td></tr>
+              <tr><td><code>/plan</code></td><td>直接进入计划模式，可附带任务描述</td></tr>
+              <tr><td><code>/mcp</code></td><td>管理 MCP 服务器的连接和 OAuth 授权</td></tr>
+              <tr><td><code>/rewind</code></td><td>把对话和代码回退到之前的点（别名 <code>/checkpoint</code>、<code>/undo</code>）</td></tr>
+              <tr><td><code>/resume</code></td><td>回到之前的某段对话</td></tr>
+              <tr><td><code>/usage</code></td><td>查看会话花费、套餐用量与统计（<code>/cost</code> 是别名）</td></tr>
+              <tr><td><code>/status</code></td><td>查看版本、模型、账号、连接状态和已加载的设置来源</td></tr>
+              <tr><td><code>/background</code></td><td>把当前会话转到后台运行（别名 <code>/bg</code>）</td></tr>
+              <tr><td><code>/doctor</code></td><td>检查安装和配置问题并给出修复建议</td></tr>
+            </tbody>
+          </table>
+          <h3>快捷键与输入方式（电脑上）</h3>
+          <table>
+            <thead><tr><th>按键 / 输入</th><th>作用</th></tr></thead>
+            <tbody>
+              <tr><td><kbd>Esc</kbd></td><td>中断 Claude 当前的回答或工具调用，已做的工作保留</td></tr>
+              <tr><td><kbd>Esc</kbd> 连按两次</td><td>输入框有字时清空草稿；输入框为空时打开回退菜单</td></tr>
+              <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>循环切换权限模式</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>中断；没有任务在跑时，第一次清空输入，第二次退出</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>退出会话（需要确认）</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>打开 / 关闭转录视图，查看详细的工具调用</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>B</kbd></td><td>把正在运行的 Bash 命令或 agent 放到后台</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>R</kbd></td><td>反向搜索历史输入</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>G</kbd></td><td>在默认文本编辑器里编辑当前输入</td></tr>
+              <tr><td><kbd>Option</kbd>+<kbd>P</kbd>（Mac）/ <kbd>Alt</kbd>+<kbd>P</kbd></td><td>切换模型，不清空已输入的内容</td></tr>
+              <tr><td><code>/</code> 开头</td><td>命令或 Skill</td></tr>
+              <tr><td><code>!</code> 开头</td><td>直接运行一条 shell 命令，并把输出加入会话</td></tr>
+              <tr><td><code>@</code></td><td>文件路径自动补全</td></tr>
+              <tr><td><code>\</code> + <kbd>Enter</kbd></td><td>在输入框里换行，所有终端都可用</td></tr>
+            </tbody>
+          </table>
+          <p class="cs-note">更多命令（例如 <code>/hooks</code>、<code>/agents</code>、<code>/loop</code>、<code>/schedule</code>、<code>/chrome</code>）见<a href="lessons/13-claude-code-extend.html">第 13 课</a>与<a href="lessons/23-frontier.html">第 23 课</a>；以 <code>/help</code> 为准。</p>
+        </section>
+
+        <!-- 5 权限模式 -->
+        <section class="cs-card wide" aria-labelledby="c-perm">
+          <h2 id="c-perm">5 · Claude Code 权限模式一览 <span class="aud-tag">（开发者）</span></h2>
+          <p class="cs-from">对应：<a href="lessons/09-safety.html">第 9 课</a>、<a href="lessons/12-claude-code-config.html">第 12 课</a>。共六种，界面文字以实际版本为准。按 <kbd>Shift</kbd>+<kbd>Tab</kbd> 在可用的模式间循环（不询问模式不在循环里，跳过权限模式必须在启动时启用）。</p>
+          <table>
+            <thead><tr><th>中文名（界面英文）</th><th>配置值</th><th>不用问就能做的事</th></tr></thead>
+            <tbody>
+              <tr><td>手动模式（Manual）</td><td><code>default</code></td><td>只读操作</td></tr>
+              <tr><td>自动接受编辑模式（Accept edits）</td><td><code>acceptEdits</code></td><td>读、改文件，以及工作目录内的 mkdir、touch、rm、rmdir、mv、cp、sed 等文件命令。注意 rm 会删文件，批准前先确认目录</td></tr>
+              <tr><td>计划模式（Plan）</td><td><code>plan</code></td><td>只读；改动要等你批准计划之后</td></tr>
+              <tr><td>自动模式（Auto）</td><td><code>auto</code></td><td>几乎所有操作自动进行，每一步先由另一个模型检查是否越界</td></tr>
+              <tr><td>不询问模式（不在模式指示器中显示）</td><td><code>dontAsk</code></td><td>只读和预先批准的工具；其余需要询问的一律拒绝</td></tr>
+              <tr><td>跳过权限模式（Bypass permissions）</td><td><code>bypassPermissions</code></td><td>跳过几乎所有确认（仅限隔离环境）</td></tr>
+            </tbody>
+          </table>
+          <p class="cs-note">默认值：新版交互式终端和 VS Code 默认从自动模式起步（v2.1.283 起）；<code>claude -p</code> 和 Agent SDK 默认是手动模式（<code>default</code>）。拒绝规则（deny）在所有模式下都生效。启动时指定：<code>claude --permission-mode plan</code>。</p>
+        </section>
+
+        <!-- 6 配置文件 -->
+        <section class="cs-card wide" aria-labelledby="c-files">
+          <h2 id="c-files">6 · 常用配置文件位置 <span class="aud-tag">（开发者）</span></h2>
+          <p class="cs-from">对应：<a href="lessons/12-claude-code-config.html">第 12 课</a>、<a href="lessons/13-claude-code-extend.html">第 13 课</a>、<a href="lessons/14-mcp-in-practice.html">第 14 课</a>。“项目”指项目文件夹里的 <code>.claude</code>，“个人”指你主目录里的 <code>~/.claude</code>（Windows 上是 <code>%USERPROFILE%\.claude</code>）。</p>
+          <table>
+            <thead><tr><th>文件</th><th>位置</th><th>用来做什么</th></tr></thead>
+            <tbody>
+              <tr><td><code>CLAUDE.md</code></td><td>项目根目录；个人在 <code>~/.claude/CLAUDE.md</code></td><td>每次会话都加载的说明和约定。个人私用的写进项目根目录的 <code>CLAUDE.local.md</code>（需自己加入 <code>.gitignore</code>）</td></tr>
+              <tr><td><code>settings.json</code></td><td>个人：<code>~/.claude/settings.json</code>；项目共享：<code>.claude/settings.json</code></td><td>权限规则、hooks、环境变量、默认模型。严格 JSON，不能有注释</td></tr>
+              <tr><td><code>settings.local.json</code></td><td><code>.claude/settings.local.json</code></td><td>只对你自己、只在这个项目生效，不提交到 Git</td></tr>
+              <tr><td><code>.mcp.json</code></td><td>项目根目录</td><td>团队共享的 MCP 服务器；个人的 MCP 服务器记在 <code>~/.claude.json</code></td></tr>
+              <tr><td><code>agents/*.md</code></td><td><code>.claude/agents/</code> 或 <code>~/.claude/agents/</code></td><td>Subagent 定义</td></tr>
+              <tr><td><code>skills/&lt;名字&gt;/SKILL.md</code></td><td><code>.claude/skills/</code> 或 <code>~/.claude/skills/</code></td><td>可用 <code>/名字</code> 调用或自动加载的 Skill</td></tr>
+            </tbody>
+          </table>
+          <p class="cs-note">多个来源设了同一个键时，优先级从高到低：组织托管设置、命令行 <code>--settings</code>、项目本地、项目共享、个人。运行 <code>/status</code> 可以看到哪些来源已加载。</p>
+        </section>
+
+        <!-- 7 术语 -->
+        <section class="cs-card wide" aria-labelledby="c-terms">
+          <h2 id="c-terms">7 · 术语速记</h2>
+          <p class="cs-from">对应：<a href="lessons/01-from-chat-to-agent.html">第 1 课</a>、<a href="lessons/15-agent-loop.html">第 15 课</a> 等。点术语名跳到 <a href="glossary.html">附录 A</a> 的完整解释。</p>
+          <ul class="cs-terms">
+            <li><a href="glossary.html#agent">Agent</a>：能自己拆任务、调工具、看结果，直到办完的 AI</li>
+            <li><a href="glossary.html#agent-loop">Agent 循环</a>：想 → 做 → 看，转圈直到完成</li>
+            <li><a href="glossary.html#tool-use">工具调用</a>：模型提出要用哪个工具，由程序去执行</li>
+            <li><a href="glossary.html#mcp">MCP</a>：把外部服务接给 AI 的统一标准</li>
+            <li><a href="glossary.html#connector">连接器</a>：Claude 应用里的 MCP 服务器</li>
+            <li><a href="glossary.html#skill">Skill</a>：教 Claude 一套固定流程的说明包</li>
+            <li><a href="glossary.html#context-window">上下文窗口</a>：模型一次能“看到”的内容总量</li>
+            <li><a href="glossary.html#token">token</a>：模型处理文字的计量单位</li>
+            <li><a href="glossary.html#compaction">上下文压缩</a>：把前面的内容总结成摘要腾出空间</li>
+            <li><a href="glossary.html#hallucination">幻觉</a>：说得头头是道，但内容是错的</li>
+            <li><a href="glossary.html#prompt-injection">提示注入</a>：藏在内容里、冲着 AI 说的假“指令”</li>
+            <li><a href="glossary.html#least-privilege">最小权限</a>：只给刚好够用的权限</li>
+            <li><a href="glossary.html#human-in-the-loop">人在回路</a>：关键步骤由人确认</li>
+            <li><a href="glossary.html#permission-mode">权限模式</a>：Claude Code 做事前问不问你的档位</li>
+            <li><a href="glossary.html#claude-md">CLAUDE.md</a>：写给 Claude Code 的项目说明</li>
+            <li><a href="glossary.html#subagent">子 Agent（Subagents）</a>：独立上下文里干活的子 Agent</li>
+            <li><a href="glossary.html#hook">Hooks</a>：在固定时点自动运行的脚本</li>
+            <li><a href="glossary.html#artifact">Artifacts</a>：Claude 做出来的可预览成品</li>
+            <li><a href="glossary.html#task-brief">任务简报</a>：写给 Agent 的六部分完整说明</li>
+          </ul>
+        </section>
+
+      </div>
+
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 命令与界面以官方文档为准。</footer>
+    </article>
+  </main>
+</div>
+
+<script src="data/toc.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/glossary-a.js"></script>
+<script src="data/glossary-b.js"></script>
+<script src="data/glossary-c.js"></script>
+<script src="data/glossary-d.js"></script>
+<script src="data/glossary-e.js"></script>
+<script src="data/glossary-f.js"></script>
+<script src="data/glossary-g.js"></script>
+<script src="data/resources.js"></script>
+<script src="assets/js/book.js"></script>
+<script src="assets/js/cheatsheet.js"></script>
+</body>
+</html>

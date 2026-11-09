@@ -1,0 +1,52 @@
+/* 附录 C 速查卡专属样式（只使用 tokens.css 变量）。含打印样式：去掉顶栏与侧栏，卡片不跨页断开 */
+.cs-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 24px; }
+.cs-btn { font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); cursor: pointer; }
+.cs-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.cs-card { padding: 18px 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); min-width: 0; }
+.cs-card.wide { grid-column: 1 / -1; }
+.cs-card h2 { margin: 0 0 4px; font-size: 18px; }
+.cs-card .cs-from { margin: 0 0 12px; font-size: 13px; color: var(--text-2); }
+.cs-card h3 { margin: 14px 0 6px; font-size: 14px; color: var(--text-2); letter-spacing: .03em; }
+.cs-card p { margin: 0 0 8px; font-size: 14px; }
+.cs-card ul, .cs-card ol { margin: 0 0 8px; padding-left: 20px; font-size: 14px; }
+.cs-card li { margin: 3px 0; }
+.cs-card table { font-size: 13px; width: 100%; }
+.cs-card th, .cs-card td { padding: 6px 8px; vertical-align: top; }
+.cs-card td:first-child { white-space: nowrap; }
+.cs-card .cs-note { font-size: 12.5px; color: var(--text-2); }
+.cs-tpl { position: relative; margin: 8px 0 10px; padding: 12px 14px; border-radius: 12px; background: var(--code-bg); color: var(--code-text); font-family: var(--font-mono); font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cs-copy { margin-top: 2px; }
+.cs-terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; list-style: none; padding: 0; margin: 0; }
+.cs-terms li { margin: 0; font-size: 14px; }
+.cs-terms a { font-weight: 600; }
+.cs-check { list-style: none; padding: 0; margin: 0 0 8px; }
+.cs-check li { position: relative; padding-left: 24px; margin: 5px 0; }
+.cs-check li::before { content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border: 2px solid var(--accent); border-radius: 4px; }
+@media (max-width: 900px) {
+  .cs-grid { grid-template-columns: minmax(0, 1fr); }
+  .cs-terms { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .cs-card { padding: 14px 12px; }
+  .cs-card td:first-child { white-space: normal; }
+}
+@media print {
+  .topbar, .sidebar, .scrim, .read-progress, .page-toc, .cs-toolbar, .cs-copy, .skip-link, .visually-hidden, .site-foot, .lesson-hero .meta-row { display: none !important; }
+  body { background: #fff; color: #000; }
+  .layout { display: block; }
+  .main { margin: 0; padding: 0; max-width: none; }
+  .article { max-width: none; padding: 0; }
+  .lesson-hero { margin-bottom: 12px; }
+  .lesson-hero h1 { font-size: 26px; }
+  .cs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .cs-card, .cs-card.wide { break-inside: avoid; page-break-inside: avoid; box-shadow: none; border-color: #999; background: #fff; padding: 10px 12px; }
+  .cs-card.wide { grid-column: 1 / -1; }
+  .cs-card h2 { font-size: 15px; }
+  .cs-card p, .cs-card li, .cs-card table, .cs-terms li { font-size: 11.5px; }
+  .cs-tpl { background: #f4f4f4; color: #000; font-size: 11px; }
+  .cs-card h3, .cs-from, .cs-note, .cs-card p, .cs-card th, .cs-card td, .cs-card li, .cs-terms li, .lesson-hero .lede, .eyebrow { color: #222; }
+  .aud-tag { color: #222; }
+  a { color: inherit; text-decoration: none; }
+  table { break-inside: avoid; }
+}

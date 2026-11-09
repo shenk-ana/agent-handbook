@@ -1,8 +1,106 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Agent Handbook：面向新手的智能体文档。用自然语言完成任务、沉淀技能，逐步掌握 AI 工具。"><title>Agent Handbook · 智能体使用手册</title><link rel="stylesheet" href="assets/css/site.css"></head><body>
-<header><div class="wrap"><a class="brand" href="index.html"><span>✳</span> Agent Handbook</a><a class="small" href="https://github.com/shenk-ana/agent-handbook">查看 GitHub 仓库 ↗</a></div></header>
-<main class="wrap"><div class="hero"><div class="eyebrow">从第一次提问，走向可复用的工作方法</div><h1>让 Agent 帮你做事，<br>从这里开始。</h1><p>一套持续扩展的中文智能体使用文档。从零基础入门，到技能、工具与实战，优先用自然语言和界面操作，把方法讲清楚，把任务做完整。</p></div>
-<article class="feature"><div><span class="eyebrow">已发布 / 入门篇 v1.0</span><h2>AI 工具入门指南</h2><p>无需编程基础。理解 Chat、Work、Codex 的区别，认识 Skill 与 MCP，再跟着一个完整案例保存和复用自己的技能。</p><a class="cta" href="guides/getting-started/index.html">开始阅读入门篇 ↗</a><div class="small">内容核对：2026 年 11 月 2 日 · 适配桌面与手机</div></div><div><ol class="chapters"><li>第一次打开 AI 工具与发出任务</li><li>Work、Codex 与本地工作目录</li><li>模型、思考强度与核心术语</li><li>技能创建、保存与新对话复用</li><li>国内外 Agent 工具对照</li><li>会议整理实战与常见卡点</li></ol></div></article>
-<h2 class="section-title">接下来，逐篇展开。</h2><p class="small">以下为后续专题规划，尚未独立发布。当前相关内容已包含在入门篇中。</p><div class="grid"><article class="card"><span class="tag">规划中</span><h3>技能篇</h3><p>设计、验证、更新与共享可重复的方法。</p></article><article class="card"><span class="tag">规划中</span><h3>工具篇</h3><p>按产品整理真实界面入口与使用方式。</p></article><article class="card"><span class="tag">规划中</span><h3>实战篇</h3><p>用完整材料和验收标准完成具体工作。</p></article><article class="card"><span class="tag">规划中</span><h3>参考篇</h3><p>术语速查、问题排查与官方资料索引。</p></article></div>
-<div class="note">产品能力、菜单与套餐会变化。文档标明核对日期并附官方来源；教学图示和预期结果不冒充真实产品截图。发现遗漏或过时内容，可在 <a href="https://github.com/shenk-ana/agent-handbook/issues">仓库提出问题</a>。</div></main>
-<footer class="wrap">Agent Handbook · 中文智能体文档库　/　首版：入门</footer></body></html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent 百科全书</title>
+<meta name="description" content="从会用到懂原理：以 Claude 为例、由浅到深的 AI Agent 教程与百科。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/book.css">
+<style>
+  .home-art { position: relative; height: 0; }
+  .orbit {
+    position: absolute; right: -10px; top: -300px; width: 300px; height: 300px; pointer-events: none;
+    opacity: .9;
+  }
+  .orbit .ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed var(--border-strong); animation: spin 28s linear infinite; }
+  .orbit .p { position: absolute; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; color: var(--on-fill); font-weight: 800; font-size: 15px; box-shadow: var(--shadow); }
+  .orbit .p.t { background: var(--phase-think); left: 113px; top: -37px; }
+  .orbit .p.a { background: var(--phase-act); left: 243px; top: 188px; }
+  .orbit .p.o { background: var(--phase-observe); left: -17px; top: 188px; }
+  .orbit .spin { position: absolute; inset: 0; animation: spin 18s linear infinite; }
+  .orbit .spin .p { animation: spin 18s linear infinite reverse; }
+  .orbit .core { position: absolute; inset: 95px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: grid; place-items: center; text-align: center; font-size: 12px; color: var(--text-2); font-weight: 700; box-shadow: var(--shadow-sm); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 1320px) { .orbit { display: none; } }
+  .home-hero p.sub { max-width: 600px; }
+  .home-wrap { max-width: 960px; margin: 0 auto; }
+  .section-title { font-size: 24px; margin: 56px 0 6px; }
+  .section-sub { color: var(--text-2); margin: 0 0 8px; }
+</style>
+</head>
+<body data-base="" data-page="home">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+  <main class="main" id="main">
+    <div class="home-wrap">
+      <section class="home-hero reveal">
+        <div class="kicker">AGENT HANDBOOK · 资料截至 2026-11</div>
+        <h1>Agent<br>百科全书</h1>
+        <p class="sub">从“会用”到“懂原理”。以 Claude 为例，用动画演示和大白话讲清楚 AI Agent 是什么、怎么用好，以及它在底层是如何运转的。</p>
+        <div class="cta-row">
+          <a class="cta primary" href="lessons/15-agent-loop.html">▶ 先读样章：Agent 循环</a>
+          <a class="cta" href="glossary.html">📖 打开百科术语表</a>
+        </div>
+      </section>
+      <div class="home-art" aria-hidden="true">
+        <div class="orbit">
+          <div class="ring"></div>
+          <div class="spin">
+            <div class="p t">思考</div><div class="p a">行动</div><div class="p o">观察</div>
+          </div>
+          <div class="core">Agent<br>循环</div>
+        </div>
+      </div>
+
+      <h2 class="section-title reveal">三条阅读路线</h2>
+      <p class="section-sub reveal">每一课都分两层：<b>基础层</b>谁都能读，<b>原理层</b>默认折叠，给想深入的开发者。顶栏的“基础 / 原理”开关可以一键切换。</p>
+      <div class="routes">
+        <div class="route reveal" style="--c: var(--teal)">
+          <div class="pill">适合普通用户</div>
+          <h3>我想用好 Claude</h3>
+          <p>不需要编程基础。学会怎么交代任务、怎么给 Claude 资料和工具、怎么避开安全陷阱。</p>
+          <div class="path">第 0 → 1 → 2 部分（以第 10 课实战案例收尾）</div>
+        </div>
+        <div class="route reveal" style="--c: var(--phase-act)">
+          <div class="pill">适合开发者</div>
+          <h3>我用 Claude Code 写代码</h3>
+          <p>CLI、桌面端 Code 或 IDE 插件都适用：权限模式、CLAUDE.md、Subagents、Hooks、Skills、MCP 与插件。</p>
+          <div class="path">第 1 → 3 部分 → 第 4 部分 → 工具推荐目录</div>
+        </div>
+        <div class="route reveal" style="--c: var(--phase-think)">
+          <div class="pill">适合想深入的开发者</div>
+          <h3>我想懂原理、自己造</h3>
+          <p>以 Claude Code 为例讲透循环、上下文、工具调用、多 Agent、评测与安全，最后用 Agent SDK 和 API 自己造一个。</p>
+          <div class="path">第 1 部分 → 第 3、4 部分（打开“原理”开关）</div>
+        </div>
+      </div>
+
+      <h2 class="section-title reveal">全书目录</h2>
+      <p class="section-sub reveal" id="toc-note">全书 24 课与 4 个附录都已完成审查，可以阅读。</p>
+      <div id="home-toc" class="toc-parts"></div>
+
+      <footer class="site-foot">
+        Agent 百科全书 · 内容截至 2026-11 · 所有演示均为脚本回放，不调用真实服务，也不收集任何数据。
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script src="data/toc.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/glossary-a.js"></script>
+<script src="data/glossary-b.js"></script>
+<script src="data/glossary-c.js"></script>
+<script src="data/glossary-d.js"></script>
+<script src="data/glossary-e.js"></script>
+<script src="data/glossary-f.js"></script>
+<script src="data/glossary-g.js"></script>
+<script src="data/resources.js"></script>
+<script src="assets/js/book.js"></script>
+</body>
+</html>

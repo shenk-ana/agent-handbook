@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>权限模式、CLAUDE.md 与记忆 · Agent 百科全书</title>
+<meta name="description" content="第 12 课：Claude Code 的六种权限模式、settings.json 的层级与 allow / ask / deny 规则、CLAUDE.md 的写法、自动记忆与工作区信任。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="12" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 3 部分 · Claude Code 实战</span>
+          <span class="chip">第 12 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">权限模式、CLAUDE.md 与记忆</span><br>给 Claude Code 定规矩</h1>
+        <p class="lede">新同事入职，你会告诉他两类事：哪些事可以自己拍板、哪些必须先问你；还有这个项目的“老规矩”。Claude Code 也一样。前一类靠权限模式和权限规则，后一类靠 CLAUDE.md 和记忆。这一课把两类规矩都讲清楚。</p>
+        <div class="meta-row">
+          <span>⏱ 约 25 分钟</span>
+          <span>👤 第一节所有人可读；其余以开发者为主</span>
+          <span>🎬 1 个交互演示 · 1 个判断练习 · 1 张图示</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 12 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>分清“锁”（权限，由 Claude Code 程序强制执行）和“须知”（说明，由 Claude 参考执行）两类规矩</li>
+          <li>说出六种权限模式各自放行什么、适合什么场景</li>
+          <li><span class="aud-tag">（开发者）</span>读懂 settings.json 的层级，写出正确的 allow / ask / deny 规则</li>
+          <li><span class="aud-tag">（开发者）</span>写一份精简有效的 CLAUDE.md，知道什么该写、什么不该写</li>
+          <li><span class="aud-tag">（开发者）</span>用 <code>/memory</code> 管理自动记忆，理解工作区信任挡住了什么</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>两类规矩：锁和须知</li>
+          <li>六种权限模式</li>
+          <li>settings.json：规则写在哪一层</li>
+          <li>练一练：这一步会不会弹确认？</li>
+          <li>CLAUDE.md：写给 Claude 的项目须知</li>
+          <li>自动记忆和 /memory</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

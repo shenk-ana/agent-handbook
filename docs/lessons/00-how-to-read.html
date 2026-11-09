@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>怎么读这本书 · Agent 百科全书</title>
+<meta name="description" content="第 0 课：这本书讲什么、三条阅读路线、基础层与原理层、术语卡片和演示播放器怎么用，以及资料的时效。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+<link rel="stylesheet" href="../assets/css/lessons/00-how-to-read.css">
+</head>
+<body data-base="../" data-lesson="0">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 0 部分 · 导读</span>
+          <span class="chip">第 0 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">怎么读</span><br>这本书</h1>
+        <p class="lede">你可能听说过“AI Agent 能替人办事”，却不知道从哪里开始了解。这本书以 Claude 为例，从“它是什么”讲到“怎么用好”，再讲到“它在底层怎么运转”。花大约 8 分钟读完这一课，你就知道该走哪条路线、页面上的各种按钮怎么用。</p>
+        <div class="meta-row">
+          <span>⏱ 约 8 分钟</span>
+          <span>👤 所有人</span>
+          <span>🎬 1 个交互演示 · 1 张交互地图</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出这本书讲什么、不讲什么</li>
+          <li>选出适合自己的阅读路线</li>
+          <li>使用“基础 / 原理”开关、术语卡片和演示播放器</li>
+          <li>知道书中资料的时效，以及演示和真实产品的区别</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>先按自己的身份选一条路线；每课先读大白话的基础层，想深入再展开原理层；遇到不懂的词就点一下，遇到演示就按播放。</p>
+      </div>
+
+      <h2 id="what"><span class="sec-num">01</span>这本书讲什么</h2>
+      <p>这是一本讲 <span class="term" data-term="agent">Agent</span> 的书。Agent 是一种能自己动手办事的 AI：你交代一件事，它会自己查资料、用工具、看结果，再决定下一步，直到把事办完。</p>
+      <p>书里所有例子都用 Claude。Claude 是 Anthropic 公司做的 AI，有网页、手机和电脑上的 <span class="term" data-term="claude-app">Claude 应用</span>，也有给程序员用的 <span class="term" data-term="claude-code">Claude Code</span>。选一个具体的产品来讲，例子才能落到实处。你学到的思路，换成别的 AI 产品也大多适用。</p>
+      <p>这本书<b>不是</b>产品说明书。按钮在哪、套餐多少钱这类信息变得很快，书里只在必要时提一句，并且标明时间。我们更关心那些不太会变的东西：Agent 能做什么、做不好什么、怎么和它合作。</p>
+
+      <h2 id="routes"><span class="sec-num">02</span>三条阅读路线</h2>
+      <p>全书分 6 个部分，从“认识”到“会用”，再到“懂原理”。你不必从头读到尾。下面这张地图标出了三条路线。</p>
+
+      <figure class="book-map reveal" data-route="all" aria-label="全书地图">
+        <div class="map-routes" role="group" aria-label="选择阅读路线">
+          <button type="button" data-route="all" aria-pressed="true"><span class="sw all" aria-hidden="true"></span>全部</button>
+          <button type="button" data-route="user" aria-pressed="false"><span class="sw user" aria-hidden="true"></span>我想用好 Claude</button>
+          <button type="button" data-route="dev" aria-pressed="false"><span class="sw dev" aria-hidden="true"></span>我用 Claude Code 写代码</button>
+          <button type="button" data-route="deep" aria-pressed="false"><span class="sw deep" aria-hidden="true"></span>我想懂原理、自己造</button>
+        </div>
+        <svg class="map-svg" viewBox="0 0 360 520" role="img" aria-label="全书地图：第 0 部分导读，第 1 部分认识 Agent，第 2 部分用好 Claude，第 3 部分 Claude Code 实战，第 4 部分 Agent 原理，第 5 部分前沿，以及附录">
+          <path class="spine" d="M180 20 V500"/>
+          <g class="node r-user r-dev r-deep">
+            <rect x="30" y="10" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="34">第 0 部分 · 导读</text>
+            <text class="t2" x="48" y="54">第 0 课 · 所有人</text>
+            <circle class="dot user" cx="280" cy="38" r="6"/>
+            <circle class="dot dev" cx="296" cy="38" r="6"/>
+            <circle class="dot deep" cx="312" cy="38" r="6"/>
+          </g>
+          <g class="node r-user r-dev r-deep">
+            <rect x="30" y="84" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="108">第 1 部分 · 认识 Agent</text>
+            <text class="t2" x="48" y="128">第 1–3 课 · 所有人</text>
+            <circle class="dot user" cx="280" cy="112" r="6"/>
+            <circle class="dot dev" cx="296" cy="112" r="6"/>
+            <circle class="dot deep" cx="312" cy="112" r="6"/>
+          </g>
+          <g class="node r-user">
+            <rect x="30" y="158" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="182">第 2 部分 · 用好 Claude</text>
+            <text class="t2" x="48" y="202">第 4–10 课 · 普通用户（以第 10 课收尾）</text>
+            <circle class="dot user" cx="312" cy="186" r="6"/>
+          </g>
+          <g class="node r-dev r-deep">
+            <rect x="30" y="232" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="256">第 3 部分 · Claude Code 实战</text>
+            <text class="t2" x="48" y="276">第 11–14 课 · 开发者、进阶用户</text>
+            <circle class="dot dev" cx="296" cy="260" r="6"/>
+            <circle class="dot deep" cx="312" cy="260" r="6"/>
+          </g>
+          <g class="node r-dev r-deep">
+            <rect x="30" y="306" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="330">第 4 部分 · Agent 原理</text>
+            <text class="t2" x="48" y="350">第 15–22 课 · 开发者</text>
+            <circle class="dot dev" cx="296" cy="334" r="6"/>
+            <circle class="dot deep" cx="312" cy="334" r="6"/>
+          </g>
+          <g class="node r-deep">
+            <rect x="30" y="380" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="404">第 5 部分 · 前沿</text>
+            <text class="t2" x="48" y="424">第 23 课 · 所有人，选读</text>
+            <circle class="dot deep optional" cx="312" cy="408" r="6"/>
+          </g>
+          <g class="node r-dev">
+            <rect x="30" y="454" width="300" height="56" rx="12"/>
+            <text class="t1" x="48" y="478">附录 · 术语表、工具目录……</text>
+            <text class="t2" x="48" y="498">随时查阅</text>
+            <circle class="dot dev" cx="312" cy="482" r="6"/>
+          </g>
+        </svg>
+        <figcaption class="map-note" aria-live="polite">全书分 6 个部分，加上附录。点上面的路线，看看哪些部分是为你准备的。第 0 部分（本课）对所有路线都适用。</figcaption>
+      </figure>
+
+      <table>
+        <thead><tr><th>路线</th><th>适合谁</th><th>怎么读</th></tr></thead>
+        <tbody>
+          <tr><td><b>我想用好 Claude</b></td><td>不写代码的普通人</td><td>第 0 → 1 → 2 部分，以第 10 课的实战案例收尾。只读基础层就够了。</td></tr>
+          <tr><td><b>我用 Claude Code 写代码</b></td><td>日常用 Claude Code（命令行、桌面端或 IDE 插件）的开发者</td><td>第 1 部分 → 第 3 部分 → 第 4 部分，配合工具推荐目录。</td></tr>
+          <tr><td><b>我想懂原理、自己造</b></td><td>想把 Agent 做进自己产品的开发者</td><td>第 1 部分 → 第 3、4 部分，打开“原理”开关；第 5 部分选读。</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <div class="ico">💡</div>
+        <div class="body">
+          <div class="title">开发者也建议读第 1 部分</div>
+          <p>第 1 部分只有三课，讲 Agent 和聊天机器人的区别、它的能力边界，以及 Claude 各个产品怎么选。每课都有给开发者的原理层，读起来不会太浅。</p>
+        </div>
+      </div>
+
+      <h2 id="layers"><span class="sec-num">03</span>基础层和原理层</h2>
+      <p>每一课都写给两类读者，用同一个页面的两层内容：</p>
+      <ul>
+        <li><b>基础层</b>：就是你现在读的正文。大白话、生活例子，不出现代码。只读这一层，也能读懂每一课的核心意思。</li>
+        <li><b>原理层</b>：灰色边框、带“原理层”标签的折叠框。写给开发者，讲背后是怎么回事，会出现术语和少量代码。</li>
+      </ul>
+      <p>页面顶部有一个“基础 / 原理”开关。选“原理”，本页所有原理层会一起展开；选“基础”，它们会收起来。你也可以只点开某一个框。这个选择会被记住，翻到下一课也一样。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>这就是一个原理层：给开发者的阅读建议<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p>本书的开发者读者，主要是每天在用 <span class="term" data-term="claude-code">Claude Code</span> 的人：命令行（CLI）、桌面应用里的 Code、VS Code 或 JetBrains 插件、网页版。原理层的讲法有固定顺序：</p>
+          <ol>
+            <li>先讲这个原理在 Claude Code 里表现为什么：界面上看到什么、对应哪个命令或配置；</li>
+            <li>再讲你怎么利用或干预它：权限、<code>CLAUDE.md</code>、<code>/context</code>、Hooks、Subagents、MCP 等；</li>
+            <li>最后才讲底层机制：Messages API 的结构、论文出处。</li>
+          </ol>
+          <p>调用 API、写 SDK 代码的内容会标明“日常使用 Claude Code 可以跳过”。Claude Code 的命令和界面文字随版本变化，书里点到为止，一切以 <code>/help</code> 和官方文档为准。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="分层">
+<svg viewBox="0 0 640 320" role="img" aria-label="左侧是基础层，右侧是默认折叠的原理层，原理层内按三步展开"><defs><marker id="f00-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f00-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="304" rx="18"/>
+<rect class="dg-box is-lift" x="32" y="40" width="262" height="236" rx="16"/>
+<text class="dg-t is-lg" x="56" y="74">基础层</text>
+<text class="dg-s" x="56" y="96">大白话 · 生活例子 · 无代码</text>
+<rect class="dg-bar is-soft" x="56" y="122" width="214" height="8" rx="4"/>
+<rect class="dg-bar is-soft" x="56" y="144" width="190" height="8" rx="4"/>
+<rect class="dg-bar is-soft" x="56" y="166" width="214" height="8" rx="4"/>
+<rect class="dg-bar is-soft" x="56" y="188" width="120" height="8" rx="4"/>
+<text class="dg-s is-faint" x="56" y="254">只读这一层，核心意思已经完整</text>
+<rect class="dg-box is-accent is-lift" x="346" y="40" width="262" height="236" rx="16"/>
+<rect class="dg-box is-solid" x="370" y="62" width="76" height="28" rx="14"/>
+<text class="dg-t on" x="408" y="77" text-anchor="middle" dominant-baseline="central">原理层</text>
+<text class="dg-s" x="458" y="77" dominant-baseline="central">默认折叠，点开才看</text>
+<circle class="dg-dot is-accent" cx="388" cy="144" r="13"/>
+<text class="dg-dot-t" x="388" y="144" text-anchor="middle" dominant-baseline="central">1</text>
+<text class="dg-t is-sm" x="412" y="150">在 Claude Code 里表现为什么</text>
+<text class="dg-s" x="412" y="168">界面上看到什么、对应哪个命令</text>
+<circle class="dg-dot is-accent" cx="388" cy="194" r="13"/>
+<text class="dg-dot-t" x="388" y="194" text-anchor="middle" dominant-baseline="central">2</text>
+<text class="dg-t is-sm" x="412" y="200">你怎么利用或干预它</text>
+<text class="dg-s" x="412" y="218">权限、CLAUDE.md、Hooks、MCP</text>
+<circle class="dg-dot is-accent" cx="388" cy="244" r="13"/>
+<text class="dg-dot-t" x="388" y="244" text-anchor="middle" dominant-baseline="central">3</text>
+<text class="dg-t is-sm" x="412" y="250">底层机制</text>
+<text class="dg-s" x="412" y="268">Messages API 结构、论文出处</text>
+<path class="dg-line is-accent" d="M298 158 H342" marker-end="url(#f00-1-ah-a)"/>
+<text class="dg-s" x="320" y="148" text-anchor="middle">想深入</text>
+<text class="dg-s is-faint" x="320" y="302" text-anchor="middle">同一页两层：只读左边也完整；顶栏“原理”开关会一次展开右边全部内容</text>
+</svg>
+<figcaption><strong>基础层与原理层。</strong>每课两层内容互不替代：基础层讲“是什么、为什么”；原理层按“在 Claude Code 里怎么表现 → 你怎么干预 → 底层机制”的顺序展开。</figcaption>
+      </figure>
+
+      <h2 id="terms"><span class="sec-num">04</span>不懂的词，点一下</h2>
+      <p>正文里带虚线下划线的词，比如 <span class="term" data-term="context-window">上下文窗口</span>，是书里的术语。把鼠标移上去，或者在手机上点一下，就会弹出一张小卡片：先是一句大白话，再是一个生活中的比方。打开“原理”开关后，卡片里还会多一条技术定义。</p>
+      <p>所有术语都收在顶栏“百科”里，也就是附录 A。读到后面忘了前面的词，随时可以去查。</p>
+
+      <h2 id="player"><span class="sec-num">05</span>演示播放器怎么看</h2>
+      <p>书里很多地方会放一个“演示播放器”，把 Claude 办一件事的过程一步步放给你看。先用下面这个小例子熟悉一下操作：</p>
+
+      <div class="player" data-trace="00-player-tour"></div>
+
+      <table>
+        <thead><tr><th>你想做什么</th><th>怎么操作</th></tr></thead>
+        <tbody>
+          <tr><td>播放 / 暂停</td><td>点底部的播放按钮（电脑上也可以先点一下播放器，再按空格键）</td></tr>
+          <tr><td>一步一步看</td><td>点底部向右的箭头按钮前进，向左的箭头后退（电脑上也可以按 → 和 ← 键）</td></tr>
+          <tr><td>跳到某一步</td><td>点底部那排小圆点中的任意一个</td></tr>
+          <tr><td>看懂这一步在干什么</td><td>读循环图旁边的“旁白”（手机上在对话下方）</td></tr>
+          <tr><td>看底层传了什么消息</td><td>点右上角的“API 视角”，给好奇的人和开发者看</td></tr>
+          <tr><td>放慢或加快</td><td>底部最右边的倍速选择（很窄的手机屏幕上会隐藏）</td></tr>
+        </tbody>
+      </table>
+      <p>演示里的圆环叫“Agent 循环图”（电脑上在右边，手机上在对话下方）。<b class="c-think">紫色</b>是思考，<b class="c-act">琥珀色</b>是行动，<b class="c-observe">青绿色</b>是观察。全书讲到循环时都用这三种颜色。循环图下方的“上下文占用”条，表示 Claude 的“桌面”被占了多少，第 5 课会细讲。</p>
+      <p>有些演示会换成黑底的终端样式，那是在模拟程序员用的 Claude Code。操作方法一样。</p>
+
+      <h2 id="as-of"><span class="sec-num">06</span>两个重要的提醒</h2>
+      <div class="callout warn">
+        <div class="ico">📅</div>
+        <div class="body">
+          <div class="title">资料截至 2026 年 11 月</div>
+          <p>AI 产品更新很快。书里提到的产品名称、功能、可用平台，都在写作时对照过 Anthropic 官方资料，但之后可能变化。遇到“截至 2026-11”的字样，说明这条信息特别容易变。用之前，以官方帮助中心和产品界面为准。</p>
+          <p>全书的约定：菜单和设置项写中文名，第一次出现时在括号里注上英文界面名。不同版本、不同语言的界面叫法可能不一样，一律以你看到的界面为准。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="ico">🎬</div>
+        <div class="body">
+          <div class="title">演示是“录好的回放”，不是真的在调用 Claude</div>
+          <p>播放器里的每一步都是预先写好的脚本。它不会联网，不会调用任何服务，也不收集你的数据。演示里的餐厅、城市、网址很多是虚构的，界面是自己画的示意图，和真实产品的样子会有出入。它的作用是把“看不见的过程”放慢给你看。</p>
+        </div>
+      </div>
+
+      <h2 id="try-it"><span class="sec-num">07</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">🧭 熟悉页面上的三样工具 <span class="badge">不需要写代码</span></div>
+        <ol>
+          <li>点一下顶栏的“原理”，看看第 03 节的折叠框有没有展开；再点“基础”收起来。</li>
+          <li>把鼠标移到第 04 节的“上下文窗口”上（手机上点一下），读一读弹出的卡片。</li>
+          <li>回到第 05 节的演示，不按播放，只点向右的箭头按钮（电脑上也可以按 → 键）一步一步看完。好奇的话切到“API 视角”看一眼第 3 步，看不懂也没关系。</li>
+          <li>在第 02 节的地图里选出你的路线，记下你下一课要读哪一课。</li>
+        </ol>
+      </div>
+
+      <h2 id="myths"><span class="sec-num">08</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">原理层太难，跳过就会漏掉重点。</p><span class="ok">✓</span><p>基础层本身是完整的。原理层是“加深”，不是“补全”，不写代码的读者可以不看。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">演示里显示的就是 Claude 真实的回答。</p><span class="ok">✓</span><p>演示是预先写好的脚本，用来说明过程。真实的 Claude 每次的做法和措辞都可能不同。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">书里写的按钮位置一定和我看到的一样。</p><span class="ok">✓</span><p>界面会更新。书里尽量只写“在设置中可以……”，具体位置以你看到的产品界面和官方帮助为准。</p></div>
+      </div>
+
+      <h2 id="quiz"><span class="sec-num">09</span>小测验</h2>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q1</span>你不写代码，只想在工作和生活中用好 Claude。最适合的路线是？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>从第 4 部分的原理开始读</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>直接读第 3 部分 Claude Code 实战</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>第 0 → 1 → 2 部分，只读基础层</span></button>
+        </div>
+        <div class="explain">第 1、2 部分就是为普通用户写的。第 3、4 部分面向开发者，可以以后有兴趣再看。</div>
+      </div>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q2</span>书里的演示播放器在做什么？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>回放预先写好的脚本，把过程放慢给你看</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>实时连接 Claude，展示它此刻的回答</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>播放真实产品的录屏</span></button>
+        </div>
+        <div class="explain">演示不联网、不调用任何服务，界面也是自己画的。它展示的是“过程长什么样”。</div>
+      </div>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q3</span>在演示的循环图里，琥珀色亮起表示 Claude 在做什么？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>行动：调用某个工具</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>思考：决定下一步</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>观察：读工具返回的结果</span></button>
+        </div>
+        <div class="explain">紫色是思考，琥珀色是行动，青绿色是观察。全书讲到循环时都用这三种颜色。</div>
+      </div>
+
+      <h2 id="resources"><span class="sec-num">10</span>推荐工具与延伸</h2>
+      <p>这一课不需要安装任何工具。从下一课开始，相关的工具（官方或社区）会以卡片形式出现在每课末尾。卡片上的“核实于”日期，是最后一次检查维护状态和许可证的时间。</p>
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="agent">Agent</span>
+        <span class="term" data-term="claude-app">Claude 应用</span>
+        <span class="term" data-term="claude-code">Claude Code</span>
+        <span class="term" data-term="context-window">上下文窗口</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 0 课完成</div>
+        <p>下一课从一个最基本的问题开始：会聊天的 AI 和会办事的 Agent，到底差在哪？我们会用同一个任务做一次对比。</p>
+      </div>
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。</footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/00-player-tour.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+<script src="../assets/js/lessons/00-how-to-read.js"></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>能力边界与幻觉 · Agent 百科全书</title>
+<meta name="description" content="第 2 课：Agent 擅长什么、不擅长什么；什么是幻觉和知识截止日期；为什么要验证、怎么验证；哪些事不该交给它。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+<link rel="stylesheet" href="../assets/css/lessons/02-limits.css">
+</head>
+<body data-base="../" data-lesson="2">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 1 部分 · 认识 Agent</span>
+          <span class="chip">第 2 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">能力边界与幻觉</span><br>它擅长什么，又会在哪里出错</h1>
+        <p class="lede">Claude 能在几秒钟里读完一份长报告，也可能把报告里的一个数字说错，而且说得很笃定。知道它的长处和短处，你才知道哪些事可以放心交给它，哪些事必须自己再看一眼。</p>
+        <div class="meta-row">
+          <span>⏱ 约 15 分钟</span>
+          <span>👤 所有人；原理层面向开发者</span>
+          <span>🎬 1 个交互演示 · 1 个小练习</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出 Agent 擅长和不擅长的几类事</li>
+          <li>解释什么是幻觉、什么是知识截止日期</li>
+          <li>用几个简单的办法核对 Claude 的回答</li>
+          <li>判断一件事该不该交给 Agent</li>
+          <li><span class="aud-tag">（开发者）</span>在 Claude Code 里用“先读再答”和“跑测试验证”减少幻觉</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>Claude 擅长读、写、整理和推理，但它的知识有截止日期，也会“一本正经地说错”；让它查证、给出处，并按“出错代价”和“能否核对”来决定交给它多少。</p>
+      </div>
+
+      <h2 id="good-at"><span class="sec-num">01</span>它擅长什么，不擅长什么</h2>
+      <figure class="figure reveal" data-kind="对比">
+<svg viewBox="0 0 640 324" role="img" aria-label="左侧是通常做得好的事，右侧是要多加小心的事"><defs><marker id="f02-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f02-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone is-teal" x="16" y="16" width="304" height="262" rx="18"/>
+<text class="dg-t is-teal" x="40" y="52">通常做得好</text>
+<rect class="dg-box is-teal" x="40" y="70" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="58" y="90" dominant-baseline="central">读长文、提炼要点</text>
+<rect class="dg-box is-teal" x="40" y="120" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="58" y="140" dominant-baseline="central">改写、翻译、整理格式</text>
+<rect class="dg-box is-teal" x="40" y="170" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="58" y="190" dominant-baseline="central">按你的要求起草文字</text>
+<rect class="dg-box is-teal" x="40" y="220" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="58" y="240" dominant-baseline="central">出点子、比较优缺点</text>
+<rect class="dg-zone is-amber" x="320" y="16" width="304" height="262" rx="18"/>
+<text class="dg-t is-amber" x="344" y="52">要多加小心</text>
+<rect class="dg-box is-amber" x="344" y="70" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="362" y="90" dominant-baseline="central">精确的数字、日期、人名</text>
+<rect class="dg-box is-amber" x="344" y="120" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="362" y="140" dominant-baseline="central">最近发生的事、会变的信息</text>
+<rect class="dg-box is-amber" x="344" y="170" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="362" y="190" dominant-baseline="central">医疗、法律、投资等专业判断</text>
+<rect class="dg-box is-amber" x="344" y="220" width="256" height="40" rx="10"/>
+<text class="dg-t is-sm" x="362" y="240" dominant-baseline="central">发出去、付掉就收不回的操作</text>
+<text class="dg-s is-faint" x="320" y="308" text-anchor="middle">两边都能用，关键是：出错了，你能不能发现</text>
+</svg>
+<figcaption><strong>能力地图。</strong>左边的事，所需信息你已经给了，结果也容易判断；右边的事，错了不容易察觉，或者代价很大。越靠右，越需要你自己核对。</figcaption>
+      </figure>
+      <p>先看一个例子。你请 Claude 总结一份 40 页的市场报告，它几秒钟就给出了五条清晰的要点，结构比你自己整理的还好。可其中一条写着“线上销售占比 38%”，原文其实是“线下 38%、线上 62%”：它把两个数字记反了。读得快、写得好，和偶尔记错细节，常常同时出现。</p>
+      <p>再给一张粗略的地图。左边是 Claude 一般做得好的事，右边是要多加小心的事：</p>
+      <table>
+        <thead><tr><th>通常做得好</th><th>要多加小心</th></tr></thead>
+        <tbody>
+          <tr><td>读长文、提炼要点、改写和翻译</td><td>精确的数字、日期、人名，尤其是凭记忆说出来的</td></tr>
+          <tr><td>按你的要求起草邮件、报告、方案</td><td>最近发生的事、会变化的信息（价格、政策、营业时间）</td></tr>
+          <tr><td>出点子、列选项、比较优缺点</td><td>需要专业资质判断的事：医疗、法律、投资</td></tr>
+          <tr><td>按步骤推理、写代码并运行检查</td><td>你没告诉它、它也查不到的情况（你的家庭、公司内部规定）</td></tr>
+          <tr><td>用工具查资料、核对多个来源</td><td>做了就收不回的操作：发出去的消息、付掉的钱</td></tr>
+        </tbody>
+      </table>
+      <p>注意右边第四行：Claude 不会读心。它不知道的事，它要么问你，要么只能猜。第 4 课会讲怎么把这些信息交代清楚。</p>
+
+      <h2 id="hallucination"><span class="sec-num">02</span>幻觉：一本正经地说错</h2>
+      <p>AI 有时会编造内容，而且语气和说真话时一模一样。这种现象叫<span class="term" data-term="hallucination">幻觉</span>。常见的样子有：</p>
+      <ul>
+        <li>编出一本不存在的书、一篇不存在的论文，作者和年份都像模像样；</li>
+        <li>把一个数字记错，比如把 2.8% 说成 8.2%；</li>
+        <li>说某个软件“有这个按钮”，其实没有，或者是旧版本才有；</li>
+        <li>在 Agent 任务里，工具其实报错了，它却当作成功继续往下做。</li>
+      </ul>
+
+      <div class="callout analogy">
+        <div class="ico">🧩</div>
+        <div class="body">
+          <div class="title">打个比方：记性很好但爱“补全”的朋友</div>
+          <p>你问一位博览群书的朋友某句名言出自哪里。他记得大意，却记不清出处，于是顺口说了一个“听起来很对”的人名。他不是故意骗你，只是习惯把话说圆。Claude 的幻觉有点像这样。</p>
+        </div>
+      </div>
+
+      <p>最新的模型比早期的模型少犯这种错，也更愿意说“我不确定”。但幻觉<b>没有被消灭</b>，只是变少了。越是冷门、越是精确、越是新近的信息，越要留个心眼。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>幻觉从哪里来<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p><span class="term" data-term="llm">大语言模型</span>的基本工作方式，是根据前文一个接一个地生成最可能的下一个 <span class="term" data-term="token">token</span>。“可能”不等于“真实”：当模型对某个事实只有模糊印象时，它仍然能生成一段流畅、格式正确的文字，这段文字可能和事实不符。</p>
+          <p>几个会加重幻觉的因素：</p>
+          <ul>
+            <li><b>训练数据里很少出现</b>：冷门的人名、小众软件的具体参数。</li>
+            <li><b>需要逐字精确</b>：引用原文、版本号、法律条文编号。</li>
+            <li><b>超出知识截止日期</b>：模型只能用旧信息去“推断”新情况。</li>
+            <li><b>上下文里缺少依据</b>：没有给它材料，也没让它去查。</li>
+          </ul>
+          <p>缓解的思路是让回答“有据可查”：把材料放进上下文（上传文件、项目知识）、让它用工具检索并引用来源、让它运行代码或测试来验证。这些方法能显著减少幻觉，但都不能保证零错误，所以重要结论仍然需要人来把关。第 20 课讲怎么用评测系统地衡量它。</p>
+        </div>
+      </details>
+
+      <h2 id="cutoff"><span class="sec-num">03</span>知识截止日期</h2>
+      <figure class="figure reveal" data-kind="时间线">
+<svg viewBox="0 0 640 196" role="img" aria-label="时间线：2026 年 6 月是 Claude 的知识截止，本书资料截至 2026 年 11 月，中间一段它未必知道"><defs><marker id="f02-2-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f02-2-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="180" rx="18"/>
+<path class="dg-line is-soft" d="M40 110 H600"/>
+<rect class="dg-bar is-amber" x="176" y="104" width="328" height="12" rx="6"/>
+<circle class="dg-dot is-accent" cx="160" cy="110" r="9"/>
+<text class="dg-t is-sm" x="160" y="72" text-anchor="middle">知识截止：2026 年 6 月</text>
+<text class="dg-s" x="160" y="142" text-anchor="middle">训练资料收集到这一天为止</text>
+<circle class="dg-dot" cx="520" cy="110" r="9"/>
+<text class="dg-t is-sm" x="520" y="72" text-anchor="middle">资料截至：2026 年 11 月</text>
+<text class="dg-s" x="520" y="142" text-anchor="middle">这段时间的新闻、价格、产品</text>
+<text class="dg-s is-amber" x="344" y="172" text-anchor="middle">它未必知道，要靠搜索或你提供的材料补上</text>
+</svg>
+<figcaption><strong>知识截止日期。</strong>模型的知识停在训练资料的截止日。之后发生的事，没有搜索工具它就不知道；这时最好的做法是告诉你“我的信息可能过时”，而不是硬给一个确定答案。</figcaption>
+      </figure>
+      <p>Claude 的知识来自训练时读过的资料。这些资料收集到某一天为止，这一天就是它的<span class="term" data-term="knowledge-cutoff">知识截止日期</span>。截至 2026-11，Anthropic 公布的当前 Claude 模型，可靠知识截止于 2026 年 6 月。</p>
+      <p>这意味着：2026 年 6 月以后的新闻、价格调整、新产品，Claude 本身不知道。如果它没有搜索工具，又被问到这些事，它最好的做法是告诉你“我的信息可能过时”。最糟的做法，是用旧信息给你一个看起来很确定的答案。</p>
+      <p>下面这个演示里，Claude 被问到一个“会变的数字”。看它怎么对待自己的记忆。演示中的“示例市”和票价都是虚构的。</p>
+
+      <div class="player" data-trace="02-check-before-answer"></div>
+
+      <div class="callout tip">
+        <div class="ico">💡</div>
+        <div class="body">
+          <div class="title">这个演示里值得学的三件事</div>
+          <p>第一，它先怀疑自己的记忆，而不是直接回答。第二，两个来源说法不一致时，它选择了更新、更官方的那个。第三，它在最后提醒你“发布前再核对一次”。你给 Claude 布置任务时，也可以直接要求它这样做。</p>
+        </div>
+      </div>
+
+      <h2 id="verify"><span class="sec-num">04</span>为什么要验证，怎么验证</h2>
+      <p>验证不是不信任 Claude，而是把它当成一位能干但会出错的同事。重要的东西，谁写的都要过一遍。几个简单好用的办法：</p>
+      <ol>
+        <li><b>要出处</b>：请它“每一条都附上来源”。打开<span class="term" data-term="web-search">网页搜索</span>时，回答里会带来源链接，点开看看原文是不是这么说的。</li>
+        <li><b>给材料</b>：与其让它凭记忆回答，不如把合同、说明书、表格直接上传给它，让它“只根据这份文件回答”。</li>
+        <li><b>问把握</b>：问一句“哪些地方你不太确定？”它通常会指出自己没把握的部分。</li>
+        <li><b>抽查</b>：长篇总结不必逐字核对，挑两三处关键数字回原文找一找。</li>
+        <li><b>换个问法</b>：同一个关键事实，换个角度再问一次，看说法是否一致。</li>
+      </ol>
+      <p>验证要花多少力气，取决于出错的代价。给朋友的生日祝福写错一个词，无伤大雅；写进合同里的金额写错一位，后果就严重了。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>在 Claude Code 里减少幻觉<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p>编程场景有一个巨大的优势：很多结论可以<b>自动验证</b>。用好这一点，幻觉就很难溜过去：</p>
+          <ul>
+            <li><b>先读再答</b>：问到具体代码时，要求它先打开相关文件再回答，不要凭文件名猜测实现。Anthropic 的提示词最佳实践里，专门给出了“回答前先调查”这类指令写法。</li>
+            <li><b>把验证写进完成标准</b>：例如“改完后运行 <code>npm test</code>，全部通过才算完成”。第 15 课的修测试演示里，Claude 改完代码后又跑了一遍测试，结论才有证据。</li>
+            <li><b>写进 CLAUDE.md</b>：把测试、类型检查、lint 的命令写进项目的 <span class="term" data-term="claude-md">CLAUDE.md</span>，它每次会话都会读到，验证就成了默认动作（第 12 课）。</li>
+            <li><b>警惕“看起来修好了”</b>：如果它说“已修复”，却没有运行任何检查，追问一句“你怎么确认的？”</li>
+            <li><b>API 和库的版本</b>：模型可能记得旧版本的写法。让它查项目里锁定的依赖版本，或者读一下本地的类型定义和文档。</li>
+          </ul>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="流程">
+<svg viewBox="0 0 640 270" role="img" aria-label="一个验证闭环：先读相关文件，修改代码，运行测试，看结果；没通过就回去改"><defs><marker id="f02-3-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f02-3-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="254" rx="18"/>
+<path class="dg-line is-accent" d="M262 70 H378" marker-end="url(#f02-3-ah-a)"/>
+<path class="dg-line" d="M480 102 V168" marker-end="url(#f02-3-ah)"/>
+<path class="dg-line is-green" d="M378 200 H262" marker-end="url(#f02-3-ah-g)"/>
+<path class="dg-line is-rose is-dash" d="M240 170 L380 100" marker-end="url(#f02-3-ah-r)"/>
+<text class="dg-s is-rose" x="316" y="118" text-anchor="middle">没通过，回去改</text>
+<rect class="dg-box is-accent is-lift" x="60" y="40" width="200" height="60" rx="14"/>
+<text class="dg-t" x="160" y="66" text-anchor="middle">先读相关文件</text>
+<text class="dg-s" x="160" y="86" text-anchor="middle">不凭文件名猜实现</text>
+<rect class="dg-box is-lift" x="380" y="40" width="200" height="60" rx="14"/>
+<text class="dg-t" x="480" y="66" text-anchor="middle">修改代码</text>
+<text class="dg-s" x="480" y="86" text-anchor="middle">只改任务范围内的文件</text>
+<rect class="dg-box is-green is-lift" x="380" y="170" width="200" height="60" rx="14"/>
+<text class="dg-t is-green" x="480" y="196" text-anchor="middle">运行测试与检查</text>
+<text class="dg-s" x="480" y="216" text-anchor="middle">npm test、lint 等命令</text>
+<rect class="dg-box is-teal is-lift" x="60" y="170" width="180" height="60" rx="14"/>
+<text class="dg-t is-teal" x="150" y="196" text-anchor="middle">看结果：全部通过？</text>
+<text class="dg-s" x="150" y="216" text-anchor="middle">失败就看报错</text>
+<text class="dg-t is-sm" x="320" y="258" text-anchor="middle">完成 = 命令全部通过，并附上运行结果</text>
+</svg>
+<figcaption><strong>验证闭环。</strong>在 Claude Code 里，最有力的核对是让它“改完就跑”：读、改、测、看，没过就回头改。“已修复”只是一句判断，运行结果才是证据。</figcaption>
+      </figure>
+
+      <h2 id="should-not"><span class="sec-num">05</span>哪些事不该交给它</h2>
+      <p>判断一件事该交给 Agent 多少，只需要问自己两个问题。这是全书通用的两条标准，后面讲安全的第 9 课也会用到：</p>
+      <ul>
+        <li><b>出错的代价有多大？</b>改个错别字和转一笔钱，代价天差地别。</li>
+        <li><b>结果我能不能轻松核对？</b>一眼能看出好坏的，可以放手；看不出来的，要么自己核对，要么请专业人士。</li>
+      </ul>
+      <p>代价大、又难以核对，或者发出去就收不回的事，比如健康和用药的决定、投资下单、以你的名义对外发消息，应该由你来拍板。Claude 可以帮你整理资料、起草文字，但最后那一下要你自己按。</p>
+      <p>来试试看：下面每件事，你会怎么交给 Claude？</p>
+
+      <div class="delegate-check" id="delegate-check" aria-label="小练习：这件事适合交给 Agent 吗">
+        <noscript><p>这个小练习需要启用 JavaScript。</p></noscript>
+      </div>
+      <figure class="figure reveal" data-kind="对比">
+<svg viewBox="0 0 640 344" role="img" aria-label="两条标准组成的 2×2 矩阵：出错代价大小，结果能否轻松核对；每个象限给出做法"><defs><marker id="f02-4-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f02-4-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="328" rx="18"/>
+<rect class="dg-box is-amber is-lift" x="60" y="34" width="280" height="132" rx="14"/>
+<text class="dg-t is-amber" x="84" y="66">自己核对后再用</text>
+<text class="dg-s" x="84" y="90">数字、金额、链接，点开核对</text>
+<text class="dg-s" x="84" y="110">它能给的草稿，你再过一遍</text>
+<rect class="dg-box is-rose is-lift" x="348" y="34" width="280" height="132" rx="14"/>
+<text class="dg-t is-rose" x="372" y="66">由你拍板</text>
+<text class="dg-s" x="372" y="90">健康用药、投资下单、对外发消息</text>
+<text class="dg-s" x="372" y="110">Claude 可以起草，最后一步你来按</text>
+<rect class="dg-box is-green is-lift" x="60" y="178" width="280" height="132" rx="14"/>
+<text class="dg-t is-green" x="84" y="210">放手交给它</text>
+<text class="dg-s" x="84" y="234">改错别字、整理格式、列清单</text>
+<text class="dg-s" x="84" y="254">一眼能看出好坏，省下大把时间</text>
+<rect class="dg-box is-teal is-lift" x="348" y="178" width="280" height="132" rx="14"/>
+<text class="dg-t is-teal" x="372" y="210">抽查，并要求附来源</text>
+<text class="dg-s" x="372" y="234">长篇总结、调研资料</text>
+<text class="dg-s" x="372" y="254">挑两三处关键数字回原文找一找</text>
+<text class="dg-s is-faint" x="44" y="100" text-anchor="end">代价大</text>
+<text class="dg-s is-faint" x="44" y="244" text-anchor="end">代价小</text>
+<text class="dg-s is-faint" x="200" y="332" text-anchor="middle">容易核对</text>
+<text class="dg-s is-faint" x="488" y="332" text-anchor="middle">难以核对</text>
+</svg>
+<figcaption><strong>两个问题决定交给它多少。</strong>横向问：结果能不能轻松核对？纵向问：出错代价有多大？代价越大、越难核对，越要把最后一步留给自己。</figcaption>
+      </figure>
+
+      <h2 id="try-it"><span class="sec-num">06</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">🔎 让 Claude 自己标出没把握的地方 <span class="badge">不需要写代码</span></div>
+        <p>挑一个你很熟悉的话题（你的专业、家乡、爱好），让 Claude 写一段介绍，然后追问：</p>
+        <div class="prompt-sample">刚才那段介绍里，哪些说法你最没有把握？请逐条列出来，并说明原因。哪些需要查最新资料才能确认？</div>
+        <ol>
+          <li>用你自己的知识检查那段介绍，找出至少一处不准确或过时的地方。</li>
+          <li>它自己列出的“没把握”的地方，和你找到的错误重合吗？</li>
+          <li>打开网页搜索，请它核对那几处，并附上来源。</li>
+        </ol>
+      </div>
+      <div class="try-it">
+        <div class="head">🧪 让 Claude Code 自证 <span class="badge">开发者 · 需要电脑操作</span></div>
+        <div class="prompt-sample">解释一下这个项目里用户登录的完整流程。每一步都要指出对应的文件和函数名；没有亲自读过的文件，不要下结论。</div>
+        <ol>
+          <li>看它调用了几次 Read / Grep，有没有“没读就答”的地方。</li>
+          <li>随机挑一个它提到的函数，自己打开文件核对。</li>
+        </ol>
+      </div>
+
+      <h2 id="myths"><span class="sec-num">07</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">Claude 语气很确定，说明它很有把握。</p><span class="ok">✓</span><p>语气和准确性没有必然联系。幻觉往往说得和真话一样流畅，判断依据应该是来源和证据。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">开了网页搜索，就不会有幻觉了。</p><span class="ok">✓</span><p>搜索能大幅减少过时和编造，但网页本身也可能出错，它也可能误读。重要的事点开来源看一眼。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">它知道今天发生的所有事。</p><span class="ok">✓</span><p>模型的知识有截止日期。截止日期之后的事，要靠搜索或者你提供的材料。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">既然会出错，那就什么都别交给它。</p><span class="ok">✓</span><p>按代价和可核对程度分配：低风险、好核对的事放手交给它，省下的时间用来把关真正重要的部分。</p></div>
+      </div>
+
+      <h2 id="quiz"><span class="sec-num">08</span>小测验</h2>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q1</span>你让 Claude 推荐几本书，它给了一本你搜不到的书。最可能是什么情况？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>这是幻觉：它编出了一本听起来合理的书</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>这本书刚出版，搜索引擎还没收录</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>你的搜索方法不对</span></button>
+        </div>
+        <div class="explain">书名、作者、论文这类“看起来像真的”的具体信息，是幻觉的高发区。B 不太可能：Claude 的知识来自截止日期之前的资料，它不会凭空知道一本刚出版、还没被收录的书；真正的新书一般也能在书店或出版社网站上查到。请它给出版信息或来源链接，再核对。</div>
+      </div>
+      <div class="quiz" data-answer="b">
+        <div class="q"><span class="qn">Q2</span>下面哪个问题最需要 Claude 去搜索，而不是凭记忆回答？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>“光合作用的基本原理是什么？”</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>“这家博物馆这个月的开放时间是？”</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>“帮我把这段话改得更礼貌一些。”</span></button>
+        </div>
+        <div class="explain">开放时间会变，而且很可能在知识截止日期之后调整过。A 是稳定的知识，C 只需要你给的文字。</div>
+      </div>
+      <div class="quiz" data-answer="b">
+        <div class="q"><span class="qn">Q3</span>哪件事最应该由你自己来拍板？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>给一份内部会议纪要排版</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>以公司名义给全体客户发一则涨价通知</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>为周末聚餐列一份购物清单</span></button>
+        </div>
+        <div class="explain">对外、以你的名义、发出去收不回，代价大。Claude 可以起草，但发布前要你审核并亲自发出。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q4</span><span class="aud-tag">（开发者）</span>Claude Code 说“已修复”，以下哪种情况最值得追问？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>它改完后运行了测试，全部通过</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>它先读了相关文件才动手修改</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>它改了代码，但没有运行任何测试或检查</span></button>
+        </div>
+        <div class="explain">没有验证的“已修复”只是一个判断，不是证据。把“运行测试并全部通过”写进完成标准或 CLAUDE.md。</div>
+      </div>
+
+      <h2 id="resources"><span class="sec-num">09</span>推荐工具与延伸</h2>
+      <p>这一课讲的是使用习惯，不需要安装工具。想系统了解怎么写出“有据可查”的提示，可以读 Anthropic 官方文档中的提示词最佳实践（英文）。第 20 课会介绍怎么用评测衡量幻觉。</p>
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="hallucination">幻觉</span>
+        <span class="term" data-term="knowledge-cutoff">知识截止日期</span>
+        <span class="term" data-term="web-search">网页搜索</span>
+        <span class="term" data-term="llm">大语言模型</span>
+        <span class="term" data-term="token">Token</span>
+        <span class="term" data-term="claude-md">CLAUDE.md</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 2 课完成</div>
+        <p>知道了它的长处和短处，下一步是挑对工具。Claude 有网页、手机、桌面、浏览器扩展、Claude Code、API 好几种形态，还有好几个模型。下一课帮你画一张“该用哪个”的地图。</p>
+      </div>
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。</footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/02-check-before-answer.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+<script src="../assets/js/lessons/02-limits.js"></script>
+</body>
+</html>

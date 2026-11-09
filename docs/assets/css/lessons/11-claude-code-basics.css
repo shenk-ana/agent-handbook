@@ -1,0 +1,22 @@
+/* 第 11 课专属样式：Claude Code 界面示意图（只使用 tokens.css 变量，深色模式随变量自动切换） */
+.figure svg.fig-cc-ui { max-width: 640px; margin: 0 auto; }
+.fig-cc-ui .win { fill: var(--code-bg); stroke: var(--border-strong); }
+.fig-cc-ui .bar { fill: var(--surface-3); }
+.fig-cc-ui .dot { fill: var(--text-3); }
+.fig-cc-ui .mono { font-family: var(--font-mono); font-size: 13px; fill: var(--code-text); }
+.fig-cc-ui .muted { fill: var(--code-muted); }
+.fig-cc-ui .act { fill: var(--code-number); font-weight: 700; }
+.fig-cc-ui .add { fill: var(--code-add); }
+.fig-cc-ui .del { fill: var(--code-del); }
+.fig-cc-ui .ask { fill: var(--code-bg); stroke: var(--code-number); stroke-dasharray: 4 3; }
+.fig-cc-ui .sel { fill: var(--code-number); font-weight: 700; }
+.fig-cc-ui .input { fill: none; stroke: var(--code-line); }
+.fig-cc-ui .tag { fill: var(--accent); }
+.fig-cc-ui .tag-txt { fill: var(--on-fill); font-size: 12px; font-weight: 700; font-family: var(--font-sans); }
+.fig-cc-ui .lead { stroke: var(--accent); stroke-width: 1.5; }
+
+/* 窄屏：保持图中文字可读，图在框内横向滚动 */
+@media (max-width: 600px) {
+  .figure:has(> svg.fig-cc-ui) { overflow-x: auto; }
+  .figure svg.fig-cc-ui { min-width: 520px; }
+}

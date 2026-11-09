@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从聊天到 Agent · Agent 百科全书</title>
+<meta name="description" content="第 1 课：会聊天的 AI 和会办事的 Agent 差在哪？用同一个任务对比两种做法，看懂“动手、多步、根据结果调整”这三个区别。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="1">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 1 部分 · 认识 Agent</span>
+          <span class="chip">第 1 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">从聊天到 Agent</span><br>会说的 AI 和会做的 AI</h1>
+        <p class="lede">你问 AI“周末带爸妈去哪吃饭”，它给你列了一堆建议，最后加一句“建议您自行查询”。你想：要是它能自己去查一下就好了。能自己去查、自己核对、把事办完的 AI，就叫 Agent。</p>
+        <div class="meta-row">
+          <span>⏱ 约 15 分钟</span>
+          <span>👤 所有人；原理层面向开发者</span>
+          <span>🎬 2 个交互演示</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出聊天机器人和 Agent 的三个区别</li>
+          <li>认出 Claude 应用里哪些时候是在“动手”，而不只是“说话”</li>
+          <li>判断一件事用普通聊天就够，还是值得交给 Agent</li>
+          <li><span class="aud-tag">（开发者）</span>理解“同一个模型，接上工具和循环就成了 Agent”，以及它在 API 和 Claude Code 里的样子</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>聊天机器人只会“说”；Agent 会“做”：它能用工具去查、去改、去执行，分好几步完成任务，并根据每一步的结果调整下一步。</p>
+      </div>
+
+      <h2 id="compare"><span class="sec-num">01</span>同一个任务，两种做法</h2>
+      <p>先看同一个任务的两段演示。任务是：“下周六想带爸妈去湖边吃午饭，帮我挑一家合适的餐厅，把理由整理成一张表。”</p>
+      <p>第一段，Claude 手里没有任何工具，只能聊天。留意右边的循环图：它一直没有转起来。</p>
+
+      <div class="player" data-trace="01-chat-only"></div>
+
+      <p>第二段，同一个任务，Claude 可以用“网页搜索”。这次注意循环图怎么转：想一下，查一下，看结果，再想。</p>
+
+      <div class="player" data-trace="01-agent"></div>
+
+      <div class="callout tip">
+        <div class="ico">💡</div>
+        <div class="body">
+          <div class="title">比一比，谁在跑腿</div>
+          <p>第一段里，打开网页、挑候选、复制粘贴、打电话确认，都是你在做，Claude 只负责“读和写”。第二段里，这些事 Claude 自己做了，你只说了一句话。演示里的餐厅和网址都是虚构的。</p>
+        </div>
+      </div>
+
+      <h2 id="three-differences"><span class="sec-num">02</span>三个区别</h2>
+      <figure class="figure reveal" data-kind="流程">
+<svg viewBox="0 0 640 270" role="img" aria-label="聊天只走一步就停；Agent 在想、做、看之间循环"><defs><marker id="f01-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f01-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="254" rx="18"/>
+<text class="dg-k" x="28" y="36">聊天机器人 · 一问一答</text>
+<rect class="dg-box" x="28" y="46" width="150" height="50" rx="12"/>
+<text class="dg-t" x="103" y="71" text-anchor="middle" dominant-baseline="central">你提问</text>
+<path class="dg-line" d="M180 71 H226" marker-end="url(#f01-1-ah)"/>
+<rect class="dg-box" x="232" y="46" width="150" height="50" rx="12"/>
+<text class="dg-t" x="307" y="71" text-anchor="middle" dominant-baseline="central">它回答</text>
+<path class="dg-line" d="M384 71 H430" marker-end="url(#f01-1-ah)"/>
+<rect class="dg-box is-dash" x="436" y="46" width="176" height="50" rx="12"/>
+<text class="dg-t" x="524" y="71" text-anchor="middle" dominant-baseline="central">结束，由你判断对错</text>
+<text class="dg-k" x="28" y="142">AGENT · 多步循环</text>
+<rect class="dg-box" x="28" y="152" width="150" height="50" rx="12"/>
+<text class="dg-t" x="103" y="177" text-anchor="middle" dominant-baseline="central">你交代一件事</text>
+<path class="dg-line" d="M180 177 H226" marker-end="url(#f01-1-ah)"/>
+<rect class="dg-box is-think" x="232" y="152" width="110" height="50" rx="12"/>
+<text class="dg-t on" x="287" y="177" text-anchor="middle" dominant-baseline="central">想</text>
+<path class="dg-line is-think" d="M344 177 H362" marker-end="url(#f01-1-ah-t)"/>
+<rect class="dg-box is-act" x="366" y="152" width="110" height="50" rx="12"/>
+<text class="dg-t on" x="421" y="177" text-anchor="middle" dominant-baseline="central">做</text>
+<path class="dg-line is-act" d="M478 177 H496" marker-end="url(#f01-1-ah-c)"/>
+<rect class="dg-box is-observe" x="500" y="152" width="110" height="50" rx="12"/>
+<text class="dg-t on" x="555" y="177" text-anchor="middle" dominant-baseline="central">看</text>
+<path class="dg-line is-soft is-dash" d="M555 204 V226 H287 V206" marker-end="url(#f01-1-ah)"/>
+<text class="dg-s" x="421" y="246" text-anchor="middle">看完结果，再想下一步</text>
+</svg>
+<figcaption><strong>一个任务，两种走法。</strong>聊天只走一步就停，对错由你判断；Agent 把事情拆成几步，“想 → 做 → 看”一圈圈转，每一圈都根据上一圈的结果调整。</figcaption>
+      </figure>
+      <p>从<span class="term" data-term="chatbot">聊天机器人</span>到 <span class="term" data-term="agent">Agent</span>，差别可以归成三点：</p>
+      <table>
+        <thead><tr><th></th><th>聊天机器人</th><th>Agent</th></tr></thead>
+        <tbody>
+          <tr><td><b>会不会动手</b></td><td>只能根据已经知道的内容写回答</td><td>能用工具：搜索网页、读文件、运行代码、操作软件</td></tr>
+          <tr><td><b>会不会多步</b></td><td>你问一句，它答一句</td><td>自己把任务拆成几步，一步接一步做下去</td></tr>
+          <tr><td><b>会不会根据结果调整</b></td><td>答完就结束，对错要你自己判断</td><td>看了结果再决定下一步：没查到就换个关键词，查到矛盾就再核对</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout analogy">
+        <div class="ico">🧩</div>
+        <div class="body">
+          <div class="title">打个比方：顾问和助理</div>
+          <p>聊天机器人像一位电话顾问：知识丰富，你问什么都能说上几句，但他不会离开电话去替你办事。Agent 像一位助理：你说“帮我订个餐厅”，他会自己去查、去比较、打电话确认，回来告诉你“订好了，周六 11 点，靠窗”。后面的课会一直请这位“新助理”出场。</p>
+        </div>
+      </div>
+
+      <p>第三点最容易被忽略，也最关键。演示 B 里，Claude 第一次搜索之后发现“还不知道周六营不营业”，于是又搜了一次。这种“看结果、再调整”的能力，让 Agent 能处理没法事先规划好的任务。</p>
+
+      <h2 id="how-it-acts"><span class="sec-num">03</span>Agent 是怎么“动手”的</h2>
+      <p>Claude 的“大脑”是一个<span class="term" data-term="llm">大语言模型</span>。它本身只会读文字、写文字。所谓“动手”，是它写出一张格式严格的“单子”，比如“用网页搜索，关键词是……”，由外面的程序照着执行，再把结果交还给它。这张单子叫<span class="term" data-term="tool-use">工具调用</span>。</p>
+      <p>所以，一个 Agent 至少由三样东西组成：做决定的<b>模型</b>、负责执行的<b>工具</b>，以及把两者串起来、一圈一圈转的<b>循环</b>。第 15 课会专门拆开这个<span class="term" data-term="agent-loop">循环</span>。</p>
+
+      <p>在 <span class="term" data-term="claude-app">Claude 应用</span>里（网页、电脑或手机），你其实已经能看到不少“动手”的时刻。截至 2026-11，常见的有：</p>
+      <ul>
+        <li><b><span class="term" data-term="web-search">网页搜索</span></b>：查最新信息，回答里带着来源链接，你可以点过去核对。</li>
+        <li><b>读你给的文件和图片</b>：上传 PDF、Word、表格或者拍一张照片，它能读懂里面的内容，包括图表。</li>
+        <li><b>做出文件</b>：Claude 可以在一个和你电脑隔开的临时空间里写代码、算数据，直接做出 Excel、PPT、Word 或 PDF 文件给你下载。这个功能叫“创建和编辑文件”（Create and edit files，以界面为准），个人套餐默认开启，也可以在设置里关闭。</li>
+      </ul>
+      <p>此外，它还能把一份文档、一个小网页工具这样的成果单独放在对话旁边，方便修改和分享（第 8 课）；也能接上你的日历、网盘等服务（第 6 课）。你在界面上看到“正在搜索……”“正在运行代码……”之类的提示，就是循环在转。还有一些更进一步的产品形态，第 3 课会一起介绍。</p>
+
+      <div class="callout warn">
+        <div class="ico">⚠️</div>
+        <div class="body">
+          <div class="title">功能和套餐会变</div>
+          <p>上面这些功能，有的所有人都能用，有的需要付费套餐，团队版还可能要管理员先开启。是否可用，以你账号里的设置和官方帮助中心为准。</p>
+        </div>
+      </div>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>从 API 看：区别就在 tools 和循环<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p>切到两段演示的“API 视角”对比一下：</p>
+          <ul>
+            <li><b>只聊天</b>：请求里没有 <code>tools</code> 字段。模型每次只返回 <code>text</code> 内容块，<code>stop_reason</code> 都是 <code>end_turn</code>。一来一回，没有循环。</li>
+            <li><b>Agent</b>：请求里声明了工具。模型可以返回工具调用，执行结果再交还给模型，如此往复，直到它不再调用工具。</li>
+          </ul>
+          <p>演示 B 用的网页搜索是一种<b>服务端工具</b>：由 Anthropic 的服务器替你执行。所以 <code>server_tool_use</code>（发起搜索）和 <code>web_search_tool_result</code>（搜索结果）出现在同一条 assistant 消息里，最终回答的文字块带着 <code>citations</code>。你自己定义的工具（比如查数据库）则是<b>客户端工具</b>：模型返回 <code>tool_use</code> 并以 <code>stop_reason: "tool_use"</code> 停下，由你的程序执行后用 <code>tool_result</code> 回传。第 15 课的天气演示就是这一种，第 17 课会详细对比两者。</p>
+          <p>模型还是同一个模型。是否“成为 Agent”，取决于外面有没有给它工具、有没有一个循环去执行它开出的单子。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="结构">
+<svg viewBox="0 0 640 282" role="img" aria-label="Agent 由模型、工具和循环三部分组成，模型写出单子，工具执行，结果交回模型"><defs><marker id="f01-2-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f01-2-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="266" rx="18"/>
+<rect class="dg-box is-think is-lift" x="40" y="48" width="200" height="110" rx="16"/>
+<text class="dg-t is-lg on" x="140" y="86" text-anchor="middle">模型（大脑）</text>
+<text class="dg-s on" x="140" y="116" text-anchor="middle">读文字、写文字</text>
+<text class="dg-s on" x="140" y="136" text-anchor="middle">写出一张“单子”</text>
+<rect class="dg-box is-act is-lift" x="400" y="48" width="200" height="110" rx="16"/>
+<text class="dg-t is-lg on" x="500" y="86" text-anchor="middle">工具（手）</text>
+<text class="dg-s on" x="500" y="116" text-anchor="middle">搜索、读文件、运行代码</text>
+<text class="dg-s on" x="500" y="136" text-anchor="middle">操作软件</text>
+<path class="dg-line is-act" d="M244 88 H396" marker-end="url(#f01-2-ah-c)"/>
+<text class="dg-s is-act" x="320" y="78" text-anchor="middle">① 写出单子</text>
+<path class="dg-line is-observe" d="M396 138 H244" marker-end="url(#f01-2-ah-o)"/>
+<text class="dg-s is-observe" x="320" y="158" text-anchor="middle">② 执行，结果交回</text>
+<path class="dg-line is-soft is-dash" d="M140 158 V196"/>
+<path class="dg-line is-soft is-dash" d="M500 158 V196"/>
+<rect class="dg-box is-accent" x="40" y="196" width="560" height="60" rx="16"/>
+<text class="dg-t is-lg" x="320" y="226" text-anchor="middle" dominant-baseline="central">③ 循环：一圈一圈转，直到事情办完</text>
+</svg>
+<figcaption><strong>Agent 的三个部件。</strong>模型只读写文字，所以它不直接动手，而是写出格式严格的“单子”；外面的程序执行单子，把结果交回模型；循环把这一圈圈串起来。</figcaption>
+      </figure>
+
+      <h2 id="when-chat-is-enough"><span class="sec-num">04</span>聊天还有用吗？</h2>
+      <p>当然有。不是每件事都需要 Agent。判断方法很简单：<b>这件事需不需要 Claude 去“外面”拿东西，或者去“外面”改东西？</b></p>
+      <table>
+        <thead><tr><th>普通聊天就够</th><th>值得让它动手</th></tr></thead>
+        <tbody>
+          <tr><td>改一段你已经写好的文字</td><td>查最新的价格、新闻、营业时间</td></tr>
+          <tr><td>解释一个概念、出一个点子</td><td>读一份 80 页的合同，找出风险条款</td></tr>
+          <tr><td>翻译你贴进来的一段话</td><td>把一份数据表算出结果，做成图表和文件</td></tr>
+          <tr><td>帮你想一封邮件怎么写</td><td>核对一件事的多个来源，给出处</td></tr>
+        </tbody>
+      </table>
+      <p>左边这些，所需的信息你已经给了，Claude 的知识也够用。右边这些，要么需要最新信息，要么需要处理大量材料，要么需要真的“做出”一个东西。让它动手，你省下的是跑腿的时间。</p>
+      <p>动手也意味着风险：它可能查错、改错、点错。所以好的 Agent 在做有影响的事之前会停下来问你。第 2 课讲它的能力边界，第 9 课讲安全。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>在 Claude Code 里看同一件事<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p>如果你用 <span class="term" data-term="claude-code">Claude Code</span>，“聊天”和“Agent”的差别每天都在眼前：</p>
+          <ul>
+            <li>问它“Python 的列表推导式怎么写”，它通常直接回答，不调用工具。这时它就是一个聊天机器人。</li>
+            <li>问它“这个项目的测试为什么挂了”，它会调用 <code>Bash</code> 跑测试、用 <code>Read</code> 读文件、用 <code>Edit</code> 改代码，再跑一遍测试确认。终端里每一行 <code>⏺ 工具名(参数)</code> 就是一次工具调用。</li>
+          </ul>
+          <p>模型并没有换，换的是任务：后一个问题的答案不在模型脑子里，而在你的代码库里。Claude Code 给模型配好了读写文件、执行命令、搜索的工具和权限检查，所以它能自己去拿。第 15 课的“修测试”演示完整展示了这个过程。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="流程">
+<svg viewBox="0 0 640 300" role="img" aria-label="判断流程：这件事需要外面的信息或要做出东西吗？不需要就普通聊天，需要就让它动手"><defs><marker id="f01-3-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f01-3-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="284" rx="18"/>
+<rect class="dg-box is-lift" x="170" y="24" width="300" height="52" rx="14"/>
+<text class="dg-t" x="320" y="50" text-anchor="middle" dominant-baseline="central">要去“外面”拿东西、改东西吗？</text>
+<path class="dg-line" d="M320 76 V110 H160 V156" marker-end="url(#f01-3-ah)"/>
+<path class="dg-line is-accent" d="M320 110 H480 V156" marker-end="url(#f01-3-ah-a)"/>
+<text class="dg-s" x="236" y="102" text-anchor="middle">不需要</text>
+<text class="dg-s is-accent" x="404" y="102" text-anchor="middle">需要</text>
+<rect class="dg-box is-teal" x="40" y="158" width="240" height="72" rx="14"/>
+<text class="dg-t is-teal" x="160" y="186" text-anchor="middle">普通聊天就够</text>
+<text class="dg-s" x="160" y="210" text-anchor="middle">改写、解释、翻译、出点子</text>
+<rect class="dg-box is-accent" x="360" y="158" width="240" height="72" rx="14"/>
+<text class="dg-t is-accent" x="480" y="186" text-anchor="middle">让它动手</text>
+<text class="dg-s" x="480" y="210" text-anchor="middle">查最新信息、读大量材料、做出文件</text>
+<text class="dg-s is-faint" x="160" y="256" text-anchor="middle">所需信息你已经给了，聊天就足够</text>
+<text class="dg-s is-faint" x="480" y="256" text-anchor="middle">动手有风险：会查错、改错，重要的事要确认</text>
+</svg>
+<figcaption><strong>一个简单的判断。</strong>先问：这件事要不要 Claude 去外面拿最新信息，或者真的去改、去做出东西？需要，才值得让它动手；不需要，普通聊天更快。</figcaption>
+      </figure>
+
+      <h2 id="try-it"><span class="sec-num">05</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">🔍 同一个问题，开关搜索各问一次 <span class="badge">不需要写代码</span></div>
+        <p>在 Claude 应用里，用两个新对话问同一个问题：一次让它别上网，一次请它上网查。</p>
+        <div class="prompt-sample">请不要上网搜索，只根据你已经知道的内容回答：我所在的城市这个周末有什么值得去的展览？</div>
+        <div class="prompt-sample">请上网搜索后回答：我所在的城市这个周末有什么值得去的展览？每一条都告诉我来源。</div>
+        <ol>
+          <li>把“我所在的城市”换成你住的城市。</li>
+          <li>对比两次的回答：哪一次说了“我无法确认”？哪一次带了来源链接？</li>
+          <li>点开一个来源，核对它说的日期和地点对不对。</li>
+        </ol>
+        <p>提示：网页搜索的开关位置会随版本变化，有的界面会在需要时自动搜索。如果它仍然说无法上网，可能是账号没开网页搜索：去设置里找“网页搜索”（界面上可能显示为 Web search，以界面为准）。团队账号可能需要管理员先开启。</p>
+      </div>
+      <div class="try-it">
+        <div class="head">🖥 看 Claude Code 什么时候动手 <span class="badge">开发者 · 需要电脑操作</span></div>
+        <p>在你的项目目录里打开 Claude Code，先后输入下面两句：</p>
+        <div class="prompt-sample">用一句话解释什么是幂等性。</div>
+        <div class="prompt-sample">这个项目里有没有哪个接口不是幂等的？先别改任何东西，只告诉我你的判断依据。</div>
+        <ol>
+          <li>第一句它调用了工具吗？第二句调用了哪些工具、几次？</li>
+          <li>第二句的回答里，它有没有引用具体的文件和行？</li>
+        </ol>
+      </div>
+
+      <h2 id="myths"><span class="sec-num">06</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">Agent 是一个比聊天机器人更聪明的新模型。</p><span class="ok">✓</span><p>模型可以是同一个。区别在于有没有给它工具，以及有没有一个循环让它“做一步、看一步”。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">能用工具，就什么都该交给 Agent。</p><span class="ok">✓</span><p>改写、解释、出点子这类事，普通聊天又快又好。需要外部信息或者要真的做出东西时，才值得让它动手。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">Agent 查过资料，结果就一定对。</p><span class="ok">✓</span><p>查资料能减少错误，但网页本身可能过时或出错。看它给的来源，重要的事自己再核对一次。</p></div>
+      </div>
+
+      <h2 id="quiz"><span class="sec-num">07</span>小测验</h2>
+      <div class="quiz" data-answer="b">
+        <div class="q"><span class="qn">Q1</span>下面哪个最能说明 Claude 正在“像 Agent 一样”工作？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>它的回答很长、很有条理</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>它搜索了一次，发现信息不够，又换了个关键词再搜</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>它用了很多专业术语</span></button>
+        </div>
+        <div class="explain">动手（用工具）、多步、根据结果调整，三点都占了。回答长短和用词与是不是 Agent 无关。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q2</span>哪件事用普通聊天就足够了？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>查一下明天去机场的航班有没有延误</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>读完一个文件夹里的 20 份报价单，做成对比表</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>把你写好的一段自我介绍改得更口语一些</span></button>
+        </div>
+        <div class="explain">改写你已经给出的文字，不需要外部信息，也不需要做出文件。A 需要实时信息，B 需要读大量材料并生成结果。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q3</span><span class="aud-tag">（开发者）</span>在 API 层面，“只聊天”和“Agent”的请求最关键的区别是？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>Agent 用的是另一个模型 ID</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>Agent 的 max_tokens 设得更大</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>Agent 的请求声明了工具，并有一个执行工具、回传结果的循环</span></button>
+        </div>
+        <div class="explain">同一个模型就能做 Agent。关键是 tools 字段和外层循环（或者服务端工具在服务器上完成的循环）。</div>
+      </div>
+
+      <h2 id="resources"><span class="sec-num">08</span>推荐工具与延伸</h2>
+      <p>想看 Agent 在你自己电脑上动手，最直接的是 Claude Code。不写代码的读者可以先跳过，第 3 课会帮你挑合适的产品。</p>
+      <div class="resources" data-ids="claude-code"></div>
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="chatbot">聊天机器人</span>
+        <span class="term" data-term="agent">Agent</span>
+        <span class="term" data-term="llm">大语言模型</span>
+        <span class="term" data-term="tool-use">工具调用</span>
+        <span class="term" data-term="agent-loop">Agent 循环</span>
+        <span class="term" data-term="web-search">网页搜索</span>
+        <span class="term" data-term="claude-app">Claude 应用</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 1 课完成</div>
+        <p>Agent 能动手了，那它是不是什么都能做好？下一课讲它擅长什么、不擅长什么，以及为什么它有时会一本正经地说错话。</p>
+      </div>
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。</footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/01-chat-vs-agent.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+</body>
+</html>

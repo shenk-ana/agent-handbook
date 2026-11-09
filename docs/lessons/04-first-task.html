@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第一次委托任务 · Agent 百科全书</title>
+<meta name="description" content="第 4 课：从写提示词到写任务简报。目标、背景、限制、交付形式、完成标准，再加一句“先问我”，让 Claude 一次把事办对。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+<link rel="stylesheet" href="../assets/css/lessons/04-first-task.css">
+</head>
+<body data-base="../" data-lesson="4">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 2 部分 · 用好 Claude</span>
+          <span class="chip">第 4 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">第一次委托任务</span><br>从“提示词”到“任务简报”</h1>
+        <p class="lede">你跟新来的同事说“帮我弄一下周末的事”，他多半会一脸茫然。跟 Claude 说话也一样。它很能干，但它不知道你脑子里的那些条件。多花一分钟把事情交代清楚，往往能省下好几轮返工。</p>
+        <div class="meta-row">
+          <span>⏱ 约 15 分钟</span>
+          <span>👤 所有人；原理层面向开发者</span>
+          <span>🎬 2 个交互演示 · 1 个简报生成器</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出模糊指令为什么会导致来回返工</li>
+          <li>用六个部分写出一份任务简报</li>
+          <li>让 Claude 在动手之前先问清楚</li>
+          <li>在任务进行中看过程、及时纠偏，并按完成标准验收</li>
+          <li><span class="aud-tag">（开发者）</span>在 Claude Code 里写出可验证的完成标准，并用计划模式先对齐方案</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>把“一句话指令”换成“一份简报”：目标、背景、限制、交付形式、完成标准，再加一句“有不清楚的先问我”。</p>
+      </div>
+
+      <h2 id="compare"><span class="sec-num">01</span>同一件事，两种交代方式</h2>
+      <p>你发给 AI 的那段话叫<span class="term" data-term="prompt">提示词</span>。很多人以为写提示词要靠什么“咒语”，其实不需要。对 Agent 来说，最重要的是把任务交代清楚。先看两段演示，任务都是“周末带孩子出去玩”。</p>
+      <p>第一段，只说一句话：</p>
+
+      <div class="player" data-trace="04-vague"></div>
+
+      <p>第二段，多写了几行。注意 Claude 在动手之前做了什么：</p>
+
+      <div class="player" data-trace="04-brief"></div>
+
+      <div class="callout tip">
+        <div class="ico">💡</div>
+        <div class="body">
+          <div class="title">差别不在 Claude，在你给的信息</div>
+          <p>两段演示里，是同一个 Claude。第一段它只能猜一个“平均的家庭”，猜错了就得返工；第二段它知道该搜什么、该排除什么、做到哪一步算完。演示中的地点和价格都是虚构的。</p>
+        </div>
+      </div>
+
+      <h2 id="six-parts"><span class="sec-num">02</span>一份简报的六个部分</h2>
+      <figure class="figure reveal" data-kind="结构">
+<svg viewBox="0 0 640 272" role="img" aria-label="任务简报由六个部分组成：目标、背景、限制、交付、完成标准、先问我，其中完成标准以主色突出"><defs><marker id="f04-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f04-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="256" rx="18"/>
+<rect class="dg-box is-accent is-lift" x="28" y="30" width="180" height="100" rx="14"/>
+<circle class="dg-dot is-accent" cx="50" cy="52" r="12"/>
+<text class="dg-dot-t" x="50" y="52" text-anchor="middle" dominant-baseline="central">1</text>
+<text class="dg-t" x="72" y="57">目标</text>
+<text class="dg-s" x="44" y="82">你最终想要什么？</text>
+<text class="dg-s is-faint" x="44" y="108">例：周六下午 3 小时</text>
+<rect class="dg-box is-lift" x="230" y="30" width="180" height="100" rx="14"/>
+<circle class="dg-dot" cx="252" cy="52" r="12"/>
+<text class="dg-dot-t" x="252" y="52" text-anchor="middle" dominant-baseline="central">2</text>
+<text class="dg-t" x="274" y="57">背景</text>
+<text class="dg-s" x="246" y="82">它需要知道的事</text>
+<text class="dg-s is-faint" x="246" y="108">例：孩子 5 岁，住东区</text>
+<rect class="dg-box is-lift" x="432" y="30" width="180" height="100" rx="14"/>
+<circle class="dg-dot" cx="454" cy="52" r="12"/>
+<text class="dg-dot-t" x="454" y="52" text-anchor="middle" dominant-baseline="central">3</text>
+<text class="dg-t" x="476" y="57">限制</text>
+<text class="dg-s" x="448" y="82">必须遵守、不许做的</text>
+<text class="dg-s is-faint" x="448" y="108">例：地铁 40 分钟内</text>
+<rect class="dg-box is-lift" x="28" y="150" width="180" height="100" rx="14"/>
+<circle class="dg-dot" cx="50" cy="172" r="12"/>
+<text class="dg-dot-t" x="50" y="172" text-anchor="middle" dominant-baseline="central">4</text>
+<text class="dg-t" x="72" y="177">交付</text>
+<text class="dg-s" x="44" y="202">做成什么样子</text>
+<text class="dg-s is-faint" x="44" y="228">例：3 个选项的表格</text>
+<rect class="dg-box is-green is-lift" x="230" y="150" width="180" height="100" rx="14"/>
+<circle class="dg-dot is-green" cx="252" cy="172" r="12"/>
+<text class="dg-dot-t" x="252" y="172" text-anchor="middle" dominant-baseline="central">5</text>
+<text class="dg-t is-green" x="274" y="177">完成标准</text>
+<text class="dg-s" x="246" y="202">怎样算做完、做对</text>
+<text class="dg-s is-faint" x="246" y="228">例：每个选项附来源</text>
+<rect class="dg-box is-teal is-lift" x="432" y="150" width="180" height="100" rx="14"/>
+<circle class="dg-dot is-teal" cx="454" cy="172" r="12"/>
+<text class="dg-dot-t" x="454" y="172" text-anchor="middle" dominant-baseline="central">6</text>
+<text class="dg-t is-teal" x="476" y="177">先问我</text>
+<text class="dg-s" x="448" y="202">信息不够时怎么办</text>
+<text class="dg-s is-faint" x="448" y="228">例：最多问三个问题</text>
+</svg>
+<figcaption><strong>任务简报的六块积木。</strong>前四块交代“做什么、为什么、怎么做”；第 5 块是可以检查的完成标准，第 6 块让 Claude 在信息不够时先问。缺哪一块，就先补哪一块。</figcaption>
+      </figure>
+      <p>写给 Agent 的完整说明，本书叫它<span class="term" data-term="task-brief">任务简报</span>。它通常包括六个部分：</p>
+      <table>
+        <thead><tr><th>部分</th><th>回答的问题</th><th>演示里的例子</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 目标</b></td><td>你最终想要什么结果？</td><td>周六下午带孩子出去玩 3 小时左右</td></tr>
+          <tr><td><b>② 背景</b></td><td>它需要知道哪些你知道、它不知道的事？</td><td>孩子 5 岁，住东区，没有车，周六有雨</td></tr>
+          <tr><td><b>③ 限制</b></td><td>哪些条件必须遵守、哪些事不许做？</td><td>地铁单程 40 分钟内，总预算 200 元；不要推荐需要开车的地方</td></tr>
+          <tr><td><b>④ 交付</b></td><td>结果做成什么样子？</td><td>3 个选项，做成表格，列交通、费用、理由</td></tr>
+          <tr><td><b>⑤ 完成标准</b></td><td>怎样才算做完、做对？</td><td>每个选项都核对过开放时间，附来源</td></tr>
+          <tr><td><b>⑥ 先问我</b></td><td>信息不够时怎么办？</td><td>有不清楚的先问我</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout analogy">
+        <div class="ico">🧩</div>
+        <div class="body">
+          <div class="title">打个比方：给聪明的新同事派活</div>
+          <p>Anthropic 官方的建议是，把 Claude 想象成一位非常聪明、但刚入职的新同事：他能力很强，却不了解你的习惯和背景。还有一个简单的检验办法：把你写的话拿给一位不了解情况的同事看，如果他会困惑，Claude 多半也会。</p>
+        </div>
+      </div>
+
+      <p>几个写简报的小技巧：</p>
+      <ul>
+        <li><b>说出“为什么”</b>。“要室内的，因为周六下雨”比“要室内的”更好。知道原因，Claude 能举一反三，比如自动排除露天的游乐场。</li>
+        <li><b>完成标准要能检查</b>。“做得好一点”没法检查；“每个选项都附上来源”可以检查。可检查的标准，Claude 自己也能判断做没做完。</li>
+        <li><b>不必每栏都写满</b>。简单的事一两句就够了。目标一定要有，其他几栏按需要补。</li>
+        <li><b>给例子</b>。想要某种格式或语气，直接贴一段你喜欢的样例，比描述半天更准。</li>
+      </ul>
+
+      <h2 id="ask-first"><span class="sec-num">03</span>让它先问问题</h2>
+      <p>简报里最省事的一句话是：“有不清楚的先问我。”演示 B 里，Claude 只问了一个问题“孩子更喜欢动手玩还是看展”，你只回答了几个字，结果就准了很多。</p>
+      <p>这句话的作用，是给 Claude 一个“不必硬猜”的出口。没有它，Claude 通常会按最常见的情况先做一版。有了它，遇到会影响结果的空白时，它会先停下来问你。你还可以限定数量，比如“最多问三个问题”，免得它问个没完。</p>
+      <p>反过来，如果你赶时间，也可以明确说：“不用问我，按你的判断做，把你做的假设列在最后。”这样你至少知道它在哪里猜了。</p>
+      <figure class="figure reveal" data-kind="流程">
+<svg viewBox="0 0 640 200" role="img" aria-label="流程：拿到简报后，若有影响结果的空白，就先问你；没有空白，就按信息动手并列出假设"><defs><marker id="f04-2-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f04-2-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="184" rx="18"/>
+<rect class="dg-box is-lift" x="28" y="72" width="140" height="56" rx="14"/>
+<text class="dg-t" x="98" y="100" text-anchor="middle" dominant-baseline="central">拿到简报</text>
+<path class="dg-line" d="M168 100 H196" marker-end="url(#f04-2-ah)"/>
+<rect class="dg-box is-accent is-lift" x="200" y="66" width="190" height="68" rx="14"/>
+<text class="dg-t" x="295" y="92" text-anchor="middle">有影响结果的空白？</text>
+<text class="dg-s" x="295" y="114" text-anchor="middle">靠猜，结果会返工</text>
+<path class="dg-line is-accent" d="M390 84 H428" marker-end="url(#f04-2-ah-a)"/>
+<text class="dg-s is-accent" x="409" y="76" text-anchor="middle">有</text>
+<rect class="dg-box is-amber is-lift" x="430" y="30" width="190" height="56" rx="14"/>
+<text class="dg-t is-amber" x="525" y="50" text-anchor="middle">先问你，最多 3 个</text>
+<text class="dg-s" x="525" y="70" text-anchor="middle">你回答后再动手</text>
+<path class="dg-line is-soft" d="M390 116 H410 V140 H428" marker-end="url(#f04-2-ah)"/>
+<text class="dg-s" x="410" y="160" text-anchor="middle">没有</text>
+<rect class="dg-box is-green is-lift" x="430" y="128" width="190" height="56" rx="14"/>
+<text class="dg-t is-green" x="525" y="148" text-anchor="middle">按信息动手</text>
+<text class="dg-s" x="525" y="168" text-anchor="middle">列出你没说的假设</text>
+</svg>
+<figcaption><strong>让它先问，而不是硬猜。</strong>遇到会改变结果的空白，先停下来问你，问题数量可以限定；没有空白就直接动手，并把它做的假设列出来，方便你核对。</figcaption>
+      </figure>
+
+      <h2 id="builder"><span class="sec-num">04</span>小工具：拼一份任务简报</h2>
+      <p>按六个部分填一填，下面会自动拼出一段可以直接复制给 Claude 的简报。可以先点“填入示例”看看效果。</p>
+
+      <div class="brief-builder" id="brief-builder" aria-label="任务简报生成器">
+        <noscript><p>这个生成器需要启用 JavaScript。你也可以照着第 02 节的表格自己写。</p></noscript>
+      </div>
+
+      <h2 id="after"><span class="sec-num">05</span>交出去以后：看、纠、验</h2>
+      <p>简报发出去，事情还没完。和 <span class="term" data-term="agent">Agent</span> 合作的后半程有三件事：</p>
+      <ol>
+        <li><b>看过程</b>：留意它搜了什么、读了什么。界面上的“正在搜索……”和来源列表，就是它的工作记录。</li>
+        <li><b>及时纠偏</b>：发现方向不对，不必等它做完。直接补一句“等一下，我们没有车”，它会调整。越早纠正，浪费越少。</li>
+        <li><b>按标准验收</b>：拿你写的完成标准对一遍。说好附来源的，点开一两个看看；说好控制预算的，加一加总数。</li>
+      </ol>
+      <p>同一类事情要反复交代时，把简报存下来，下次改几个字就能用。经常用的固定要求，可以写进 Projects 的项目说明（第 5 课），或者做成 <span class="term" data-term="skill">Skill</span>：一份打包好的“做事说明书”，Claude 接到对应的活儿时会自动拿出来照着做（第 7 课）。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>在 Claude Code 里写任务简报<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p>开发场景的简报结构一样，但有两个特别有用的做法：</p>
+          <ul>
+            <li><b>完成标准写成命令</b>：例如“完成标准：<code>npm test</code> 和 <code>npm run lint</code> 全部通过；不修改 <code>src/legacy/</code> 下的文件”。Claude Code 能自己运行这些命令来判断是否完成，这正是第 15 课演示里“改完再跑一遍测试”的来源。</li>
+            <li><b>先对齐方案再动手</b>：较大的改动先用计划模式（<code>/plan</code>）让它只出方案、不改文件，你确认后再执行。这相当于简报里的“先问我”，只是对象从信息变成了方案。</li>
+          </ul>
+          <p>还要分清两种信息的去处：</p>
+          <table>
+            <thead><tr><th>信息</th><th>放在哪</th></tr></thead>
+            <tbody>
+              <tr><td>本次任务的目标、限制、完成标准</td><td>当次的提示词（任务简报）</td></tr>
+              <tr><td>每次都适用的约定：测试命令、代码风格、禁区目录</td><td>项目的 <span class="term" data-term="claude-md">CLAUDE.md</span>（第 12 课）</td></tr>
+              <tr><td>反复执行的固定流程，例如“发版前检查”</td><td>Skills 或自定义命令（第 13 课）</td></tr>
+            </tbody>
+          </table>
+          <p>Anthropic 的提示词最佳实践还强调：想让它做得比字面要求更多（例如“尽量完善”），要明确说出来，不要指望它从模糊的指令里推断；需要按顺序执行的步骤，用编号列表写清楚。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="循环">
+<svg viewBox="0 0 640 262" role="img" aria-label="三个动作循环：看过程、及时纠偏、按标准验收，并一圈圈转"><defs><marker id="f04-3-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f04-3-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="246" rx="18"/>
+<path class="dg-line is-accent" d="M392 58 Q500 84 498 166" marker-end="url(#f04-3-ah-a)"/>
+<path class="dg-line is-amber" d="M418 198 H222" marker-end="url(#f04-3-ah-c)"/>
+<path class="dg-line is-green" d="M142 166 Q140 84 248 58" marker-end="url(#f04-3-ah-g)"/>
+<rect class="dg-box is-accent is-lift" x="250" y="30" width="140" height="56" rx="14"/>
+<text class="dg-t is-accent" x="320" y="50" text-anchor="middle">① 看过程</text>
+<text class="dg-s" x="320" y="70" text-anchor="middle">留意它搜了什么</text>
+<rect class="dg-box is-amber is-lift" x="420" y="170" width="170" height="56" rx="14"/>
+<text class="dg-t is-amber" x="505" y="190" text-anchor="middle">② 及时纠偏</text>
+<text class="dg-s" x="505" y="210" text-anchor="middle">发现偏了，马上补一句</text>
+<rect class="dg-box is-green is-lift" x="52" y="170" width="170" height="56" rx="14"/>
+<text class="dg-t is-green" x="137" y="190" text-anchor="middle">③ 按标准验收</text>
+<text class="dg-s" x="137" y="210" text-anchor="middle">对照完成标准检查</text>
+<text class="dg-t" x="320" y="124" text-anchor="middle">一圈一圈，直到做完</text>
+<text class="dg-s" x="320" y="146" text-anchor="middle">越早纠，浪费的步骤越少</text>
+</svg>
+<figcaption><strong>交出去以后的三个动作。</strong>看过程、及时纠偏、按标准验收，循环往复。纠偏越早，返工越少；验收的依据，正是你在简报里写下的完成标准。</figcaption>
+      </figure>
+
+      <h2 id="try-it"><span class="sec-num">06</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">✍️ 把一句话改写成简报 <span class="badge">不需要写代码</span></div>
+        <ol>
+          <li>想一件你最近真想交给 AI 的事，先只用一句话交代，看看结果。</li>
+          <li>用第 04 节的生成器补全六个部分，在新对话里再交代一次。</li>
+          <li>对比两次：第二次它问了你什么问题？结果更接近你要的吗？</li>
+        </ol>
+        <p>也可以让 Claude 帮你把简报写完整：</p>
+        <div class="prompt-sample">我想请你帮我做一件事：（一句话描述）。先别开始做。请帮我把它整理成一份任务简报，包括目标、背景、限制、交付形式和完成标准。缺的信息请逐条问我。</div>
+      </div>
+      <div class="try-it">
+        <div class="head">🖥 给 Claude Code 一份带验收标准的简报 <span class="badge">开发者 · 需要电脑操作</span></div>
+        <div class="prompt-sample">目标：给 utils/date.js 里的 formatDate 增加对时区参数的支持。背景：前端会传入 IANA 时区名，例如 Asia/Tokyo。限制：不引入新的依赖，不改动现有函数签名的默认行为。交付：代码改动加对应的单元测试。完成标准：npm test 全部通过。开始改代码之前，先给我一个简短的方案，等我确认。</div>
+        <ol>
+          <li>把文件名和命令换成你项目里真实存在的。</li>
+          <li>观察它是否先给方案、等你确认；完成后是否主动运行了测试。</li>
+        </ol>
+      </div>
+
+      <h2 id="myths"><span class="sec-num">07</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">写提示词有秘诀，网上抄一段“万能咒语”就行。</p><span class="ok">✓</span><p>对当前的 Claude 来说，把事情交代清楚，比找“万能咒语”有用得多。你知道而它不知道的信息，才是关键。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">写得越长越好。</p><span class="ok">✓</span><p>要的是“关键信息齐全”，不是字数多。简单的事一两句就够，复杂的事才需要完整的简报。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">它问我问题，说明它不够聪明。</p><span class="ok">✓</span><p>先问清楚会影响结果的空白，正是靠谱同事的做法。比起做完再返工，问一句省事得多。</p></div>
+      </div>
+
+      <h2 id="quiz"><span class="sec-num">08</span>小测验</h2>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q1</span>下面哪一条是“可以检查”的完成标准？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>写得专业一点</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>尽量让我满意</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>每个推荐都附上官方网站的链接</span></button>
+        </div>
+        <div class="explain">C 做没做到一眼就能看出来，Claude 自己也能判断。A 和 B 没有明确的标准。</div>
+      </div>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q2</span>“周六有雨，所以要室内的”比“要室内的”好在哪里？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>说出了原因，Claude 能举一反三，比如排除露天场所</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>字数更多，显得更认真</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>没有区别</span></button>
+        </div>
+        <div class="explain">知道“为什么”，Claude 就能把这个理由用到你没想到的地方。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q3</span>Claude 做到一半，你发现它理解错了一个条件。最好的做法是？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>等它全部做完再说</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>关掉对话，换个 AI 重来</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>马上补一句纠正，让它调整</span></button>
+        </div>
+        <div class="explain">越早纠偏，浪费的步骤越少。它会根据你的新信息调整后面的做法。</div>
+      </div>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q4</span><span class="aud-tag">（开发者）</span>“测试命令是 pnpm test”这条信息，最适合放在哪里？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>项目的 CLAUDE.md</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>每次任务的提示词里都写一遍</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>不用写，它自己会猜</span></button>
+        </div>
+        <div class="explain">每次都适用的约定写进 CLAUDE.md，每次会话自动加载；当次任务特有的目标和标准才写进简报。</div>
+      </div>
+
+      <h2 id="resources"><span class="sec-num">09</span>推荐工具与延伸</h2>
+      <p>同一类简报反复用时，可以把它做成 Skill，让 Claude 记住这套固定流程（第 7 课）。官方示例库可以先看看别人是怎么写的。卡片上的“核实于”日期，是最后一次检查维护状态和许可证的时间。</p>
+      <div class="resources" data-ids="anthropic-skills"></div>
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="prompt">提示词</span>
+        <span class="term" data-term="task-brief">任务简报</span>
+        <span class="term" data-term="agent">Agent</span>
+        <span class="term" data-term="claude-md">CLAUDE.md</span>
+        <span class="term" data-term="skill">Skill</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 4 课完成</div>
+        <p>简报写得再好，每次都要重新交代背景也很累。下一课讲 Claude 的“桌面”有多大，以及怎么用文件、Projects 和记忆，让它不用你每次从头讲起。</p>
+      </div>
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。</footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/04-vague-vs-brief.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+<script src="../assets/js/lessons/04-first-task.js"></script>
+</body>
+</html>

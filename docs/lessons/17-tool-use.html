@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工具调用与 MCP 协议 · Agent 百科全书</title>
+<meta name="description" content="第 17 课：一个工具由名称、描述和参数格式组成，为什么描述格外重要；客户端工具与服务端工具、并行调用、错误回传、strict 模式；MCP 协议的角色、原语、JSON-RPC 消息和传输方式，以及一个最小的 MCP 服务器。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="17" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 17 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">工具调用与 MCP</span><br>Claude 是怎么“看懂”一个工具的</h1>
+        <p class="lede">第 15 课说，Claude 的“行动”就是写一张格式严格的单子，由程序替它去办。那它怎么知道有哪些单子可以开、每张单子该怎么填？答案是工具的“说明书”。这一课拆开这份说明书，再看 MCP 协议如何把别人写的工具接到 Claude 身上。</p>
+        <div class="meta-row">
+          <span>⏱ 约 25 分钟</span>
+          <span>👤 前两节所有人可读；之后以 Claude Code 为例，面向开发者</span>
+          <span>🎬 1 个交互演示 · 1 个协议步进器</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 17 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出一个工具由哪三部分组成，以及为什么“描述”格外重要</li>
+          <li>区分“你的程序执行的工具”和“Anthropic 那边执行的工具”</li>
+          <li><span class="aud-tag">（开发者）</span>知道并行调用、错误回传和 strict 模式各解决什么问题</li>
+          <li><span class="aud-tag">（开发者）</span>看懂 MCP 的 tools/list、tools/call 消息，说出 stdio 与 Streamable HTTP 的区别</li>
+          <li><span class="aud-tag">（开发者）</span>用官方 Python SDK 写出一个最小的 MCP 服务器并接进 Claude Code</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>一个工具的三要素</li>
+          <li>谁来执行：两类工具</li>
+          <li>在 Claude Code 里看工具调用</li>
+          <li>MCP 协议层：消息是怎么传的</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

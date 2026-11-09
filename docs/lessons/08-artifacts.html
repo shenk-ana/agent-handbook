@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifacts：做报告、网页和小工具 · Agent 百科全书</title>
+<meta name="description" content="第 8 课：让 Claude 把成果做成可以打开、点击、分享的文档、网页、图表和小工具。怎么提需求、怎么一步步改、分享和发布前要注意什么。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+<link rel="stylesheet" href="../assets/css/lessons/08-artifacts.css">
+</head>
+<body data-base="../" data-lesson="8">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <!-- ===== 课首 ===== -->
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 2 部分 · 用好 Claude</span>
+          <span class="chip">第 8 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">Artifacts</span><br>把想法做成能用的报告、网页和小工具</h1>
+        <p class="lede">聊天记录里的一大段文字，复制出去还得重新排版；一段代码，你也不知道怎么运行。Artifact 换了个思路：Claude 直接在对话旁边给你一份“成品”，能看、能点、能改，满意了还能发给别人。</p>
+        <div class="meta-row">
+          <span>⏱ 约 16 分钟</span>
+          <span>👤 基础层所有人可读；原理层面向开发者</span>
+          <span>🎬 1 个交互演示 · 1 张图示</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出 Artifact 能做哪几类东西，以及什么时候适合用它</li>
+          <li>用一段清楚的需求描述，让 Claude 做出可用的初版</li>
+          <li>用“一次改一两处”的方法把初版迭代成你想要的样子</li>
+          <li>分享或公开之前，检查访问范围和里面的数据</li>
+          <li><span class="aud-tag">（开发者）</span>了解 Artifact 的存储、连接应用等能力边界，以及 Claude Code 中的对应功能</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>Artifact 是 Claude 在对话旁边单独做出来的成品；先要一个能用的初版，再一处一处地改，分享之前想清楚谁能看到、里面存了什么。</p>
+      </div>
+
+      <!-- ===== 1 ===== -->
+      <h2 id="what"><span class="sec-num">01</span>Artifact 是什么</h2>
+      <p>先看一个例子：你请 Claude 列一份旅行打包清单，清单没有挤在聊天气泡里，而是在对话旁边的一个独立窗口里打开，可以勾选、可以接着改，下次还能找到。</p>
+      <p>当 Claude 要给你的内容比较完整、能独立存在、而且你多半会反复使用时，就会这样单独放进一个窗口。这个窗口里的东西，就是 <span class="term" data-term="artifact">Artifact</span>。</p>
+
+      <div class="callout analogy">
+        <div class="ico">🧩</div>
+        <div class="body">
+          <div class="title">打个比方：边聊边画的白板</div>
+          <p>和设计师开会时，你们一边说话，他一边在白板上画稿。稿子单独立在那儿，你可以指着说“这个按钮大一点”，他擦掉重画。对话是你们的交流，白板上的稿子才是成果。</p>
+        </div>
+      </div>
+
+      <p>截至 2026-11，按官方帮助中心，Artifact 可以是：</p>
+      <table>
+        <thead><tr><th>类型</th><th>适合做什么</th><th>例子</th></tr></thead>
+        <tbody>
+          <tr><td>文档</td><td>需要排版、会被转发的文字</td><td>调研报告、活动方案、操作说明</td></tr>
+          <tr><td>演示文稿</td><td>要讲给别人听的内容</td><td>家长会分享、周会汇报</td></tr>
+          <tr><td>单页网页</td><td>需要好看地展示的信息</td><td>活动介绍页、个人作品页</td></tr>
+          <tr><td>图表与示意图</td><td>把数字和流程画出来</td><td>月度开支饼图、办事流程图</td></tr>
+          <tr><td>交互小工具</td><td>需要点、填、算的东西</td><td>记账本、家务积分表、倒计时</td></tr>
+        </tbody>
+      </table>
+      <p>此外还有文档、幻灯片、设计等现成模板，部分模板可以导出成 Word、PDF、PowerPoint 等格式。你做过的 Artifact 都会保存在侧栏的 Artifacts 里，换一段对话也能找回来。哪些模板在你的套餐里可用、是否为 beta，以官方帮助中心为准。</p>
+      <figure class="figure reveal" data-kind="结构">
+<svg viewBox="0 0 640 280" role="img" aria-label="左边是对话，右边是独立的 Artifact 窗口，对话里生成的小工具放在旁边，可以修改和分享"><defs><marker id="f08-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f08-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="264" rx="18"/>
+<rect class="dg-zone" x="24" y="24" width="232" height="232" rx="16"/>
+<rect class="dg-box is-accent" x="40" y="44" width="200" height="44" rx="14"/>
+<text class="dg-s" x="140" y="66" text-anchor="middle" dominant-baseline="central">做一个家庭记账小工具</text>
+<rect class="dg-box is-lift" x="40" y="100" width="200" height="64" rx="14"/>
+<text class="dg-s" x="56" y="124">好的，已经做好了。</text>
+<text class="dg-s is-faint" x="56" y="146">点右边预览，可以继续改</text>
+<path class="dg-line is-accent" d="M262 132 H290" marker-end="url(#f08-1-ah-a)"/>
+<rect class="dg-box is-lift" x="294" y="24" width="322" height="232" rx="16"/>
+<rect class="dg-zone is-accent" x="294" y="24" width="322" height="36" rx="16"/>
+<text class="dg-t is-sm is-accent" x="314" y="42" dominant-baseline="central">Artifact · 家庭记账</text>
+<rect class="dg-bar is-soft" x="316" y="78" width="200" height="12" rx="6"/>
+<rect class="dg-box" x="316" y="100" width="278" height="36" rx="8"/>
+<text class="dg-s" x="330" y="118" dominant-baseline="central">本月支出：1,280 元</text>
+<rect class="dg-box is-solid" x="316" y="150" width="110" height="34" rx="10"/>
+<text class="dg-t on is-sm" x="371" y="167" text-anchor="middle" dominant-baseline="central">记一笔</text>
+<rect class="dg-bar is-soft" x="316" y="204" width="260" height="10" rx="5"/>
+<rect class="dg-bar is-soft" x="316" y="222" width="200" height="10" rx="5"/>
+<text class="dg-s is-faint" x="458" y="250" text-anchor="middle">独立窗口，可修改、可分享</text>
+</svg>
+<figcaption><strong>Artifact 是对话旁边的一块独立作品。</strong>聊天负责说明和修改，作品单独放在一边，能直接操作，也能保存、分享。改一次，作品就更新一次。</figcaption>
+      </figure>
+
+      <!-- ===== 2 ===== -->
+      <h2 id="demo"><span class="sec-num">02</span>看一个例子：两轮对话做出一个小工具</h2>
+      <p>下面的演示把一句口语化的需求做成“家务积分表”。注意两个细节：Claude 先给了一个能用的简单版本；第二轮涉及“存数据、全家共用”时，它先想清楚了<b>谁能看到这些数据</b>。</p>
+
+      <div class="player" data-trace="08-build-tool"></div>
+
+      <!-- ===== 3 ===== -->
+      <h2 id="iterate"><span class="sec-num">03</span>怎么提需求，怎么一步步改</h2>
+
+      <p>做 Artifact 和做别的事一样，第一句话说清楚，能省掉很多来回。一个好的需求通常回答这几件事：</p>
+      <ol>
+        <li><b>做给谁用</b>：自己、家人、同事，还是公开的读者？</li>
+        <li><b>要做成什么</b>：文档、网页、小工具、图表？</li>
+        <li><b>最核心的一两个功能</b>：先说最重要的，别一口气列二十条。</li>
+        <li><b>手头有什么材料</b>：数据、文字、你喜欢的样例。</li>
+      </ol>
+      <div class="prompt-sample">帮我做一个记录每天喝水量的小工具，给我自己用，主要在手机上打开。功能：点一下按钮记一杯（250 毫升），显示今天喝了多少、离 2000 毫升还差多少。先做最简单能用的版本，界面清爽一点。</div>
+
+      <p>初版出来之后，按下面的节奏迭代：</p>
+
+      <figure data-kind="流程" class="figure reveal">
+        <svg class="fig-iterate" viewBox="0 0 360 300" role="img" aria-label="迭代流程图：说清需求，看初版试用，一次改一两处，不满意就回到试用，满意后分享或导出">
+          <defs><marker id="ar08" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="ah"/></marker></defs>
+          <rect x="60" y="10" width="200" height="48" rx="12" class="box-1"/>
+          <text x="160" y="40" text-anchor="middle" class="txt-1">① 说清需求</text>
+          <line x1="160" y1="58" x2="160" y2="78" class="ln-1" marker-end="url(#ar08)"/>
+          <rect x="60" y="80" width="200" height="48" rx="12" class="box-2"/>
+          <text x="160" y="110" text-anchor="middle" class="txt-1">② 看初版、试用</text>
+          <line x1="160" y1="128" x2="160" y2="148" class="ln-1" marker-end="url(#ar08)"/>
+          <rect x="60" y="150" width="200" height="48" rx="12" class="box-3"/>
+          <text x="160" y="180" text-anchor="middle" class="txt-1">③ 一次改一两处</text>
+          <path d="M262 174 C312 174 312 104 263 104" class="ln-2" marker-end="url(#ar08)"/>
+          <text x="318" y="134" text-anchor="middle" class="txt-2">不满意</text>
+          <text x="318" y="152" text-anchor="middle" class="txt-2">再来</text>
+          <line x1="160" y1="198" x2="160" y2="238" class="ln-1" marker-end="url(#ar08)"/>
+          <text x="172" y="224" class="txt-2">满意了</text>
+          <rect x="60" y="240" width="200" height="48" rx="12" class="box-4"/>
+          <text x="160" y="270" text-anchor="middle" class="txt-1">④ 分享 / 导出</text>
+        </svg>
+        <figcaption>迭代流程：提需求、看初版、提一两处修改、确认效果，循环直到满意，再分享或导出</figcaption>
+      </figure>
+
+      <ul>
+        <li><b>先试用，再提意见</b>：点一点、填一填，比盯着看更容易发现问题。</li>
+        <li><b>一次改一两处</b>：“按钮改成蓝色、字大一号”比“整体再好看一点”更容易改对。</li>
+        <li><b>描述你看到的现象</b>：“点了记一杯，数字没变”比“坏了”有用得多。</li>
+        <li><b>小改动可以自己动手</b>：文档、幻灯片这类模板可以直接在里面编辑；选中一段文字，也可以只让 Claude 改这一段。</li>
+        <li><b>报错时让它修</b>：小工具出错时，界面上通常有“让 Claude 尝试修复”的入口，但不保证一次修好，修不好就把出错的现象描述给它。</li>
+        <li><b>想回到之前的思路</b>：编辑前面的某条消息会开出一条新的对话分支，原来的版本不会丢。</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="ico">💡</div>
+        <div class="body">
+          <div class="title">内容要准确的，自己核对</div>
+          <p>报告里的数字、网页上的日期和地址，Claude 可能写错。Artifact 看起来越“像成品”，越容易让人放松警惕。发出去之前，关键信息逐条核对一遍。</p>
+        </div>
+      </div>
+
+      <!-- ===== 4 ===== -->
+      <h2 id="alive"><span class="sec-num">04</span>让小工具“活”起来：存数据、连应用、用上 Claude</h2>
+      <p>截至 2026-11，新版 Artifact 不只是静态页面，还能做到下面这些事。按官方帮助中心，存储数据和连接应用面向付费套餐（Pro 及以上），在网页版和桌面版可用。</p>
+      <table>
+        <thead><tr><th>能力</th><th>能做什么</th><th>要注意什么</th></tr></thead>
+        <tbody>
+          <tr><td>个人存储</td><td>记住你自己的数据，比如日记、喝水记录</td><td>只有你自己看得到</td></tr>
+          <tr><td>共享存储</td><td>所有使用者看到同一份数据，比如家务积分、排行榜</td><td>所有能打开它的人都能看到；第一次使用会弹出确认；不要放敏感信息</td></tr>
+          <tr><td>连接应用</td><td>读写你已连接的日历、任务表等（第 6 课的连接器）</td><td>第一次使用要你批准；每个使用者用的是<b>自己的</b>连接，看不到你的数据</td></tr>
+          <tr><td>调用 Claude</td><td>做一个会“思考”的小工具，比如帮孩子出口算题</td><td>使用者用自己的账号登录，用量算在各自的套餐里；第一次需要授权</td></tr>
+        </tbody>
+      </table>
+      <p>官方原话说得很直白：存储用个人的还是共享的，由<b>做 Artifact 的人</b>决定。所以在别人做的 Artifact 里输入任何敏感信息之前，先确认它用的是不是共享存储。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>Artifact 的边界与 Claude Code 里的对应功能<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <ul>
+            <li><b>前提</b>：Artifact 依赖“创建和编辑文件”（旧称“代码执行与文件创建”）能力，个人套餐默认开启；团队版和企业版由组织设置控制。</li>
+            <li><b>存储限制</b>（截至 2026-11）：每个 Artifact 的存储上限 20 MB，只能存文本，不能存图片、文件或二进制数据。</li>
+            <li><b>连接应用的限制</b>：要求“每次操作都审批”的连接器工具不能在 Artifact 里使用；组织管理员可以整体关闭这项能力。</li>
+            <li><b>旧版 Artifact</b>：2026 年 9 月 16 日之前在对话中创建的属于旧版，仍可使用、发布和分享，但不能再新建同类；旧版的存储要发布后才能用，取消发布会永久删除其中的数据。</li>
+            <li><b>Claude Code</b>：可以把会话产出发布成一个可交互的页面（私有链接，随会话更新），也可以做设计稿和文档。和应用里一样，它默认只有你自己可见，分享范围受套餐和组织设置限制，以 Claude Code 文档为准。</li>
+          </ul>
+          <p>这些细节变化很快，用之前以官方帮助中心和 Claude Code 文档为准。把 Artifact 当成“别人写的程序”来看待：打开来源不明的 Artifact 或复制别人的代码，与打开陌生人发来的文件一样需要谨慎。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="结构">
+<svg viewBox="0 0 640 262" role="img" aria-label="Artifact 页面居中，周围四个能力：个人或共享存储、连接应用、调用 Claude，各自的使用范围不同"><defs><marker id="f08-3-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f08-3-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="246" rx="18"/>
+<rect class="dg-box is-solid is-lift" x="236" y="100" width="168" height="60" rx="16"/>
+<text class="dg-t on is-lg" x="320" y="124" text-anchor="middle">Artifact 页面</text>
+<text class="dg-s on" x="320" y="144" text-anchor="middle">你做出来的小工具</text>
+<path class="dg-line is-soft" d="M236 118 L210 92 M404 118 L430 92 M320 160 V186" />
+<rect class="dg-box is-lift" x="30" y="30" width="200" height="62" rx="14"/>
+<text class="dg-t is-sm" x="130" y="52" text-anchor="middle">存数据</text>
+<text class="dg-s" x="130" y="72" text-anchor="middle">个人，或共享给所有使用者</text>
+<rect class="dg-box is-lift" x="410" y="30" width="200" height="62" rx="14"/>
+<text class="dg-t is-sm" x="510" y="52" text-anchor="middle">连接应用</text>
+<text class="dg-s" x="510" y="72" text-anchor="middle">读写你已连接的日历、任务表</text>
+<rect class="dg-box is-lift" x="220" y="186" width="200" height="62" rx="14"/>
+<text class="dg-t is-sm" x="320" y="208" text-anchor="middle">调用 Claude</text>
+<text class="dg-s" x="320" y="228" text-anchor="middle">使用者用自己的账号和用量</text>
+</svg>
+<figcaption><strong>让小工具“活”起来。</strong>Artifact 页面可以存数据、连应用、调用 Claude。关键在于谁看得到：个人存储只有你能看，共享存储所有使用者都能看到，所以输入敏感信息前先确认它用的是哪一种。</figcaption>
+      </figure>
+
+      <!-- ===== 5 ===== -->
+      <h2 id="share"><span class="sec-num">05</span>分享与发布：先想清楚谁能看到</h2>
+      <p>新做的 Artifact <b>默认只有你自己能看到</b>。要给别人看，需要你主动在“分享”里设置访问范围。截至 2026-11，按官方帮助中心：</p>
+      <table>
+        <thead><tr><th>套餐</th><th>可选的访问范围</th></tr></thead>
+        <tbody>
+          <tr><td>个人套餐（Pro、Max、Ultra 等）</td><td>仅自己；知道链接的任何人；按邮箱邀请指定的人（beta）</td></tr>
+          <tr><td>团队版、企业版</td><td>仅受邀的人；组织内所有人；知道链接的任何人（需要管理员开启对外分享）</td></tr>
+        </tbody>
+      </table>
+      <p>还可以给不同的人设置“仅查看”“可评论”“可编辑”等权限。“知道链接的任何人”多数情况下不需要登录就能打开（例外：文档类 Artifact 即使这样设置，也要登录才能查看），所以链接一旦发到群里，就要当成公开内容对待。</p>
+
+      <div class="callout warn">
+        <div class="ico">⚠️</div>
+        <div class="body">
+          <div class="title">分享前的五个检查</div>
+          <ol>
+            <li><b>内容里有没有隐私</b>：真实姓名、手机号、住址、孩子学校、账户信息？</li>
+            <li><b>用的是哪种存储</b>：共享存储里的数据，所有打开的人都能看到。</li>
+            <li><b>范围是不是刚好</b>：给家人看就别选“任何人”，团队内部的就别对外。</li>
+            <li><b>旧版 Artifact 会带出附件</b>：分享 2026 年 9 月之前在对话里做的旧版 Artifact 时，对方可能还能看到那段对话里上传的附件和文件，先检查附件里有没有敏感内容。</li>
+            <li><b>不用了记得收回</b>：把访问范围改回“仅自己”（团队版为“仅受邀的人”）即可停止分享。</li>
+          </ol>
+        </div>
+      </div>
+      <p>另外，手机 App 上可以创建、查看和编辑 Artifact，但分享设置需要在网页版或桌面版里操作。</p>
+      <figure class="figure reveal" data-kind="层级">
+<svg viewBox="0 0 640 284" role="img" aria-label="三级阶梯：仅自己、指定的人或组织内、知道链接的任何人，可见范围依次变大"><defs><marker id="f08-4-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f08-4-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="268" rx="18"/>
+<rect class="dg-box is-green is-lift" x="40" y="180" width="180" height="70" rx="14"/>
+<text class="dg-t is-green" x="60" y="204">仅自己</text>
+<text class="dg-s" x="60" y="224">新做的默认是这样</text>
+<rect class="dg-box is-accent is-lift" x="230" y="140" width="180" height="110" rx="14"/>
+<text class="dg-t is-accent" x="250" y="164">指定的人 / 组织内</text>
+<text class="dg-s" x="250" y="184">按邮箱邀请，或团队内</text>
+<text class="dg-s" x="250" y="204">可设“仅查看”或“可编辑”</text>
+<rect class="dg-box is-amber is-lift" x="420" y="100" width="180" height="150" rx="14"/>
+<text class="dg-t is-amber" x="440" y="124">知道链接的任何人</text>
+<text class="dg-s" x="440" y="144">多数情况不用登录就能打开</text>
+<text class="dg-s" x="440" y="164">链接发到群里，就等于公开</text>
+<path class="dg-line is-soft" d="M40 254 H600" marker-end="url(#f08-4-ah)"/>
+<text class="dg-s is-faint" x="320" y="272" text-anchor="middle">范围越往右越大：分享前先想清楚，谁应该看得到</text>
+</svg>
+<figcaption><strong>可见范围是一道阶梯。</strong>从“仅自己”到“知道链接的任何人”，能看到的人越来越多。分享前问一句：范围是不是刚好？不用了，记得把范围改回“仅自己”。</figcaption>
+      </figure>
+
+      <!-- ===== 动手试一试 ===== -->
+      <h2 id="try-it"><span class="sec-num">06</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">🛠 三轮对话做一个小工具 <span class="badge">不需要写代码</span></div>
+        <ol>
+          <li>用第 03 节的格式描述一个你真的会用的小工具，比如：
+            <div class="prompt-sample">帮我做一个旅行打包清单小工具：按“证件 / 衣物 / 电子产品 / 洗漱”分类，可以勾选已打包的物品，显示还剩几件没装。先做最简单的版本。</div>
+          </li>
+          <li>试用初版，挑出最想改的<b>一处</b>，告诉 Claude 你看到的现象和期望的样子。</li>
+          <li>再改一轮。改完后数一数：你一共提了几次修改？哪次说得最清楚、改得最准？</li>
+          <li>如果想发给同行的人，先过一遍第 05 节的“分享前的五个检查”。</li>
+        </ol>
+      </div>
+      <div class="try-it">
+        <div class="head">📊 把一段数据画成图表 <span class="badge">不需要写代码</span></div>
+        <div class="prompt-sample">下面是我家这半年每月的电费（元）：1 月 210，2 月 236，3 月 180，4 月 150，5 月 160，6 月 260。做一个柱状图，标出最高和最低的月份，并用一两句话说说可能的原因（我家夏天开空调、冬天用电暖器）。</div>
+        <p>做完后检查：图上的数字和你给的是否一致？Claude 的“原因”是推测还是事实？</p>
+      </div>
+
+      <!-- ===== 误区 ===== -->
+      <h2 id="myths"><span class="sec-num">07</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">需求要一次写全，不然做出来就不对。</p><span class="ok">✓</span><p>先要一个能用的简单版，再一处一处改，通常比一次写几十条要求更快得到满意的结果。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">Artifact 做出来就默认公开了。</p><span class="ok">✓</span><p>新的 Artifact 默认只有你自己能看到，要你主动设置分享范围才会给别人看。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">看起来像成品，内容就一定是对的。</p><span class="ok">✓</span><p>排版漂亮不等于信息准确。数字、日期、地址等关键信息要自己核对。</p></div>
+      </div>
+
+      <!-- ===== 测验 ===== -->
+      <h2 id="quiz"><span class="sec-num">08</span>小测验</h2>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q1</span>初版小工具的按钮点了没反应，下面哪种说法最能帮 Claude 改对？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>“点‘记一杯’之后，今天的总量还是 0，应该加 250。”</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>“不好用，重做一个。”</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>“再好看一点。”</span></button>
+        </div>
+        <div class="explain">说清楚“做了什么、看到了什么、期望什么”，Claude 才知道问题出在哪。笼统的评价只会让它乱猜。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q2</span>你做了一个全家共用的积分表，用的是共享存储。下面哪条信息<b>最不该</b>写进去？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>孩子的昵称</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>每项家务的分值</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>家里的门锁密码</span></button>
+        </div>
+        <div class="explain">共享存储里的内容，所有能打开这个 Artifact 的人都看得到。密码、证件号这类信息不该出现在任何分享出去的东西里。</div>
+      </div>
+
+      <!-- ===== 推荐 ===== -->
+      <h2 id="resources"><span class="sec-num">09</span>推荐工具与延伸</h2>
+      <p>Artifact 的大部分能力不需要额外安装。想让 Claude 生成格式更规范的 Word、表格、演示文稿，可以参考第 7 课提到的官方 Skills 示例库。卡片上的“核实于”日期，是最后一次检查维护状态和许可证的时间。</p>
+      <div class="resources" data-ids="anthropic-skills"></div>
+
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="artifact">Artifact</span>
+        <span class="term" data-term="connector">连接器</span>
+        <span class="term" data-term="skill">Skill</span>
+        <span class="term" data-term="data-privacy">数据隐私</span>
+        <span class="term" data-term="hallucination">幻觉</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 8 课完成</div>
+        <p>到这里，Claude 已经能连应用、按流程做事、做出成品。能力越大，越要会把关。下一课专门讲安全与隐私：怎么识破藏在网页和邮件里的“指令”，哪些东西不该交给 Agent。</p>
+      </div>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+
+      <footer class="site-foot">
+        Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。
+      </footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/08-build-tool.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>上手 Claude Code · Agent 百科全书</title>
+<meta name="description" content="第 11 课：Claude Code 的终端 CLI、桌面端 Code、IDE 插件和网页版怎么选，怎么安装登录，第一次会话做什么，界面怎么读，常用命令和用量概念。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+<link rel="stylesheet" href="../assets/css/lessons/11-claude-code-basics.css">
+</head>
+<body data-base="../" data-lesson="11">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <!-- ===== 课首 ===== -->
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 3 部分 · Claude Code 实战</span>
+          <span class="chip">第 11 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">上手 Claude Code</span><br>CLI、桌面端与 IDE</h1>
+        <p class="lede">Claude 应用里的 Claude 能聊天、能查资料；<span class="term" data-term="claude-code">Claude Code</span> 则直接坐到你的项目文件夹里：读代码、改文件、跑命令。比如你说“把这个网站的登录页改成深色”，它会自己找到相关文件、改好、跑一遍检查，再告诉你结果。这一课带你装好它、开好第一个会话，并学会看懂它在屏幕上做的每一件事。</p>
+        <div class="meta-row">
+          <span>⏱ 约 20 分钟</span>
+          <span>👤 第一节所有人可读；其余以开发者为主</span>
+          <span>🎬 1 个交互演示 · 1 张图示</span>
+        </div>
+      </header>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出 Claude Code 的几种形态，以及各自适合什么样的人</li>
+          <li>在电脑上安装并登录 Claude Code，开始第一个会话</li>
+          <li>看懂界面上的工具调用、差异（diff）和确认框，知道什么时候按 <kbd>Esc</kbd></li>
+          <li><span class="aud-tag">（开发者）</span>用 <code>/init</code>、<code>/context</code>、<code>/compact</code>、<code>/resume</code> 等命令管理日常会话</li>
+          <li><span class="aud-tag">（开发者）</span>理解用量从哪里来，知道几种省用量的习惯</li>
+        </ul>
+      </section>
+
+      <div class="summary-box reveal">
+        <h4>一句话总结</h4>
+        <p>Claude Code 是在你项目里干活的 Claude：先让它读懂项目、写好 CLAUDE.md，再看着它的每一步工具调用，该放行就放行，该打断就打断。</p>
+      </div>
+
+      <!-- ===== 1 ===== -->
+      <h2 id="what"><span class="sec-num">01</span>Claude Code 是什么，有哪几种形态</h2>
+      <p>在 Claude 应用里，你把文件上传给 Claude，它读完给你建议，改动还得你自己去做。Claude Code 不一样：你在电脑上把它“领进”一个项目文件夹，它自己去翻文件、改代码、运行测试，做完告诉你结果。第 15 课讲的“思考 → 行动 → 观察”循环，在这里每天都在转。</p>
+
+      <div class="callout analogy">
+        <div class="ico">🧩</div>
+        <div class="body"><div class="title">打个比方：远程顾问和驻场工程师</div><p>Claude 应用像一位远程顾问，你把材料发过去，他回一份意见。Claude Code 像一位驻场工程师，坐到你的工位上直接动手。驻场的人能干的事更多，所以你也要多盯着点：哪些柜子能开，哪些操作要先问你。</p></div>
+      </div>
+
+      <p>Claude Code 有好几种“外壳”，背后是同一个引擎。项目里的 <span class="term" data-term="claude-md">CLAUDE.md</span>、设置文件和 MCP 配置在各种形态里通用。第 3 课已经从“产品家族”的角度比较过它们，这里只按“我是谁”来挑：</p>
+      <table>
+        <thead><tr><th>形态</th><th>适合谁</th></tr></thead>
+        <tbody>
+          <tr><td><b>终端</b>（在命令行里输入 <code>claude</code>）</td><td>习惯命令行的人</td></tr>
+          <tr><td><b>桌面应用里的 Code</b></td><td>不想碰命令行、喜欢点鼠标看改动的人（需要付费订阅）</td></tr>
+          <tr><td><b>编辑器插件</b>（VS Code、JetBrains 等）</td><td>平时就在写代码的软件里工作的人</td></tr>
+          <tr><td><b>网页版</b>（claude.ai/code）</td><td>手边没有项目文件、想把长任务放到云端跑的人</td></tr>
+        </tbody>
+      </table>
+      <p>简单说：想在文字界面里用，选终端；想点点鼠标，选桌面应用；平时在写代码的软件里工作，就装那个软件的插件。用熟以后，几种形态可以混着用。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>各形态的细节差别<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <ul>
+            <li><b>终端 CLI</b>：功能最全，新功能通常最先到这里；<code>claude -p</code> 可以写进脚本和 CI。</li>
+            <li><b>桌面应用的 Code 标签页</b>：需要 Pro、Max、Ultra、Team 或 Enterprise 订阅；应用自带 Claude Code，不用另装 Node.js 或 CLI。</li>
+            <li><b>VS Code 插件</b>（也支持 Cursor）：需要 VS Code 1.94 或更新版本。插件自带一份 CLI，只供它的聊天面板使用；想在 VS Code 的集成终端里运行 <code>claude</code>，仍要单独安装 CLI。</li>
+            <li><b>JetBrains 插件</b>：在 IDE 的终端里运行 <code>claude</code> 并与之连接，不自带 CLI，要先单独装好。</li>
+            <li><b>网页版</b>：会话在云端运行，需要连接 GitHub 等代码托管平台才能拉取和推送代码。</li>
+          </ul>
+          <p>以上截至 2026-11，以官方 desktop、vs-code、jetbrains、claude-code-on-the-web 文档为准。</p>
+        </div>
+      </details>
+
+      <!-- ===== 2 ===== -->
+      <h2 id="install"><span class="sec-num">02</span>安装和登录</h2>
+      <p>下面这些操作<b>需要在电脑上进行</b>。手机上的 Claude 应用可以查看和指挥云端会话，但不能在本机安装 Claude Code。</p>
+      <p>先准备一个账号：最常见的是 Claude 的付费订阅（Pro、Max 等）。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>终端 CLI 的安装与登录<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <p><b>其他账号</b>（截至 2026-11，以官方快速入门为准）：除了 Pro、Max、Ultra、Team、Enterprise 订阅（官方推荐），还可以用 Claude Console（开发者平台，按 API 用量预付费），或企业的云平台（Amazon Bedrock 等）。</p>
+          <p>官方推荐用原生安装脚本。打开终端，按系统选一条（以官方快速入门为准）：</p>
+          <div class="code" data-title="macOS / Linux / WSL">
+<pre><code data-lang="bash">curl -fsSL https://claude.ai/install.sh | bash
+claude --version   # 打印版本号，说明装好了
+</code></pre>
+          </div>
+          <div class="code" data-title="Windows PowerShell">
+<pre><code>irm https://claude.ai/install.ps1 | iex
+</code></pre>
+          </div>
+          <ul>
+            <li><b>其他方式</b>：Homebrew（<code>brew install --cask claude-code</code>）、WinGet（<code>winget install Anthropic.ClaudeCode</code>），以及 apt、dnf、apk。原生安装会在后台自动更新，Homebrew 和 WinGet 不会，需要自己定期升级。</li>
+            <li><b>Windows 用户</b>：官方建议装上 Git for Windows，这样 Claude Code 能使用 Bash 工具；没装时会改用 PowerShell。</li>
+            <li><b>登录</b>：进入项目目录运行 <code>claude</code>，第一次会提示登录，在浏览器里完成授权即可，之后不用再登。要换账号，在会话里输入 <code>/login</code>。</li>
+            <li><b>装好以后找不到命令</b>：多半是安装目录不在 PATH 里，按官方“Troubleshoot installation”页面处理。</li>
+          </ul>
+          <p>桌面应用：在 macOS 或 Windows 上下载安装 Claude 桌面应用，登录后点侧栏顶部的 <b>Code</b> 标签页，选“Local”环境并打开项目文件夹。VS Code：在扩展视图里搜索“Claude Code”安装。JetBrains：先装好 CLI，再从 JetBrains Marketplace 安装 Claude Code 插件并重启 IDE。</p>
+        </div>
+      </details>
+      <figure class="figure reveal" data-kind="流程">
+<svg viewBox="0 0 640 200" role="img" aria-label="四步：安装（终端、桌面端或 IDE 插件任选其一），登录账号，在项目目录启动，进行第一次会话"><defs><marker id="f11-1-ah" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-a" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-accent" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-t" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-think" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-c" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-act" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-o" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-observe" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-r" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-rose" d="M0 0L10 5L0 10z"/></marker><marker id="f11-1-ah-g" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path class="dg-head is-green" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="dg-zone" x="8" y="8" width="624" height="184" rx="18"/>
+<rect class="dg-box is-lift" x="24" y="46" width="132" height="92" rx="14"/>
+<text class="dg-t" x="90" y="72" text-anchor="middle">① 安装</text>
+<text class="dg-s" x="90" y="94" text-anchor="middle">终端、桌面端</text>
+<text class="dg-s" x="90" y="112" text-anchor="middle">或 IDE 插件，任选</text>
+<path class="dg-line" d="M160 92 H180" marker-end="url(#f11-1-ah)"/>
+<rect class="dg-box is-lift" x="184" y="46" width="132" height="92" rx="14"/>
+<text class="dg-t" x="250" y="72" text-anchor="middle">② 登录账号</text>
+<text class="dg-s" x="250" y="94" text-anchor="middle">按官方说明选</text>
+<text class="dg-s" x="250" y="112" text-anchor="middle">订阅或 API 账号</text>
+<path class="dg-line" d="M320 92 H340" marker-end="url(#f11-1-ah)"/>
+<rect class="dg-box is-lift" x="344" y="46" width="132" height="92" rx="14"/>
+<text class="dg-t" x="410" y="72" text-anchor="middle">③ 启动</text>
+<text class="dg-m" x="410" y="96" text-anchor="middle">cd 项目目录</text>
+<text class="dg-m" x="410" y="114" text-anchor="middle">claude</text>
+<path class="dg-line" d="M480 92 H500" marker-end="url(#f11-1-ah)"/>
+<rect class="dg-box is-accent is-lift" x="504" y="46" width="112" height="92" rx="14"/>
+<text class="dg-t is-accent" x="560" y="72" text-anchor="middle">④ 第一次</text>
+<text class="dg-s" x="560" y="94" text-anchor="middle">先问它一个问题</text>
+<text class="dg-s" x="560" y="112" text-anchor="middle">看它读了什么</text>
+<text class="dg-s is-faint" x="320" y="168" text-anchor="middle">安装与登录的具体入口随版本变化，以 /help 和官方文档为准</text>
+</svg>
+<figcaption><strong>从安装到第一次会话。</strong>先选一个你习惯的入口安装，再登录账号，然后在项目目录里启动。第一次不要急着让它改代码，先问一个问题，看它会去读哪些文件。</figcaption>
+      </figure>
+
+      <!-- ===== 3 ===== -->
+      <h2 id="first-session"><span class="sec-num">03</span>第一次会话该做什么</h2>
+      <p>装好以后，别急着让它写新功能。第一次会话做三件事就够了：</p>
+      <ol>
+        <li><b>确认信任这个文件夹</b>：第一次在某个文件夹里启动时，Claude Code 会弹出<span class="term" data-term="workspace-trust">工作区信任</span>对话框。只在你自己的、或者确实信得过的项目里选“信任”。</li>
+        <li><b>问它“这个项目是做什么的？”</b>：这是官方快速入门推荐的第一个问题。它会自己翻目录、读说明文件，你正好借机观察它怎么工作。</li>
+        <li><b>输入 <code>/init</code></b>：让 Claude 分析代码库，生成一份 CLAUDE.md 初稿，记下构建命令、测试命令和项目约定。以后每个会话开始时，它都会先读这份文件。</li>
+      </ol>
+
+      <div class="player" data-trace="11-first-session"></div>
+
+      <div class="callout warn">
+        <div class="ico">⚠️</div>
+        <div class="body">
+          <div class="title">为什么“信任”这一步不能随手点</div>
+          <p>项目里可以带着 Claude Code 的配置文件，例如自动放行某些命令的规则、会自动运行的脚本。别人的仓库里写了什么，你未必看过。所以 Claude Code 要你先确认信任，这些配置里放宽权限的部分才生效。来路不明的仓库，先在编辑器里看看 <code>.claude/</code> 目录和 <code>.mcp.json</code> 再决定。第 12 课会细讲。</p>
+        </div>
+      </div>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>/init 生成了什么，接下来怎么改<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <ul>
+            <li><code>/init</code> 会写出项目根目录的 <code>CLAUDE.md</code>，内容是它从代码里发现的构建命令、测试方法和约定。如果已经有 CLAUDE.md，它会给出改进建议，而不是覆盖。</li>
+            <li>把环境变量 <code>CLAUDE_CODE_NEW_INIT</code> 设为 <code>1</code> 再运行 <code>/init</code>，会进入交互式流程：它会问你要配置哪些东西（CLAUDE.md、Skills、Hooks），用子 Agent 探索代码库，追问细节，最后给出一份方案让你审完再写文件。</li>
+            <li>初稿只是起点。要补上它从代码里<b>看不出来</b>的东西：哪些目录不能动、提交前必须跑什么、团队约定的命名方式。写法和反例见第 12 课。</li>
+            <li>如果仓库里已经有给其他编程 Agent 用的 <code>AGENTS.md</code>，而没有 CLAUDE.md，新版 Claude Code（v2.1.277 起）会直接读取它。</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- ===== 4 ===== -->
+      <h2 id="read-ui"><span class="sec-num">04</span>看懂界面：每一行在说什么</h2>
+      <p>Claude Code 干活时，屏幕上会不断冒出新的行。看懂它们，你就知道它在想什么、做了什么、要你决定什么。下面这张图是自绘的终端示意，真实界面的细节会随版本变化，以界面为准。</p>
+
+      <figure data-kind="结构" class="figure reveal">
+        <svg class="fig-cc-ui" viewBox="0 0 620 340" role="img" aria-label="Claude Code 终端界面示意图：从上到下依次是工具调用行、工具输出、红绿差异、确认框、输入框和权限模式状态栏，右侧用 1 到 6 的编号标出">
+          <rect class="win" x="10" y="10" width="560" height="320" rx="12"/>
+          <rect class="bar" x="10" y="10" width="560" height="28" rx="12"/>
+          <circle class="dot" cx="30" cy="24" r="5"/><circle class="dot" cx="46" cy="24" r="5"/><circle class="dot" cx="62" cy="24" r="5"/>
+          <text class="mono muted" x="26" y="60">Claude Code · Opus 5.5 · ~/code/todo-api</text>
+          <text class="mono" x="26" y="88"><tspan class="act">⏺ Bash</tspan>(npm test)</text>
+          <text class="mono muted" x="26" y="110">  ⎿  Tests: 1 failed, 23 passed</text>
+          <text class="mono" x="26" y="138"><tspan class="act">⏺ Edit</tspan>(src/price.js)</text>
+          <text class="mono del" x="26" y="160">  - return "¥" + n;</text>
+          <text class="mono add" x="26" y="180">  + return "¥" + n.toFixed(2);</text>
+          <rect class="ask" x="22" y="192" width="536" height="82" rx="8"/>
+          <text class="mono" x="34" y="212">是否修改 src/price.js？</text>
+          <text class="mono sel" x="34" y="232">❯ 1. 是</text>
+          <text class="mono" x="34" y="249">  2. 是，本次会话中允许所有编辑</text>
+          <text class="mono" x="34" y="267">  3. 否，告诉 Claude 应该怎么做</text>
+          <rect class="input" x="22" y="282" width="536" height="26" rx="6"/>
+          <text class="mono" x="34" y="300">&gt; 输入下一条指令…</text>
+          <text class="mono muted" x="26" y="324">⏸ manual mode on (shift+tab to cycle)</text>
+          <circle class="tag" cx="596" cy="84" r="11"/><text class="tag-txt" x="596" y="88" text-anchor="middle">1</text>
+          <circle class="tag" cx="596" cy="106" r="11"/><text class="tag-txt" x="596" y="110" text-anchor="middle">2</text>
+          <circle class="tag" cx="596" cy="168" r="11"/><text class="tag-txt" x="596" y="172" text-anchor="middle">3</text>
+          <circle class="tag" cx="596" cy="230" r="11"/><text class="tag-txt" x="596" y="234" text-anchor="middle">4</text>
+          <circle class="tag" cx="596" cy="295" r="11"/><text class="tag-txt" x="596" y="299" text-anchor="middle">5</text>
+          <circle class="tag" cx="596" cy="320" r="11"/><text class="tag-txt" x="596" y="324" text-anchor="middle">6</text>
+        </svg>
+        <figcaption>Claude Code 终端界面的六个区域（自绘示意）。编号对应下表；桌面端和 IDE 插件用图形化的卡片和按钮表达同样的信息。</figcaption>
+      </figure>
+
+      <table>
+        <thead><tr><th>编号</th><th>你看到</th><th>意思</th><th>你可以</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>⏺ 工具名(参数)</code></td><td>一次工具调用，循环里的<b class="c-act">行动</b></td><td>看清它要读什么、跑什么命令</td></tr>
+          <tr><td>2</td><td>缩进的 <code>⎿</code> 输出</td><td>工具结果，循环里的<b class="c-observe">观察</b>，会进入上下文</td><td>按 <kbd>Ctrl</kbd>+<kbd>O</kbd>（电脑上）打开详细记录，看折叠起来的内容</td></tr>
+          <tr><td>3</td><td>红色 <code>-</code> 行、绿色 <code>+</code> 行</td><td>文件改动的差异（diff）</td><td>改动多时输入 <code>/diff</code> 集中查看</td></tr>
+          <tr><td>4</td><td>带选项的确认框</td><td>权限检查：这一步要你拍板</td><td>选“是”放行；选“否”并写下原因，Claude 会按你的意见换做法</td></tr>
+          <tr><td>5</td><td>输入框</td><td>轮到你说话</td><td>开头输入 <code>/</code> 调出命令，<code>@</code> 引用文件，<code>!</code> 直接运行一条 shell 命令</td></tr>
+          <tr><td>6</td><td>状态栏里的模式</td><td>当前的<span class="term" data-term="permission-mode">权限模式</span></td><td>按 <kbd>Shift</kbd>+<kbd>Tab</kbd>（电脑上）循环切换，第 12 课详讲</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <div class="ico">🖐</div>
+        <div class="body">
+          <div class="title">三个“刹车”键（电脑上）</div>
+          <p><kbd>Esc</kbd>：打断当前的回答或工具调用，已经做完的部分保留，你可以补一句话把它拉回正轨。输入框为空时连按两次 <kbd>Esc</kbd>：打开回退菜单，把对话或代码恢复到之前的某个时间点。<kbd>Ctrl</kbd>+<kbd>C</kbd>：中断正在运行的操作；什么都没在运行时，第一次清空输入，第二次退出 Claude Code。</p>
+        </div>
+      </div>
+
+      <p>还有一个值得常看的指标：<b>上下文占用</b>。会话越长、读的文件越多，Claude 的“办公桌”就越满（第 5 课的比方）。输入 <code>/context</code>，会看到一张彩色格子图，显示系统提示词、工具定义、CLAUDE.md、对话各占了多少。</p>
+
+
+      <!-- ===== 5 ===== -->
+      <h2 id="commands"><span class="sec-num">05</span>常用命令速览</h2>
+      <p>在输入框开头输入 <code>/</code>，会弹出所有可用的<span class="term" data-term="slash-command">斜杠命令</span>和 Skills。最常用的两个：<code>/help</code> 看帮助；<code>/clear</code> 做完一件事、开始另一件时清空对话。其余命令以 <code>/help</code> 和官方命令参考为准。</p>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>日常命令速查表（截至 2026-11）<span class="chev">▾</span></summary>
+        <div class="deep-body">
+      <table>
+            <thead><tr><th>命令</th><th>做什么</th><th>什么时候用</th></tr></thead>
+            <tbody>
+              <tr><td><code>/help</code></td><td>显示帮助和可用命令</td><td>忘了命令时</td></tr>
+              <tr><td><code>/init</code></td><td>分析项目，生成 CLAUDE.md 初稿</td><td>项目第一次用 Claude Code</td></tr>
+              <tr><td><code>/clear</code></td><td>开始一个上下文为空的新对话</td><td>做完一件事，开始不相关的另一件</td></tr>
+              <tr><td><code>/compact [重点]</code></td><td>把到目前为止的对话总结压缩，腾出空间</td><td>同一件事还没做完，但上下文快满了</td></tr>
+              <tr><td><code>/context</code></td><td>用彩色格子显示上下文占用，并给出优化建议</td><td>感觉它开始“健忘”时</td></tr>
+              <tr><td><code>/model</code></td><td>切换模型并保存为新会话的默认值</td><td>复杂任务换更强的模型，简单批量换更快的</td></tr>
+              <tr><td><code>/resume</code></td><td>按名称或 ID 恢复以前的对话，或打开会话列表</td><td>接着昨天的活干</td></tr>
+              <tr><td><code>/rewind</code></td><td>把对话和代码回退到之前某一点</td><td>它改歪了，想撤回</td></tr>
+              <tr><td><code>/diff</code></td><td>查看工作区的改动，包括 Claude 做的编辑</td><td>收工前检查</td></tr>
+              <tr><td><code>/usage</code></td><td>显示本次会话的用量、套餐限额和活动统计（<code>/cost</code> 是它的别名）</td><td>想知道用了多少</td></tr>
+              <tr><td><code>/permissions</code>、<code>/memory</code>、<code>/mcp</code>、<code>/plugin</code></td><td>管理权限规则、记忆、MCP 服务器、插件</td><td>见第 12～14 课</td></tr>
+              <tr><td><code>/exit</code></td><td>退出（也可以连按两次 <kbd>Ctrl</kbd>+<kbd>D</kbd>）</td><td>收工</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary><span class="tag">原理层</span>在终端外启动：命令行参数与非交互模式<span class="chev">▾</span></summary>
+        <div class="deep-body">
+          <table>
+            <thead><tr><th>在 shell 里输入</th><th>作用</th></tr></thead>
+            <tbody>
+              <tr><td><code>claude</code></td><td>启动交互模式</td></tr>
+              <tr><td><code>claude "修一下构建报错"</code></td><td>带着第一条指令启动交互模式</td></tr>
+              <tr><td><code>claude -c</code></td><td>继续当前目录里最近的一次对话</td></tr>
+              <tr><td><code>claude -r</code></td><td>从列表里选一次以前的对话恢复</td></tr>
+              <tr><td><code>claude -p "解释这个函数"</code></td><td>非交互模式：执行一次就退出，适合脚本和 CI</td></tr>
+            </tbody>
+          </table>
+          <p><code>claude -p</code> 就是<span class="term" data-term="headless-mode">无头模式</span>，也是 Agent SDK 的命令行入口（第 22 课）。它默认使用手动模式（命令行参数里的配置值是 <code>default</code>），需要批准的工具调用没人可问，会被拒绝，所以常配合 <code>--allowedTools</code> 预先放行。<code>-p</code> 不显示信任对话框，风险和对策见<a href="21-security-engineering.html">第 21 课</a>。</p>
+        </div>
+      </details>
+
+      <!-- ===== 6 ===== -->
+      <h2 id="usage"><span class="sec-num">06</span>费用和用量：心里有个大概</h2>
+      <p>Claude Code 每一轮都要把对话历史、读进来的文件、工具结果一起发给模型，按 <span class="term" data-term="token">token</span> 计算用量。token 是 Claude 阅读和书写的“字数单位”，读得越多、写得越多，用量越大（第 16 课详讲）。具体价格和套餐额度会变，这里不写数字，只讲三个概念：</p>
+      <ul>
+        <li><b>订阅用户</b>（Pro、Max 等）：用量算在套餐额度里，用到上限要等额度恢复。<code>/usage</code> 会显示额度进度条和用量构成。</li>
+        <li><b>Console（API）用户</b>：按实际 token 计费。<code>/usage</code> 里的金额是本机按标价估算的，以账单为准。</li>
+        <li><b>用量随上下文增长</b>：同一个会话越长，每一轮要发送的内容越多。子 Agent 也会单独发请求，同样计入你的额度。</li>
+      </ul>
+      <p>几个省用量、也让 Claude 更清醒的习惯（来自官方成本指南）：</p>
+      <ul>
+        <li>换一件不相关的事就 <code>/clear</code>；长任务中途用 <code>/compact</code> 压缩，可以附上“重点保留什么”。</li>
+        <li>CLAUDE.md 只写每次都要用的约定，长篇流程挪进 Skills（第 7 课），用到时才加载。</li>
+        <li>不用的 MCP 服务器关掉（第 14 课）；读大量日志、搜大量文件这类活交给子 Agent，主对话只拿回摘要（第 13 课）。</li>
+        <li>把要求说具体：“修好登录页输错密码后白屏的问题”比“修个 bug”少走很多弯路。</li>
+      </ul>
+
+      <!-- ===== 动手试一试 ===== -->
+      <h2 id="try-it"><span class="sec-num">07</span>动手试一试</h2>
+      <div class="try-it">
+        <div class="head">👀 先看懂演示 <span class="badge">不需要写代码</span></div>
+        <ol>
+          <li>播放本课的演示，暂停在每个 <code>⏺</code> 行，说出它是在“读”还是在“写”。</li>
+          <li>找出演示里 Claude 停下来问你的两个地方，想一想：为什么第一个问的是文件夹，第二个问的是文件？</li>
+          <li>如果第二个确认框选了“否”，你会告诉 Claude 什么？</li>
+        </ol>
+        <p><b>参考答案</b>：<code>ls -a</code> 和 <code>Read</code> 是读，<code>Write</code> 是写。第一次问的是“这个文件夹信不信得过”，因为项目里可能带着会放宽权限的配置；第二次问的是“这个文件能不能写”，因为写文件会改变你的项目。选“否”时可以说明想要的改法，例如“先别写文件，把内容贴出来给我看”。</p>
+      </div>
+      <div class="try-it">
+        <div class="head">🖥 在自己的项目里开第一个会话 <span class="badge">开发者</span></div>
+        <p>需要在电脑上操作。挑一个你熟悉、已经提交干净的项目（方便用 git 撤回）。</p>
+        <ol>
+          <li>进入项目目录运行 <code>claude</code>，完成登录，确认信任文件夹。</li>
+          <li>输入：
+            <div class="prompt-sample">这个项目是做什么的？入口在哪里，怎么运行测试？先别改任何东西。</div>
+          </li>
+          <li>对照它的回答，检查有没有说错的地方。然后输入 <code>/init</code>，读一遍生成的 CLAUDE.md，补上两条它不知道的约定。</li>
+          <li>输入 <code>/context</code>，看看 CLAUDE.md 和刚才读的文件各占了多少；最后用 <code>git diff</code> 确认它只动了 CLAUDE.md。</li>
+        </ol>
+      </div>
+
+      <!-- ===== 误区 ===== -->
+      <h2 id="myths"><span class="sec-num">08</span>常见误区</h2>
+      <div class="myths">
+        <div class="myth"><span class="x">✗</span><p class="wrong">桌面端、VS Code 和终端是三个不同的 AI，配置要各写一份。</p><span class="ok">✓</span><p>它们是同一个 Claude Code 引擎的不同外壳，在同一台电脑上读的是同一套设置文件和 CLAUDE.md。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">信任对话框点“是”就是走个过场。</p><span class="ok">✓</span><p>信任以后，仓库里放宽权限的配置才会生效。对陌生仓库，先看过 <code>.claude/</code> 和 <code>.mcp.json</code> 再信任。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">它跑起来就只能等它跑完。</p><span class="ok">✓</span><p>随时可以按 <kbd>Esc</kbd> 打断、补充指令；改歪了可以用 <code>/rewind</code> 回退。</p></div>
+        <div class="myth"><span class="x">✗</span><p class="wrong">一个会话从早用到晚最省事。</p><span class="ok">✓</span><p>会话越长，每轮发送的内容越多，早期细节也越容易被挤模糊。一件事一个会话，换事就 <code>/clear</code>。</p></div>
+      </div>
+
+      <!-- ===== 测验 ===== -->
+      <h2 id="quiz"><span class="sec-num">09</span>小测验</h2>
+      <div class="quiz" data-answer="b">
+        <div class="q"><span class="qn">Q1</span>你平时只用编辑器，从不开终端，想最省事地开始用 Claude Code，比较合适的是？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>先学会命令行，再装终端 CLI</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>装编辑器对应的插件</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>只能用网页版</span></button>
+        </div>
+        <div class="explain">各形态背后是同一个引擎，按习惯选就行。编辑器插件让你不离开熟悉的软件就能用上它；不想碰命令行的话，桌面应用里的 Code 也是一个选择。</div>
+      </div>
+      <div class="quiz" data-answer="c">
+        <div class="q"><span class="qn">Q2</span>Claude Code 正在执行一串你没想到的操作，你想让它马上停下来、换个方向，应该？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>关掉电脑</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>等它做完再说</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>按 <kbd>Esc</kbd> 打断，再补一句说明</span></button>
+        </div>
+        <div class="explain"><kbd>Esc</kbd> 会停下当前的回答或工具调用，已完成的工作保留，你可以立刻纠正方向。</div>
+      </div>
+      <div class="quiz" data-answer="a">
+        <div class="q"><span class="qn">Q3</span><span class="aud-tag">（开发者）</span>同一个会话里，前一个任务已经做完，你要开始一个和刚才无关的新任务。最合适的命令是？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span><code>/clear</code></span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span><code>/compact</code></span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span><code>/init</code></span></button>
+        </div>
+        <div class="explain"><code>/clear</code> 开一个上下文为空的新对话；<code>/compact</code> 适合同一件事还要继续、只是需要腾空间；<code>/init</code> 是生成 CLAUDE.md 的。</div>
+      </div>
+      <div class="quiz" data-answer="b">
+        <div class="q"><span class="qn">Q4</span><span class="aud-tag">（开发者）</span>界面上出现一行缩进的 <code>⎿ Tests: 1 failed</code>，它是什么？</div>
+        <div class="opts">
+          <button class="opt" data-k="a"><span class="k">A</span><span>Claude 的思考过程</span></button>
+          <button class="opt" data-k="b"><span class="k">B</span><span>上一条工具调用返回的结果，会进入上下文</span></button>
+          <button class="opt" data-k="c"><span class="k">C</span><span>等你确认的问题</span></button>
+        </div>
+        <div class="explain"><code>⏺</code> 开头的是工具调用（行动），下面缩进的 <code>⎿</code> 是工具结果（观察）。</div>
+      </div>
+
+      <!-- ===== 推荐 ===== -->
+      <h2 id="resources"><span class="sec-num">10</span>推荐工具与延伸</h2>
+      <p>官方仓库可以看更新记录、反馈问题；想细看自己的用量构成，可以试试社区的用量统计工具。</p>
+      <div class="resources" data-ids="claude-code,ccusage"></div>
+
+      <h3>本课术语</h3>
+      <div class="term-chips">
+        <span class="term" data-term="claude-code">Claude Code</span>
+        <span class="term" data-term="workspace-trust">工作区信任</span>
+        <span class="term" data-term="claude-md">CLAUDE.md</span>
+        <span class="term" data-term="permission-mode">权限模式</span>
+        <span class="term" data-term="slash-command">斜杠命令</span>
+        <span class="term" data-term="headless-mode">无头模式</span>
+        <span class="term" data-term="token">token</span>
+      </div>
+
+      <div class="lesson-end">
+        <div class="big">🎉 第 11 课完成</div>
+        <p>下一课讲怎么给 Claude Code 定规矩：六种权限模式、settings.json 里的允许和拒绝规则，以及 CLAUDE.md 和自动记忆该怎么写。</p>
+      </div>
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11 · 演示为脚本回放，不调用真实服务。</footer>
+    </article>
+  </main>
+
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../data/traces/11-first-session.js"></script>
+<script src="../assets/js/book.js"></script>
+<script src="../assets/js/player.js"></script>
+</body>
+</html>

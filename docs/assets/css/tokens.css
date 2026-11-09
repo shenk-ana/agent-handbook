@@ -1,0 +1,144 @@
+/* ==========================================================
+   设计令牌（Design Tokens）
+   全书唯一的颜色 / 字体 / 间距来源。组件里只用变量，不写死颜色。
+   ========================================================== */
+:root {
+  /* 底色与文字 */
+  --bg: #f6f5f1;
+  --bg-grad-1: rgba(108, 92, 231, 0.10);
+  --bg-grad-2: rgba(16, 163, 142, 0.08);
+  --surface: #ffffff;
+  --surface-2: #f0eee8;
+  --surface-3: #e8e5dc;
+  --text: #1b1a17;
+  --text-2: #57544c;
+  --text-3: #6f6b62;
+  --border: #e2ded4;
+  --border-strong: #cfcabd;
+
+  /* 品牌与语义色 */
+  --accent: #5b4bdb;          /* 主色：靛紫 */
+  --accent-soft: rgba(91, 75, 219, 0.10);
+  --accent-text: #ffffff;
+  --on-fill: #ffffff;          /* 彩色实底（阶段色、琥珀）上的文字 */
+  --on-fill-2: rgba(255, 255, 255, .85);
+  --teal: #0b7a6b;
+  --teal-soft: rgba(14, 151, 132, 0.12);
+  --amber: #a8561a;
+  --amber-soft: rgba(201, 106, 34, 0.12);
+  --rose: #b42c44;
+  --rose-soft: rgba(200, 54, 79, 0.10);
+  --green: #24743e;
+  --green-soft: rgba(47, 143, 78, 0.12);
+
+  /* Agent 循环三阶段（全书统一，动画与图示都用这三色） */
+  --phase-think: var(--accent);
+  --phase-act: var(--amber);
+  --phase-observe: var(--teal);
+
+  /* 代码 */
+  --code-bg: #1c1d24;
+  --code-text: #e6e4dc;
+  --code-comment: #8b8a99;
+  --code-keyword: #c3a6ff;
+  --code-string: #9fe0a8;
+  --code-number: #f5b97a;
+  --code-fn: #7cc7ff;
+  --code-add: #9fe0a8;
+  --code-add-bg: rgba(95, 201, 130, .10);
+  --code-del: #ff9aa9;
+  --code-del-bg: rgba(240, 113, 138, .10);
+  --code-muted: #b9b7c6;
+  --code-strong: #ffffff;
+  --code-line: rgba(255, 255, 255, .16);
+
+  /* 字体 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  --font-serif: "Songti SC", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* 尺寸 */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(30, 25, 10, 0.06);
+  --shadow: 0 6px 24px -8px rgba(30, 25, 10, 0.14), 0 1px 3px rgba(30, 25, 10, 0.06);
+  --shadow-lg: 0 24px 60px -20px rgba(30, 25, 10, 0.25);
+  --content-w: 720px;
+  --sidebar-w: 288px;
+  --toc-w: 220px;
+  --topbar-h: 56px;
+
+  /* 动效 */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.45s;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0f13;
+    --bg-grad-1: rgba(139, 127, 245, 0.14);
+    --bg-grad-2: rgba(52, 199, 178, 0.08);
+    --surface: #16181e;
+    --surface-2: #1d2028;
+    --surface-3: #262a34;
+    --text: #ecebe5;
+    --text-2: #a6a49b;
+    --text-3: #8f8d85;
+    --border: #2a2e39;
+    --border-strong: #3a3f4c;
+    --accent: #8f83f7;
+    --accent-soft: rgba(143, 131, 247, 0.16);
+    --accent-text: #0e0f13;
+    --on-fill: #0e0f13;
+    --on-fill-2: rgba(14, 15, 19, .78);
+    --teal: #3cc8b3;
+    --teal-soft: rgba(60, 200, 179, 0.14);
+    --amber: #f19a5b;
+    --amber-soft: rgba(241, 154, 91, 0.14);
+    --rose: #f0718a;
+    --rose-soft: rgba(240, 113, 138, 0.14);
+    --green: #5cc982;
+    --green-soft: rgba(92, 201, 130, 0.14);
+    --code-bg: #0b0c10;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 8px 28px -10px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 24px 60px -20px rgba(0, 0, 0, 0.75);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e0f13;
+  --bg-grad-1: rgba(139, 127, 245, 0.14);
+  --bg-grad-2: rgba(52, 199, 178, 0.08);
+  --surface: #16181e;
+  --surface-2: #1d2028;
+  --surface-3: #262a34;
+  --text: #ecebe5;
+  --text-2: #a6a49b;
+  --text-3: #8f8d85;
+  --border: #2a2e39;
+  --border-strong: #3a3f4c;
+  --accent: #8f83f7;
+  --accent-soft: rgba(143, 131, 247, 0.16);
+  --accent-text: #0e0f13;
+  --on-fill: #0e0f13;
+  --on-fill-2: rgba(14, 15, 19, .78);
+  --teal: #3cc8b3;
+  --teal-soft: rgba(60, 200, 179, 0.14);
+  --amber: #f19a5b;
+  --amber-soft: rgba(241, 154, 91, 0.14);
+  --rose: #f0718a;
+  --rose-soft: rgba(240, 113, 138, 0.14);
+  --green: #5cc982;
+  --green-soft: rgba(92, 201, 130, 0.14);
+  --code-bg: #0b0c10;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 8px 28px -10px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 24px 60px -20px rgba(0, 0, 0, 0.75);
+  color-scheme: dark;
+}

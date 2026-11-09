@@ -1,0 +1,31 @@
+/* 第 0 课专属样式：全书地图（只使用 tokens.css 变量） */
+.book-map { margin: 24px 0; padding: 18px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.book-map .map-routes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.book-map .map-routes button {
+  font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-2);
+}
+.book-map .map-routes button[aria-pressed="true"] { color: var(--text); border-color: var(--text-2); font-weight: 600; }
+.book-map .map-routes button .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+.book-map .sw.user, .map-svg .dot.user { background: var(--teal); fill: var(--teal); }
+.book-map .sw.dev, .map-svg .dot.dev { background: var(--amber); fill: var(--amber); }
+.book-map .sw.deep, .map-svg .dot.deep { background: var(--accent); fill: var(--accent); }
+.book-map .sw.all { background: var(--text-3); }
+.map-svg { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto; }
+.map-svg .spine { stroke: var(--border-strong); stroke-width: 3; stroke-dasharray: 2 6; stroke-linecap: round; fill: none; }
+.map-svg .node rect { fill: var(--surface-2); stroke: var(--border); stroke-width: 1.5; transition: opacity .3s, stroke .3s; }
+.map-svg .node .t1 { fill: var(--text); font-size: 15px; font-weight: 700; }
+.map-svg .node .t2 { fill: var(--text-3); font-size: 12px; }
+.map-svg .node, .map-svg .node * { transition: opacity .3s; }
+.book-map[data-route="user"] .map-svg .node:not(.r-user),
+.book-map[data-route="dev"] .map-svg .node:not(.r-dev),
+.book-map[data-route="deep"] .map-svg .node:not(.r-deep) { opacity: .28; }
+.book-map[data-route="user"] .map-svg .node.r-user rect { stroke: var(--teal); stroke-width: 2.5; }
+.book-map[data-route="dev"] .map-svg .node.r-dev rect { stroke: var(--amber); stroke-width: 2.5; }
+.book-map[data-route="deep"] .map-svg .node.r-deep rect { stroke: var(--accent); stroke-width: 2.5; }
+.book-map .map-note { margin: 12px 0 0; font-size: 14px; color: var(--text-2); min-height: 3em; }
+@media (max-width: 480px) {
+  .book-map { padding: 14px 12px; }
+  .book-map .map-routes button { font-size: 13px; padding: 5px 10px; }
+}
+.map-svg .dot.optional { fill: none; stroke: var(--accent); stroke-width: 2; }
