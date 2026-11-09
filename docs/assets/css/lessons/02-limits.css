@@ -1,0 +1,23 @@
+/* 第 2 课专属样式：“适合交给 Agent 吗？”（只使用 tokens.css 变量） */
+.delegate-check { margin: 24px 0; padding: 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.delegate-check .dc-list { list-style: decimal; padding-left: 1.4em; margin: 0; display: grid; gap: 14px; }
+.delegate-check .dc-item { margin: 0; }
+.delegate-check .dc-q { margin: 0 0 8px; font-weight: 600; }
+.delegate-check .dc-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.delegate-check .dc-opt {
+  font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+  transition: border-color .2s, background .2s;
+}
+.delegate-check .dc-opt:hover:not([disabled]) { border-color: var(--accent); }
+.delegate-check .dc-opt[disabled] { cursor: default; opacity: .55; }
+.delegate-check .dc-opt.is-right { opacity: 1; border-color: var(--green); background: var(--green-soft); color: var(--green); font-weight: 600; }
+.delegate-check .dc-opt.is-wrong { opacity: 1; border-color: var(--rose); background: var(--rose-soft); color: var(--rose); }
+.delegate-check .dc-fb { margin: 8px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); font-size: 15px; color: var(--text-2); }
+.delegate-check .dc-score { margin: 16px 0 8px; font-size: 14px; color: var(--text-2); }
+.delegate-check .dc-reset { font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-2); cursor: pointer; }
+.delegate-check .dc-reset:hover { color: var(--text); border-color: var(--text-3); }
+@media (max-width: 480px) {
+  .delegate-check { padding: 16px 14px; }
+  .delegate-check .dc-opt { font-size: 13px; padding: 5px 10px; }
+}

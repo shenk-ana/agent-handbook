@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全与隐私 · Agent 百科全书</title>
+<meta name="description" content="第 9 课：把事情交给 Agent 之前要懂的安全常识。提示注入是什么、Agent 应该怎么应对，什么数据不该上传，权限最小化、敏感操作人工确认，以及一份可以勾选的安全清单。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="9" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 2 部分 · 用好 Claude</span>
+          <span class="chip">第 9 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">安全与隐私</span><br>放手之前，先学会把关</h1>
+        <p class="lede">前几课里，Claude 学会了读你的邮件、改你的日历、按流程做事。一个能替你办事的助理，如果被人“带歪”，也能替别人办坏事。这一课不吓唬你，而是教你几条简单的规矩，让你既敢用、又用得放心。</p>
+        <div class="meta-row">
+          <span>⏱ 约 22 分钟</span>
+          <span>👤 基础层所有人可读；原理层面向使用 Claude Code 的开发者</span>
+          <span>🎬 1 个交互演示 · 1 份可勾选的清单</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 9 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>用自己的话解释提示注入，并认出它的几种迹象</li>
+          <li>判断哪些信息不该交给 Agent，知道在哪里管理自己的数据设置</li>
+          <li>按“最小权限”分配权限，并说出哪些操作必须由你亲自确认</li>
+          <li>用一份清单，在交代任务前完成安全检查</li>
+          <li><span class="aud-tag">（开发者）</span>知道 Claude Code 里有哪些防线，以及怎么用权限规则和沙箱收紧它们</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>风险从哪里来</li>
+          <li>提示注入：藏在内容里的“指令”</li>
+          <li>隐私与数据：什么不该交出去</li>
+          <li>权限最小化：只给刚好够用的</li>
+          <li>敏感操作，坚持人工确认</li>
+          <li>连接器、Skill 和第三方工具的风险</li>
+          <li>交给 Agent 前的安全清单</li>
+          <li>万一出了问题</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

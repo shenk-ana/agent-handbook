@@ -1,0 +1,11 @@
+/* 第 8 课专属样式：图示（只使用 tokens.css 变量，深色模式随变量自动切换） */
+.figure svg.fig-iterate { max-width: 420px; margin: 0 auto; }
+.fig-iterate .box-1 { fill:var(--accent-soft); stroke:var(--phase-think); }
+.fig-iterate .txt-1 { fill:var(--text); font-size:16px; font-weight:700; }
+.fig-iterate .ln-1 { stroke:var(--text-3); stroke-width:2; }
+.fig-iterate .box-2 { fill:var(--amber-soft); stroke:var(--phase-act); }
+.fig-iterate .box-3 { fill:var(--teal-soft); stroke:var(--phase-observe); }
+.fig-iterate .ln-2 { fill:none; stroke:var(--text-3); stroke-width:2; stroke-dasharray:5 4; }
+.fig-iterate .txt-2 { fill:var(--text-3); font-size:13px; }
+.fig-iterate .box-4 { fill:var(--green-soft); stroke:var(--green); }
+.fig-iterate .ah { fill:var(--text-3); }

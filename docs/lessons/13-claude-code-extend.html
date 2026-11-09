@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subagents、Hooks、命令与插件 · Agent 百科全书</title>
+<meta name="description" content="第 13 课：Claude Code 的四种扩展方式：子 Agent 什么时候用、怎么定义；Hooks 的事件与安全；Skills 与自定义命令；插件和插件市场的安装与审查。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="13" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 3 部分 · Claude Code 实战</span>
+          <span class="chip">第 13 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">Subagents、Hooks、命令与插件</span><br>给 Claude Code 加能力</h1>
+        <p class="lede">用了一阵 Claude Code，你会想要更多：查资料别把对话塞满；改完代码自动格式化；团队的发版流程一条命令跑完；别人做好的这些东西直接装来用。这一课讲四种扩展方式，以及装别人的东西之前该看什么。</p>
+        <div class="meta-row">
+          <span>⏱ 约 25 分钟</span>
+          <span>👤 第一节所有人可读；其余以开发者为主</span>
+          <span>🎬 2 个交互演示</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 13 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>用自己的话说出子 Agent、Hooks、Skills（命令）和插件各自解决什么问题</li>
+          <li>判断一个任务该不该交给子 Agent</li>
+          <li><span class="aud-tag">（开发者）</span>在 <code>.claude/agents/</code> 下写一个子 Agent，在设置里配一个 Hook</li>
+          <li><span class="aud-tag">（开发者）</span>知道 Hooks 以你的账户权限运行，写 Hook 和装插件前该检查什么</li>
+          <li><span class="aud-tag">（开发者）</span>用 <code>/plugin</code> 添加市场、安装插件，并选对安装范围</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>四种扩展，各管一件事</li>
+          <li>子 Agent：让调查在别处进行</li>
+          <li>Hooks：到点就自动执行</li>
+          <li>Skills 与自定义命令：把流程写成手册</li>
+          <li>插件与插件市场：装之前先看清</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

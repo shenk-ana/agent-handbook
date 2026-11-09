@@ -1,0 +1,29 @@
+/* 第 4 课专属样式：任务简报生成器（只使用 tokens.css 变量） */
+.brief-builder { margin: 24px 0; padding: 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.brief-builder .bb-form { display: grid; gap: 12px; }
+.brief-builder .bb-field { display: grid; gap: 4px; }
+.brief-builder .bb-label { font-weight: 600; font-size: 15px; }
+.brief-builder .bb-input {
+  font: inherit; font-size: 15px; line-height: 1.6; width: 100%; resize: vertical; padding: 8px 10px;
+  border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.brief-builder .bb-input::placeholder { color: var(--text-3); }
+.brief-builder .bb-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.brief-builder .bb-check { display: flex; gap: 8px; align-items: center; font-size: 15px; cursor: pointer; }
+.brief-builder .bb-check input { width: 18px; height: 18px; accent-color: var(--accent); }
+.brief-builder .bb-out-head { display: flex; justify-content: space-between; gap: 8px; margin: 18px 0 6px; flex-wrap: wrap; }
+.brief-builder .bb-k { font-size: 12px; letter-spacing: .08em; color: var(--text-3); }
+.brief-builder .bb-meter { font-size: 13px; color: var(--text-2); }
+.brief-builder .bb-out {
+  margin: 0; padding: 14px 16px; border-radius: 12px; background: var(--surface-2); border: 1px dashed var(--border-strong);
+  font-family: var(--font-sans); font-size: 15px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; color: var(--text);
+}
+.brief-builder .bb-out.empty { color: var(--text-3); }
+.brief-builder .bb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.brief-builder .bb-btn { font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; }
+.brief-builder .bb-btn:hover { border-color: var(--accent); }
+.brief-builder .bb-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+.brief-builder .bb-note { margin: 10px 0 0; font-size: 13px; color: var(--text-3); }
+@media (max-width: 480px) {
+  .brief-builder { padding: 16px 14px; }
+}

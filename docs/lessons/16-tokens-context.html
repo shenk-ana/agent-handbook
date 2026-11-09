@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>token、上下文窗口与压缩 · Agent 百科全书</title>
+<meta name="description" content="第 16 课：token 是什么，上下文窗口里装了什么，为什么长任务会“变健忘”；在 Claude Code 里用 /context、/compact、/clear 管理上下文，以及压缩、上下文编辑、提示缓存的底层机制。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="16" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 16 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">token 与上下文</span><br>为什么长任务里 Claude 会“变健忘”</h1>
+        <p class="lede">第 15 课说过，Agent 每转一圈，工具结果就往上下文里堆一层。这一课讲这堆东西的“计量单位”token、它能堆多高，以及堆满了以后会发生什么。弄懂这些，你就知道长任务该在哪里收一收、什么时候该开新会话。</p>
+        <div class="meta-row">
+          <span>⏱ 约 22 分钟</span>
+          <span>👤 前三节所有人可读；之后以 Claude Code 为例，面向开发者</span>
+          <span>🎬 2 个交互模拟 · 1 张图示</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 16 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说清楚 token 是什么，为什么“一个字”不等于“一个 token”</li>
+          <li>列出上下文窗口里装着哪几类东西</li>
+          <li>解释长任务为什么会“变健忘”，知道怎么减轻</li>
+          <li><span class="aud-tag">（开发者）</span>在 Claude Code 里熟练使用 <code>/context</code>、<code>/compact</code>、<code>/clear</code>，知道压缩后哪些东西会保留</li>
+          <li><span class="aud-tag">（开发者）</span>理解提示缓存为什么要求“稳定前缀”，避开让缓存失效的操作</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>token：模型读写文字的单位</li>
+          <li>上下文窗口里装了什么</li>
+          <li>为什么长任务会“变健忘”</li>
+          <li>在 Claude Code 里管理上下文</li>
+          <li>提示缓存：为什么“稳定的开头”省钱</li>
+          <li>上下文工程的几条原则</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

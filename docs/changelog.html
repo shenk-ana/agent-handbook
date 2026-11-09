@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>更新日志 · Agent 百科全书</title>
+<meta name="description" content="Agent 百科全书的版本记录：每一批新增和修订了什么，资料核实到哪一天。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/book.css">
+</head>
+<body data-base="" data-page="changelog">
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+  <main class="main" id="main">
+    <article class="article">
+      <header class="lesson-hero">
+        <div class="eyebrow"><span class="chip accent">附录 D</span><span>持续更新</span></div>
+        <h1><span class="grad">更新</span>日志</h1>
+        <p class="lede">Agent 领域变化很快。这里记录每一次更新改了什么，以及资料核实到哪一天。读到和你看到的界面不一样的地方，先看看这里的日期。</p>
+      </header>
+
+      <div class="callout tip">
+        <div class="ico">📅</div>
+        <div class="body">
+          <div class="title">怎么看时效</div>
+          <p>每一课的开头都写着“资料截至 2026-11”。产品界面、菜单名称、套餐限制最容易变化，书里写的是“以界面为准”的大致位置；概念和原理部分不容易过时。</p>
+        </div>
+      </div>
+
+      <h2 id="v0-3-1"><span class="sec-num">v0.3.1</span>全书整体审查</h2>
+      <p><b>2026-11-08</b> · 资料核实至 2026-11-08</p>
+      <ul>
+        <li>修正前后矛盾：中途调整 effort 是否让提示缓存失效（第 18 课与第 16 课统一）。</li>
+        <li>修正不够准确的说法：不询问模式不在 Shift+Tab 循环里；<code>-p</code> 与 Agent SDK 中需要批准的调用会被直接拒绝；插件市场的官方、社区、第三方三级划分。</li>
+        <li>所有工具卡片都已核实，删去各课里过时的“待核实”说明。</li>
+        <li>重画第 6 课 MCP 示意图的连线，给第 8、18 课的流程图加上箭头，修正第 18 课计划框的文字溢出；第 20 课时间线在宽屏上不再放得过大。</li>
+        <li>第 11、12、16、18、23 课的图在手机上保持文字可读，可在图框内横向滚动。</li>
+      </ul>
+
+      <h2 id="v0-3"><span class="sec-num">v0.3</span>第二批：Claude Code 实战、Agent 原理、前沿与附录</h2>
+      <p><b>2026-11-08</b> · 资料核实至 2026-11-07</p>
+      <ul>
+        <li>新增第 11–14 课（Claude Code 实战：上手、权限模式与 CLAUDE.md、Subagents / Hooks / 插件、MCP 配置）。</li>
+        <li>新增第 16–22 课（Agent 原理：token 与上下文、工具调用与 MCP 协议、规划与推理、多 Agent、评测与可观测性、安全工程、用 Agent SDK 与 Claude API 自己造）。</li>
+        <li>新增第 23 课（Computer use 与长时任务），以及附录 C 速查卡（可打印）、附录 D 更新日志。</li>
+        <li>百科术语表扩充到 97 个术语；新增分词器、提示缓存、MCP 协议步进、评测打分器等交互。</li>
+        <li>经过四路独立审查（Claude Code 事实、API 与协议事实、普通读者可读性、前端交互）后定稿；统一了权限模式的中文命名与任务简报六部分的名称。</li>
+      </ul>
+
+      <h2 id="v0-2"><span class="sec-num">v0.2</span>第一批：入门、用好 Claude、工具目录</h2>
+      <p><b>2026-11-07</b> · 资料核实至 2026-11-07</p>
+      <ul>
+        <li>新增第 0–10 课：导读、认识 Agent（从聊天到 Agent、能力边界、Claude 家族地图）、用好 Claude（委托任务、上下文、连接器与 MCP、Skills、Artifacts、安全与隐私、实战案例集）。</li>
+        <li>新增附录 B 工具推荐目录：47 个 Skills、MCP 服务器、插件与 SDK，逐个核实维护状态、许可证和风险等级。</li>
+        <li>百科术语表扩充到 54 个术语，正文中悬停或点击即可查看。</li>
+        <li>经过四路独立审查（Claude Code 与 API 事实、Claude 应用事实与全书一致性、普通读者可读性、前端交互）后定稿。</li>
+        <li>回放演示支持中途回答（显示“等你回复”）和自定义确认选项；改善深色模式对比度和键盘可访问性。</li>
+      </ul>
+
+      <h2 id="v0-1"><span class="sec-num">v0.1</span>样章与设计系统</h2>
+      <p><b>2026-11-07</b></p>
+      <ul>
+        <li>完成设计系统（浅色 / 深色、手机端、减少动效）和 Agent 运行回放器（对话视角、API 视角、Claude Code 终端视角）。</li>
+        <li>完成样章第 15 课“Agent 循环”，包含天气 + 日历演示和 Claude Code 修测试演示。</li>
+        <li>确定全书方向：以 Claude 为例；开发者读者以 Claude Code 使用者为主，API 与 SDK 作为“想自己造”的选读。</li>
+      </ul>
+
+      <footer class="site-foot">Agent 百科全书 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+  <aside class="page-toc" aria-label="本页目录"></aside>
+</div>
+
+<script src="data/toc.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/glossary-a.js"></script>
+<script src="data/glossary-b.js"></script>
+<script src="data/glossary-c.js"></script>
+<script src="data/glossary-d.js"></script>
+<script src="data/glossary-e.js"></script>
+<script src="data/glossary-f.js"></script>
+<script src="data/glossary-g.js"></script>
+<script src="data/resources.js"></script>
+<script src="assets/js/book.js"></script>
+</body>
+</html>

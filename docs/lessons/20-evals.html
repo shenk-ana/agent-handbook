@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>评测与可观测性 · Agent 百科全书</title>
+<meta name="description" content="第 20 课：怎么知道 Agent 做得好不好。为什么要评测，怎么建一个小评测集，代码判定、LLM 评委与人工抽查各自的长短，看过程不只看结果，以及在 Claude Code 里能看到哪些记录和统计。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="20" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 20 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">评测与可观测性</span><br>别凭感觉说“好像变好了”</h1>
+        <p class="lede">你在提示词里改了一个词，试了两次，感觉回答更好了。真的吗？也许只是这两次运气好，也许别的情况反而变差了。这一课教你用一小组固定的考题给 Agent 打分，并且看清它每一步花了多少时间和 token。</p>
+        <div class="meta-row">
+          <span>⏱ 约 22 分钟</span>
+          <span>👤 引言和前三节所有人可读；后面以 Claude Code 使用者为主</span>
+          <span>🎛 1 个打分小工具 · 1 张图示</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 20 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说明为什么 Agent 需要评测，而不能只靠试几次的感觉</li>
+          <li>用真实任务和明确的评分标准，建一个十来道题的小评测集</li>
+          <li>比较代码判定、LLM 评委、人工抽查，认出 LLM 评委常见的偏差</li>
+          <li><span class="aud-tag">（开发者）</span>在 Claude Code 里查看运行记录、上下文占用和用量，并用它们复盘一次任务</li>
+          <li><span class="aud-tag">（开发者）</span>知道怎样把 Claude Code 的运行数据导出到团队的监控系统</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>为什么需要评测</li>
+          <li>建一个小评测集</li>
+          <li>三种判分方式，以及评委的偏差</li>
+          <li>看过程，不只看结果</li>
+          <li>在 Claude Code 里能看到什么</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

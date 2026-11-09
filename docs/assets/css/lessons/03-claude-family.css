@@ -1,0 +1,21 @@
+/* 第 3 课专属样式：产品选择器（只使用 tokens.css 变量） */
+.family-picker { margin: 24px 0; padding: 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.family-picker .fp-ask { margin: 0 0 10px; font-weight: 700; font-size: 17px; }
+.family-picker .fp-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.family-picker .fp-opt {
+  font: inherit; font-size: 14px; line-height: 1.5; text-align: left; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+  transition: border-color .2s, background .2s;
+}
+.family-picker .fp-opt:hover { border-color: var(--accent); }
+.family-picker .fp-opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.family-picker .fp-out { margin-top: 16px; padding: 16px; border-radius: 12px; border: 1px dashed var(--border-strong); background: var(--surface-2); }
+.family-picker .fp-out.on { border-style: solid; border-color: var(--accent); }
+.family-picker .fp-k { font-size: 12px; letter-spacing: .08em; color: var(--text-3); }
+.family-picker .fp-pick { font-size: 18px; font-weight: 700; color: var(--accent); margin: 2px 0 8px; }
+.family-picker .fp-why { margin: 0 0 6px; color: var(--text); }
+.family-picker .fp-tip { margin: 0; font-size: 14px; color: var(--text-2); }
+@media (max-width: 480px) {
+  .family-picker { padding: 16px 14px; }
+  .family-picker .fp-opts { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全工程 · Agent 百科全书</title>
+<meta name="description" content="第 21 课：第 9 课的工程版。用威胁模型分析 Agent 的风险，用可信边界、最小权限、人工确认、输出约束、隔离与沙箱、监控六道防线防御提示注入，管好密钥和第三方组件，以及 Claude Code 的权限规则、沙箱、工作区信任、hooks 和 -p 模式的注意事项。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="21" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 21 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">安全工程</span><br>不指望一道墙，而是层层设防</h1>
+        <p class="lede">第 9 课教了你几条安全常识：别乱给权限，关键操作亲自点头。这一课把它们变成工程做法：先画清风险从哪来，再一层一层地设防，任何一层失守，后面还有一层。只讲防御。</p>
+        <div class="meta-row">
+          <span>⏱ 约 25 分钟</span>
+          <span>👤 引言和第一节所有人可读；其余以 Claude Code 使用者为主</span>
+          <span>🎬 1 个交互演示 · 1 张防线图</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 21 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>用“能读到什么 × 能做什么”给一个 Agent 场景做简单的威胁模型</li>
+          <li>说出防御提示注入的六道防线，以及为什么要分层设防</li>
+          <li>按原则管理密钥，判断第三方 MCP 服务器、插件、Skills 的来源风险</li>
+          <li><span class="aud-tag">（开发者）</span>用权限规则、沙箱、工作区信任和 hooks 收紧 Claude Code</li>
+          <li><span class="aud-tag">（开发者）</span>知道在不可信仓库里运行 <code>claude -p</code> 的风险和防护办法</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>先画威胁模型</li>
+          <li>提示注入的六道防线</li>
+          <li>密钥管理</li>
+          <li>供应链：你装的每样东西都是别人写的</li>
+          <li>在 Claude Code 里把防线落地</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

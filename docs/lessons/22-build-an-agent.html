@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自己造 Agent · Agent 百科全书</title>
+<meta name="description" content="第 22 课：自己动手造 Agent。Agent SDK、Tool Runner、手写循环和 Managed Agents 怎么选；用 Agent SDK 写一个能读文件、跑命令的小 Agent；把手写循环补完整：流式输出、错误与重试、refusal 处理、预算与上限、日志。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="22" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 22 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">自己造</span><br>Agent SDK 与 Claude API</h1>
+        <p class="lede">到这里，你已经知道 Agent 是怎么转圈、怎么分工、怎么被评测和保护的。最后一课动手：用官方的工具包写一个自己的小 Agent，再把第 15 课那 40 行循环补成能放进产品里的样子。日常使用 Claude Code 可以跳过本课。</p>
+        <div class="meta-row">
+          <span>⏱ 约 25 分钟</span>
+          <span>👤 第一节所有人可读；其余面向写代码的开发者</span>
+          <span>🎬 1 个交互演示</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 22 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说清“自己造 Agent”有哪几条路，各适合什么情况</li>
+          <li><span class="aud-tag">（开发者）</span>用 Claude Agent SDK（Python）写一个能读文件、跑命令的 Agent，并设置工具白名单、权限模式、工作目录和系统提示词</li>
+          <li><span class="aud-tag">（开发者）</span>给手写循环加上流式输出、错误与重试、refusal（模型因安全策略拒绝回答）处理、预算与上限和日志</li>
+          <li><span class="aud-tag">（开发者）</span>知道 Managed Agents 是什么、什么时候考虑它</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>几条路，怎么选</li>
+          <li>用 Agent SDK 写一个小 Agent</li>
+          <li>读懂 SDK 吐出来的消息</li>
+          <li>把手写循环补完整</li>
+          <li>Managed Agents：让平台替你跑</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>

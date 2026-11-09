@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多 Agent 系统 · Agent 百科全书</title>
+<meta name="description" content="第 19 课：为什么要让多个 Agent 一起干活，常见的编排者–执行者、流水线、评审者模式，它的代价和不该用的场合，以及 Claude Code 的子 Agent、后台任务、worktree 隔离和 Agent SDK、Managed Agents 里的多 Agent。">
+<script>try{var t=JSON.parse(localStorage.getItem("ah-theme"));if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/book.css">
+</head>
+<body data-base="../" data-lesson="19" data-locked>
+<a class="visually-hidden" href="#main">跳到正文</a>
+<header class="topbar" data-auto></header>
+
+<div class="layout">
+  <nav class="sidebar" data-auto></nav>
+
+  <main class="main" id="main">
+    <article class="article">
+
+      <header class="lesson-hero reveal">
+        <div class="eyebrow">
+          <span class="chip accent">第 4 部分 · Agent 原理</span>
+          <span class="chip">第 19 课</span>
+          <span>资料截至 2026-11</span>
+        </div>
+        <h1><span class="grad">多 Agent 系统</span><br>什么时候该“组队”，什么时候不该</h1>
+        <p class="lede">一个人做调研，要先查甲、再查乙、再翻自家资料，桌上越堆越乱。换成一个小组：三个人各查一块，组长只看三份摘要。<span class="term" data-term="multi-agent">多 Agent 系统</span>就是这个思路。它很好用，但也很贵，这一课讲清楚两面。</p>
+        <div class="meta-row">
+          <span>⏱ 约 22 分钟</span>
+          <span>👤 引言和第一节所有人可读；其余以 Claude Code 使用者为主</span>
+          <span>🎬 1 个交互演示 · 1 张模式图</span>
+        </div>
+      </header>
+
+      <div class="callout unlock reveal">
+        <div class="ico">🔒</div>
+        <div class="body">
+          <div class="title">第 19 课是付费内容</div>
+          <p>免费版只放这一课的简介和大纲。完整内容包括图解、交互演示、练习和小测验，需要单独解锁。</p>
+          <p>想解锁全书，请到作者的 GitHub 主页联系：<a href="https://github.com/shenk-ana" target="_blank" rel="noopener noreferrer">github.com/shenk-ana</a></p>
+        </div>
+      </div>
+
+      <section class="objectives card reveal" aria-label="学习目标">
+        <h4>学完这一课，你能</h4>
+        <ul>
+          <li>说出让多个 Agent 分工的三个理由：上下文隔离、并行、专长分工</li>
+          <li>认出编排者–执行者、流水线、评审者三种常见模式</li>
+          <li>判断一件事值不值得拆给多个 Agent，知道它的代价在哪</li>
+          <li><span class="aud-tag">（开发者）</span>在 Claude Code 里用子 Agent 并行调查、把任务放到后台、用 git worktree 隔离改动</li>
+          <li><span class="aud-tag">（开发者）</span>知道 Agent SDK 和 Managed Agents 里多 Agent 的入口和上限设置</li>
+        </ul>
+      </section>
+
+      <section class="locked-outline card reveal" aria-label="本课大纲">
+        <h4>完整版包含这些小节</h4>
+        <ol>
+          <li>为什么要不止一个 Agent</li>
+          <li>三种常见模式</li>
+          <li>代价：为什么不是越多越好</li>
+          <li>在 Claude Code 里用多 Agent</li>
+          <li>动手试一试</li>
+          <li>常见误区</li>
+          <li>小测验</li>
+          <li>推荐工具与延伸</li>
+        </ol>
+      </section>
+
+      <nav class="pager" data-auto aria-label="上一课与下一课"></nav>
+      <footer class="site-foot">Agent 百科全书 · 免费版 · 内容截至 2026-11</footer>
+    </article>
+  </main>
+</div>
+
+<script src="../data/toc.js"></script>
+<script src="../data/glossary.js"></script>
+<script src="../data/glossary-a.js"></script>
+<script src="../data/glossary-b.js"></script>
+<script src="../data/glossary-c.js"></script>
+<script src="../data/glossary-d.js"></script>
+<script src="../data/glossary-e.js"></script>
+<script src="../data/glossary-f.js"></script>
+<script src="../data/glossary-g.js"></script>
+<script src="../data/resources.js"></script>
+<script src="../assets/js/book.js"></script>
+</body>
+</html>
